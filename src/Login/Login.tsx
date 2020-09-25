@@ -9,12 +9,13 @@ const Container = styled.div({
 
 })
 
-export default function Login() {
+export default function Login(): JSX.Element {
     const { Title } = Typography;
     const [form] = Form.useForm();
 
     const auth = async (email: string, password: string) => {
-        if (email === 'evelin@gmail.com' || password === 'password') {
+        // replace backend validation temporarily
+        if ((email === 'evelin@gmail.com' || email === 'tamas@gmail.com') && password === 'password') {
             return true;
         }
         return false;
@@ -24,6 +25,8 @@ export default function Login() {
         if (await auth(values.email, values.password)) {
             console.log("Successful sign in")
             form.resetFields();
+        } else {
+            alert("No account found! Register!")
         }
     };
 

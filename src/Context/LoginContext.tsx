@@ -15,11 +15,10 @@ const userData = {
 
 export const UserContext = createContext({} as ContextState);
 
-export const UserProvider = (props: any) => {
+export const UserProvider = (props: any): JSX.Element => {
 
 
     const [currentUser, setCurrentUser] = useState(userData);
-
 
     return (
         <UserContext.Provider

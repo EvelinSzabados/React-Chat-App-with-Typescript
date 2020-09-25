@@ -3,7 +3,7 @@ import { Route, BrowserRouter as Router } from 'react-router-dom';
 import Login from './Login/Login';
 
 
-function App() {
+function App(): JSX.Element {
 
   return (
 
