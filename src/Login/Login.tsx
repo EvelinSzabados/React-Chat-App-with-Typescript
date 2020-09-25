@@ -1,40 +1,38 @@
 import React from 'react'
 import { Form, Input, Button } from 'antd';
 import styled from '@emotion/styled';
-import { Layout } from 'antd';
+import { Layout, Typography } from 'antd';
 
 const Container = styled.div({
     margin: '5rem auto',
-    width: '40%',
+    width: '500px',
+
 })
 
 
 export default function Login() {
-    const onFinish = (values: string) => {
+    const { Title } = Typography;
+    const onFinish = (values: { email: string, password: string }) => {
         console.log('Success:', values);
-    };
-
-    const onFinishFailed = (errorInfo: any) => {
-        console.log('Failed:', errorInfo);
     };
     return (
         <Layout style={{ backgroundColor: 'white' }}>
             <Container>
-                <Form {...{ labelCol: { span: 5 }, wrapperCol: { span: 10 }, }}
+                <Title style={{ color: '#ff7f3f' }}>My Chat App</Title>
+                <Form
                     initialValues={{}}
-                    onFinish={onFinish}
-                    onFinishFailed={onFinishFailed}>
-                    <Form.Item label="Email" name="email"
+                    onFinish={onFinish}>
+                    <Form.Item name="email"
                         rules={[{ required: true, message: 'Please enter your email!' }]}>
-                        <Input type="email" />
+                        <Input type="email" autoComplete="off" placeholder="Email address" />
                     </Form.Item>
 
-                    <Form.Item label="Password" name="password"
+                    <Form.Item name="password"
                         rules={[{ required: true, message: 'Please enter your password!' }]}>
-                        <Input.Password />
+                        <Input.Password placeholder="Password" />
                     </Form.Item>
 
-                    <Form.Item {...{ wrapperCol: { offset: 5, span: 10 }, }}>
+                    <Form.Item >
                         <Button type="primary" htmlType="submit">Submit</Button>
                     </Form.Item>
                 </Form>
