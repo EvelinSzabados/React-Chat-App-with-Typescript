@@ -13,15 +13,15 @@ export default function Login() {
     const { Title } = Typography;
     const [form] = Form.useForm();
 
-    const auth = (email: string, password: string) => {
+    const auth = async (email: string, password: string) => {
         if (email === 'evelin@gmail.com' || password === 'password') {
             return true;
         }
         return false;
     }
-    const onFinish = (values: { email: string, password: string }) => {
+    const onFinish = async (values: { email: string, password: string }) => {
 
-        if (auth(values.email, values.password)) {
+        if (await auth(values.email, values.password)) {
             console.log("Successful sign in")
             form.resetFields();
         }
