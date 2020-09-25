@@ -34,6 +34,7 @@ export default function Login(): JSX.Element {
         <Layout style={{ backgroundColor: 'white' }}>
             <Container>
                 <Title style={{ color: '#ff7f3f' }}>My Chat App</Title>
+                <Title level={3} type="secondary">Sign in</Title>
                 <Form
                     form={form}
                     initialValues={{}}
@@ -49,7 +50,9 @@ export default function Login(): JSX.Element {
                     </Form.Item>
 
                     <Form.Item >
+                        <p>Don't have an account? <a href="/signup">Sign up now!</a></p>
                         <Button type="primary" htmlType="submit">Submit</Button>
+
                     </Form.Item>
                 </Form>
             </Container>
