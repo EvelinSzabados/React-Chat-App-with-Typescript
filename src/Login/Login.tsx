@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Form, Input, Button } from 'antd';
 import styled from '@emotion/styled';
 import { Layout, Typography } from 'antd';
@@ -9,11 +9,8 @@ const Container = styled.div({
 
 })
 
-
 export default function Login() {
     const { Title } = Typography;
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
     const [form] = Form.useForm();
 
     const auth = (email: string, password: string) => {
@@ -23,9 +20,8 @@ export default function Login() {
         return false;
     }
     const onFinish = (values: { email: string, password: string }) => {
-        setEmail(values.email)
-        setPassword(values.password)
-        if (auth(email, password)) {
+
+        if (auth(values.email, values.password)) {
             console.log("Successful sign in")
             form.resetFields();
         }
