@@ -1,24 +1,24 @@
 import React, { useState, createContext, Dispatch, SetStateAction } from "react";
 
+type userData = {
+    id: string | null,
+    email: string | null,
+    displayName: string | null
+}
+
 interface ContextState {
 
     currentUser: {},
-    setCurrentUser: Dispatch<SetStateAction<{ id: null; email: null; displayName: null; }>>
-
+    setCurrentUser: Dispatch<SetStateAction<userData>>
 }
-
-const userData = {
-    id: null,
-    email: null,
-    displayName: null
-}
+const initialState = { id: null, email: null, displayName: null };
 
 export const UserContext = createContext({} as ContextState);
 
 export const UserProvider = (props: any): JSX.Element => {
 
 
-    const [currentUser, setCurrentUser] = useState(userData);
+    const [currentUser, setCurrentUser] = useState<userData>(initialState);
 
     return (
         <UserContext.Provider
