@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Form, Input, Button } from 'antd';
 import styled from '@emotion/styled';
 import { Layout, Typography } from 'antd';
 import { auth } from './Auth';
 import { RouteComponentProps } from 'react-router';
+import { UserContext } from '../Context/UserContext';
 
 interface ChildComponentProps extends RouteComponentProps { }
 
@@ -11,21 +12,24 @@ interface ChildComponentProps extends RouteComponentProps { }
 const Container = styled.div({
     margin: '5rem auto',
     width: '500px',
-
 })
 
 export default function Login(props: ChildComponentProps): JSX.Element {
     const { Title } = Typography;
     const [form] = Form.useForm();
+    const { setCurrentUser } = useContext(UserContext);
 
     const onFinish = async (values: { email: string, password: string }) => {
+        auth(values.email).then(userData => {
+            if (userData.length > 0) {
 
-        if (await auth(values.email)) {
-            props.history.push("/dashboard")
+                setCurrentUser(userData[0])
+                props.history.push("/dashboard")
 
-        } else {
-            alert("No account found! Sign up!")
-        }
+            } else {
+                alert("No account found! Sign up!")
+            }
+        });
     };
 
     return (

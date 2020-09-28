@@ -10,6 +10,6 @@ const users = [
         displayName: "Tamás Sallai"
     },
 ]
-export async function auth(email: string | null): Promise<boolean> {
-    return users.filter(user => user.email === email).length > 0;
+export async function auth(email: string | null): Promise<any[]> {
+    return users.filter(user => user.email === email);
 }

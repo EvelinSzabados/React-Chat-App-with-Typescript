@@ -5,18 +5,21 @@ type userData = {
     email: string | null,
     displayName: string | null
 }
-
-interface ContextState {
-
-    currentUser: {},
-    setCurrentUser: Dispatch<SetStateAction<userData>>
-}
 const initialState = { id: null, email: null, displayName: null };
 
-export const UserContext = createContext({} as ContextState);
+interface ContextState {
+    currentUser: userData,
+    setCurrentUser: Dispatch<SetStateAction<userData>>
+}
+
+
+export const UserContext = createContext<ContextState>(
+    {
+        currentUser: initialState,
+        setCurrentUser: () => { }
+    });
 
 export const UserProvider = (props: any): JSX.Element => {
-
 
     const [currentUser, setCurrentUser] = useState<userData>(initialState);
 
