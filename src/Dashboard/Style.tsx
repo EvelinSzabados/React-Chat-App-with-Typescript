@@ -2,15 +2,14 @@ import styled from '@emotion/styled';
 
 
 export const DashboardContent = styled.div`
-margin: 2rem auto;
+margin: 3rem auto;
 width: 80%;
 height: 80vh;
 background-color: white;
 
 `;
 export const ChatViewContainer = styled.div`
-        box-sizing: border-box;
-        overflow-y:auto;
+        
         height: 80vh;
         padding:1rem;
         min-width: 100%;
@@ -59,4 +58,22 @@ export const UserSent = styled.p`
         border-top-right-radius: 20px;
         border-top-left-radius: 25px;
         border-bottom-left-radius: 20px;
+`;
+
+export const MessageContainer = styled.div`
+        height: 95%;
+        box-sizing: border-box;
+        overflow-y:auto;
+`;
+
+export const InputContainer = styled.div`
+        width: 100%;      
+`;
+export const MessageInput = styled.input`
+        width: 90%;
+        border: 0.7px solid #ccc;
+        outline: none;
+        border-radius: 20px;
+        padding: 5px 20px;
+        color: #404040;
 `;

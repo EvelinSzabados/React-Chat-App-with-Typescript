@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { UserContext } from '../Context/UserContext';
-import { UserSent, FriendSent } from './Style';
+import { UserSent, FriendSent, MessageContainer } from './Style';
 
 export default function ChatViewContainer() {
     const { currentUser } = useContext(UserContext);
@@ -18,7 +18,7 @@ export default function ChatViewContainer() {
         }
     ]
     return (
-        <React.Fragment>
+        <MessageContainer>
             {messages.map(messageData => {
                 if (messageData.senderId === currentUser.id) {
                     return (<UserSent>{messageData.message}</UserSent>)
@@ -26,6 +26,6 @@ export default function ChatViewContainer() {
                     return (<FriendSent>{messageData.message}</FriendSent>)
                 }
             })}
-        </React.Fragment>
+        </MessageContainer>
     )
 }
