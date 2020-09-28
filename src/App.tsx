@@ -1,27 +1,18 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Route, BrowserRouter as Router } from 'react-router-dom';
+import Login from './Login/Login';
+import Dashboard from './Dashboard/Dashboard';
+import { UserProvider } from './Context/UserContext';
 
-function App() {
-
+function App(): JSX.Element {
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <UserProvider>
+      <Router>
+        <Route exact path="/" component={Login}></Route>
+        <Route path="/dashboard" component={Dashboard}></Route>
+      </Router>
+    </UserProvider>
   );
 }
 
