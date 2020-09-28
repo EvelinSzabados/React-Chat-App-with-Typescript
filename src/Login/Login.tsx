@@ -2,6 +2,7 @@ import React from 'react'
 import { Form, Input, Button } from 'antd';
 import styled from '@emotion/styled';
 import { Layout, Typography } from 'antd';
+import { auth } from './Auth';
 
 const Container = styled.div({
     margin: '5rem auto',
@@ -13,20 +14,13 @@ export default function Login(): JSX.Element {
     const { Title } = Typography;
     const [form] = Form.useForm();
 
-    const auth = async (email: string, password: string) => {
-        // replace backend validation temporarily
-        if ((email === 'evelin@gmail.com' || email === 'tamas@gmail.com') && password === 'password') {
-            return true;
-        }
-        return false;
-    }
     const onFinish = async (values: { email: string, password: string }) => {
 
-        if (await auth(values.email, values.password)) {
+        if (await auth(values.email)) {
             console.log("Successful sign in")
             form.resetFields();
         } else {
-            alert("No account found! Register!")
+            alert("No account found! Sign up!")
         }
     };
 
