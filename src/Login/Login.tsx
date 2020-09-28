@@ -3,6 +3,10 @@ import { Form, Input, Button } from 'antd';
 import styled from '@emotion/styled';
 import { Layout, Typography } from 'antd';
 import { auth } from './Auth';
+import { RouteComponentProps } from 'react-router';
+
+interface ChildComponentProps extends RouteComponentProps { }
+
 
 const Container = styled.div({
     margin: '5rem auto',
@@ -10,15 +14,15 @@ const Container = styled.div({
 
 })
 
-export default function Login(): JSX.Element {
+export default function Login(props: ChildComponentProps): JSX.Element {
     const { Title } = Typography;
     const [form] = Form.useForm();
 
     const onFinish = async (values: { email: string, password: string }) => {
 
         if (await auth(values.email)) {
-            console.log("Successful sign in")
-            form.resetFields();
+            props.history.push("/dashboard")
+
         } else {
             alert("No account found! Sign up!")
         }
