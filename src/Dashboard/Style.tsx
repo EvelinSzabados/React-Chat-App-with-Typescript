@@ -61,7 +61,7 @@ export const UserSent = styled.p`
 `;
 
 export const MessageContainer = styled.div`
-        height: 95%;
+        height: 85%;
         box-sizing: border-box;
         overflow-y:auto;
 `;

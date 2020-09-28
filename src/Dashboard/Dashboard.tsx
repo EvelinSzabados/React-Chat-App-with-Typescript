@@ -4,6 +4,7 @@ import { Row, Col } from 'antd';
 import { ChatViewContainer, DashboardContent, ChatListContainer, ChatListItemContainer } from './Style';
 import ChatViewContent from './ChatViewContent';
 import ChatMessageInput from './ChatMessageInput';
+import Header from './Header';
 
 export default function Dashboard() {
 
@@ -21,6 +22,7 @@ export default function Dashboard() {
     return (
         <Layout style={{ height: '100vh' }}>
             <DashboardContent>
+                <Header />
                 <Row>
                     <Col span={6}>
                         <ChatListContainer>
