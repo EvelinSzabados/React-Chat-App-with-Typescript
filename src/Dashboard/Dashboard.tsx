@@ -2,6 +2,7 @@ import React from 'react'
 import { Layout, List, Avatar } from 'antd';
 import { Row, Col } from 'antd';
 import { ChatViewContainer, DashboardContent, ChatListContainer, ChatListItemContainer } from './Style';
+import ChatViewContent from './ChatViewContent';
 
 export default function Dashboard() {
 
@@ -11,8 +12,8 @@ export default function Dashboard() {
             displayMessage: 'How are you?'
         },
         {
-            friend: 'Tamás Sallai',
-            displayMessage: 'How are you?'
+            friend: 'Eszter Lévai',
+            displayMessage: 'Can you please send notes...'
         },
     ];
 
@@ -41,7 +42,7 @@ export default function Dashboard() {
                     </Col>
                     <Col span={18}>
                         <ChatViewContainer>
-                            <p>Container</p>
+                            <ChatViewContent />
                         </ChatViewContainer></Col>
                 </Row>
             </DashboardContent>
