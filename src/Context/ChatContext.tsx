@@ -1,27 +1,30 @@
-import React, { useState, createContext, Dispatch, SetStateAction } from "react";
-
-type chatData = {
-    id: string | null,
-    email: string | null,
-    displayName: string | null
-}
-const initialState = { id: null, email: null, displayName: null };
+import React, { useState, createContext, Dispatch, SetStateAction, useEffect, useContext } from "react";
+import { UserContext } from '../Context/UserContext';
+import { chatData, allChat } from './ChatData';
+;
 
 interface ContextState {
-    chats: chatData,
-    setChats: Dispatch<SetStateAction<chatData>>
+    chats: chatData[],
+    setChats: Dispatch<SetStateAction<chatData[]>>
 }
 
 
 export const ChatContext = createContext<ContextState>(
     {
-        chats: initialState,
+        chats: [],
         setChats: () => { }
     });
 
 export const ChatProvider = (props: any): JSX.Element => {
 
-    const [chats, setChats] = useState<chatData>(initialState);
+    const [chats, setChats] = useState<chatData[]>([]);
+    const { currentUser } = useContext(UserContext);
+
+
+    useEffect(() => {
+        setChats(allChat(currentUser.id));
+
+    }, [currentUser])
 
     return (
         <ChatContext.Provider

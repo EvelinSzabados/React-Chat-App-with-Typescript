@@ -1,5 +1,5 @@
-type messageData = { senderId: string, message: string, sent: Date } | null
-type chatData = { chatId: string, users: string[], messages: messageData[] } | null
+export type messageData = { senderId: string, message: string, sent: Date } | null
+export type chatData = { chatId: string, users: string[], messages: messageData[] } | null
 
 const data = [
     {
@@ -42,14 +42,16 @@ const data = [
 
 ];
 
-export const allChat = (userId: string): chatData[] => {
+export const allChat = (userId: string | null): chatData[] => {
     let chatsToReturn: chatData[];
     chatsToReturn = [];
+    if (userId !== null) {
+        data.forEach(chat => {
+            if (chat.users.includes(userId)) {
+                chatsToReturn.push(chat)
+            }
+        })
+    }
 
-    data.map(chat => {
-        if (chat.users.includes(userId)) {
-            chatsToReturn.push(chat)
-        }
-    })
     return chatsToReturn;
 }
