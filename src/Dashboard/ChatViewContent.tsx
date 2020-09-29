@@ -11,7 +11,7 @@ export default function ChatViewContainer() {
     return (
         <MessageContainer>
             {chats.map(chatData => {
-
+                console.log(chats)
                 if (chatData !== null) {
                     return chatData.messages.map(messageData => {
                         if (messageData !== null && currentUser.id !== null) {
@@ -20,7 +20,6 @@ export default function ChatViewContainer() {
 
                                 return (<UserSent>{messageData.message}</UserSent>)
                             } else {
-
                                 return (<FriendSent>{messageData.message}</FriendSent>)
                             }
                         } else {

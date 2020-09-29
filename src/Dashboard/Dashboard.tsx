@@ -1,12 +1,15 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Layout, List, Avatar } from 'antd';
 import { Row, Col } from 'antd';
 import { ChatViewContainer, DashboardContent, ChatListContainer, ChatListItemContainer } from './Style';
 import ChatViewContent from './ChatViewContent';
 import ChatMessageInput from './ChatMessageInput';
 import Header from './Header';
+// import { ChatContext } from '../Context/ChatContext';
 
 export default function Dashboard() {
+
+    // const { chats } = useContext(ChatContext);
 
     const data = [
         {
