@@ -1,5 +1,5 @@
 export type messageData = { senderId: string, message: string, sent: Date } | null
-export type chatData = { chatId: string, users: {}[], messages: messageData[] } | null
+export type chatData = { chatId: string, users: any[], messages: messageData[] } | null
 
 const data = [
     {

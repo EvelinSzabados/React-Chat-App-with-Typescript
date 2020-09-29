@@ -5,11 +5,13 @@ import { ChatViewContainer, DashboardContent, ChatListContainer, ChatListItemCon
 import ChatViewContent from './ChatViewContent';
 import ChatMessageInput from './ChatMessageInput';
 import Header from './Header';
-// import { ChatContext } from '../Context/ChatContext';
+import { ChatContext } from '../Context/ChatContext';
+import { UserContext } from '../Context/UserContext';
 
 export default function Dashboard() {
 
-    // const { chats } = useContext(ChatContext);
+    const { chats } = useContext(ChatContext);
+    const { currentUser } = useContext(UserContext);
 
     const data = [
         {
@@ -31,16 +33,18 @@ export default function Dashboard() {
                         <ChatListContainer>
                             <List
                                 itemLayout="horizontal"
-                                dataSource={data}
-                                renderItem={item => (
+                                dataSource={chats}
+                                renderItem={chat => (
                                     <ChatListItemContainer>
-                                        <List.Item>
-                                            <List.Item.Meta
-                                                avatar={<Avatar size={40} style={{ backgroundColor: '#51588e' }}>{item.friend[0]}</Avatar>}
-                                                title={item.friend}
-                                                description={item.displayMessage}
-                                            />
-                                        </List.Item>
+                                        {chat !== null ?
+                                            <List.Item>
+                                                <List.Item.Meta
+                                                    avatar={<Avatar size={40} style={{ backgroundColor: '#51588e' }}>{chat.users.filter(user => user.id !== currentUser.id)[0].displayName[0]}</Avatar>}
+                                                    title={chat.users.filter(user => user.id !== currentUser.id)[0].displayName}
+                                                    description={chat.messages[chat.messages.length - 1]?.message.slice(0, 30)}
+                                                />
+                                            </List.Item> : <div>No chats available</div>}
+
                                     </ChatListItemContainer>
                                 )}
                             />
