@@ -13,17 +13,6 @@ export default function Dashboard() {
     const { chats } = useContext(ChatContext);
     const { currentUser } = useContext(UserContext);
 
-    const data = [
-        {
-            friend: 'Tamás Sallai',
-            displayMessage: 'How are you?'
-        },
-        {
-            friend: 'Eszter Lévai',
-            displayMessage: 'Can you please send notes...'
-        },
-    ];
-
     return (
         <Layout style={{ height: '100vh' }}>
             <DashboardContent>
