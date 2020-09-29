@@ -5,7 +5,7 @@ type userData = {
     email: string | null,
     displayName: string | null
 }
-const initialState = { id: '1', email: null, displayName: null };
+const initialState = { id: null, email: null, displayName: null };
 
 interface ContextState {
     currentUser: userData,
