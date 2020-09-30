@@ -8,7 +8,6 @@ import { UserContext } from '../Context/UserContext';
 
 interface ChildComponentProps extends RouteComponentProps { }
 
-
 const Container = styled.div({
     margin: '5rem auto',
     width: '500px',
