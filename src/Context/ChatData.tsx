@@ -33,8 +33,8 @@ const data = [
         chatId: '002',
         users: [
             {
-                id: '3',
-                displayName: 'Csilla Kovács'
+                id: '1',
+                displayName: 'Evelin Szabados'
             },
             {
                 id: '4',
@@ -43,14 +43,14 @@ const data = [
         ],
         messages: [
             {
-                senderId: '3',
-                message: "Hi! How are you?",
+                senderId: '1',
+                message: "Hi! Can you send me the title of that book we were talking baout last Sunday?",
                 sent: new Date(),
 
             },
             {
                 senderId: '4',
-                message: "I am fine! Thanks!",
+                message: "Sure! Just a moment.",
                 sent: new Date(),
 
             }

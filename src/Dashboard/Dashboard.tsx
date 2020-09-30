@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { Layout, List, Avatar } from 'antd';
 import { Row, Col } from 'antd';
 import { ChatViewContainer, DashboardContent, ChatListContainer, ChatListItemContainer } from './Style';
@@ -12,6 +12,12 @@ export default function Dashboard() {
 
     const { chats } = useContext(ChatContext);
     const { currentUser } = useContext(UserContext);
+    let initialChat = null;
+    if (chats !== null && chats.length > 0) {
+        initialChat = chats[0]?.chatId
+    }
+    const [selectedChat, setSelectedChat] = useState(initialChat);
+
 
     return (
         <Layout style={{ height: '100vh' }}>
@@ -24,9 +30,9 @@ export default function Dashboard() {
                                 itemLayout="horizontal"
                                 dataSource={chats}
                                 renderItem={chat => (
-                                    <ChatListItemContainer>
+                                    <ChatListItemContainer selected={chat?.chatId === selectedChat ? true : false}>
                                         {chat !== null ?
-                                            <List.Item>
+                                            <List.Item onClick={() => { setSelectedChat(chat.chatId) }}>
                                                 <List.Item.Meta
                                                     avatar={<Avatar size={40} style={{ backgroundColor: '#51588e' }}>{chat.users.filter(user => user.id !== currentUser.id)[0].displayName[0]}</Avatar>}
                                                     title={chat.users.filter(user => user.id !== currentUser.id)[0].displayName}
@@ -41,8 +47,12 @@ export default function Dashboard() {
                     </Col>
                     <Col span={18}>
                         <ChatViewContainer>
-                            <ChatViewContent />
-                            <ChatMessageInput />
+                            {selectedChat !== null ?
+                                <React.Fragment>
+                                    <ChatViewContent chat={selectedChat} />
+                                    <ChatMessageInput />
+                                </React.Fragment> : 'Select a chat'}
+
                         </ChatViewContainer></Col>
                 </Row>
             </DashboardContent>
