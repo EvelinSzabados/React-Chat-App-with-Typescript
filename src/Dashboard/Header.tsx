@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { PageHeader } from 'antd';
-import { ProfileOutlined, UserOutlined } from '@ant-design/icons';
+import { LogoutOutlined, UserOutlined } from '@ant-design/icons';
 import { UserContext } from '../Context/UserContext';
 export default function Header() {
 
@@ -13,7 +13,7 @@ export default function Header() {
 
                 avatar={{ icon: <UserOutlined /> }}
                 extra={[
-                    <ProfileOutlined style={{ fontSize: '30px', color: 'white', cursor: 'pointer' }} role="button" />
+                    <LogoutOutlined style={{ fontSize: '30px', color: 'white', cursor: 'pointer' }} role="button" />
                 ]}
             >
             </PageHeader>
