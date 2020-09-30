@@ -8,7 +8,11 @@ import { ChatContext } from '../Context/ChatContext';
 import { UserContext } from '../Context/UserContext';
 import { SelectedChatContext } from '../Context/SelectedChatContext'
 import ChatMessageInput from './ChatMessageInput';
-export default function Dashboard() {
+import { RouteComponentProps } from 'react-router';
+
+interface ChildComponentProps extends RouteComponentProps { }
+
+export default function Dashboard(props: ChildComponentProps) {
 
     const { chats } = useContext(ChatContext);
     const { currentUser } = useContext(UserContext);
@@ -42,11 +46,11 @@ export default function Dashboard() {
                     </Col>
                     <Col span={18}>
                         <ChatViewContainer>
-                            {selectedChat !== undefined ?
+                            {selectedChat !== undefined && currentUser.id !== null ?
                                 <React.Fragment>
                                     <ChatViewContent chat={selectedChat} />
                                     <ChatMessageInput chat={selectedChat} />
-                                </React.Fragment> : 'Select a chat'}
+                                </React.Fragment> : ''}
 
                         </ChatViewContainer></Col>
                 </Row>

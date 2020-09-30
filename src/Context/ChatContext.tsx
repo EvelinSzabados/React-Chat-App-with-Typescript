@@ -16,7 +16,7 @@ export const ChatContext = createContext<ContextState>(
         setChats: () => { }
     });
 
-export const ChatProvider = (props: any): JSX.Element => {
+export const ChatProvider = (props: any) => {
 
     const [chats, setChats] = useState<chatData[]>([]);
     const { currentUser } = useContext(UserContext);
@@ -24,11 +24,14 @@ export const ChatProvider = (props: any): JSX.Element => {
 
 
     useEffect(() => {
-        const allChatData = allChat(currentUser.id)
-        setChats(allChatData);
-        if (allChatData[0] !== null) {
-            setSelectedChat(allChatData[0].chatId)
+        if (currentUser.id !== null) {
+            const allChatData = allChat(currentUser.id)
+            setChats(allChatData);
+            if (allChatData[0] !== null) {
+                setSelectedChat(allChatData[0].chatId)
+            }
         }
+
     }, [currentUser, setSelectedChat])
 
     return (
