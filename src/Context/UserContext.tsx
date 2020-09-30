@@ -5,6 +5,7 @@ type userData = {
     email: string | null,
     displayName: string | null
 }
+//initial state is filled for testing purposes
 const initialState = { id: '1', email: 'evelin@gmail.com', displayName: 'Evelin Szabados' };
 
 interface ContextState {
