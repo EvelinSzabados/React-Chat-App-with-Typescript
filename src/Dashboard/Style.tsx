@@ -20,12 +20,15 @@ export const ChatListContainer = styled.div`
     height: 80vh;
 
 `;
-export const ChatListItemContainer = styled.div`
-    padding: 10px;
- 
-    margin-top: 5px;
-    border-bottom: 0.7px solid #f2f2f2;
-`;
+
+export const ChatListItemContainer = styled.div<{ selected: boolean }>((props) => ({
+        backgroundColor: props.selected ? '#f2f2f2' : 'white',
+        padding: '10px',
+        marginTop: '10px',
+        borderBottom: '0.7px solig #f2f2',
+        cursor: 'pointer'
+}));
+
 
 export const FriendSent = styled.p`
 
