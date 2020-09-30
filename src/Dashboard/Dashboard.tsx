@@ -3,11 +3,11 @@ import { Layout, List, Avatar } from 'antd';
 import { Row, Col } from 'antd';
 import { ChatViewContainer, DashboardContent, ChatListContainer, ChatListItemContainer } from './Style';
 import ChatViewContent from './ChatViewContent';
-import ChatMessageInput from './ChatMessageInput';
 import Header from './Header';
 import { ChatContext } from '../Context/ChatContext';
 import { UserContext } from '../Context/UserContext';
 import { SelectedChatContext } from '../Context/SelectedChatContext'
+import ChatMessageInput from './ChatMessageInput';
 export default function Dashboard() {
 
     const { chats } = useContext(ChatContext);
@@ -45,7 +45,7 @@ export default function Dashboard() {
                             {selectedChat !== undefined ?
                                 <React.Fragment>
                                     <ChatViewContent chat={selectedChat} />
-                                    <ChatMessageInput />
+                                    <ChatMessageInput chat={selectedChat} />
                                 </React.Fragment> : 'Select a chat'}
 
                         </ChatViewContainer></Col>

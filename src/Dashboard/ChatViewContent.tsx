@@ -6,13 +6,13 @@ import { ChatContext } from '../Context/ChatContext';
 export default function ChatViewContainer(props: { chat: string }) {
     const { currentUser } = useContext(UserContext);
     const { chats } = useContext(ChatContext);
-    const selectedChat = chats.filter(chatToDisplay => { return chatToDisplay?.chatId === props.chat });
+    let selectedChat = chats.filter(chatToDisplay => { return chatToDisplay?.chatId === props.chat })
 
     return (
         <MessageContainer>
 
             {selectedChat.map(chatData => {
-
+                console.log(chats)
                 if (chatData !== null) {
                     return chatData.messages.map(messageData => {
                         if (messageData !== null && currentUser.id !== null) {
@@ -33,6 +33,7 @@ export default function ChatViewContainer(props: { chat: string }) {
                 }
 
             })}
+
         </MessageContainer>
     )
 }
