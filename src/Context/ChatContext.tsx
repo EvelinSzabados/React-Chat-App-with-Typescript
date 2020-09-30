@@ -1,6 +1,7 @@
 import React, { useState, createContext, Dispatch, SetStateAction, useEffect, useContext } from "react";
 import { UserContext } from '../Context/UserContext';
 import { chatData, allChat } from './ChatData';
+import { SelectedChatContext } from '../Context/SelectedChatContext';
 ;
 
 interface ContextState {
@@ -19,12 +20,16 @@ export const ChatProvider = (props: any): JSX.Element => {
 
     const [chats, setChats] = useState<chatData[]>([]);
     const { currentUser } = useContext(UserContext);
+    const { setSelectedChat } = useContext(SelectedChatContext);
 
 
     useEffect(() => {
-        setChats(allChat(currentUser.id));
-
-    }, [currentUser])
+        const allChatData = allChat(currentUser.id)
+        setChats(allChatData);
+        if (allChatData[0] !== null) {
+            setSelectedChat(allChatData[0].chatId)
+        }
+    }, [currentUser, setSelectedChat])
 
     return (
         <ChatContext.Provider

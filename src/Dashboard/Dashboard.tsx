@@ -7,17 +7,12 @@ import ChatMessageInput from './ChatMessageInput';
 import Header from './Header';
 import { ChatContext } from '../Context/ChatContext';
 import { UserContext } from '../Context/UserContext';
-
+import { SelectedChatContext } from '../Context/SelectedChatContext'
 export default function Dashboard() {
 
     const { chats } = useContext(ChatContext);
     const { currentUser } = useContext(UserContext);
-    let initialChat = null;
-    if (chats !== null && chats.length > 0) {
-        initialChat = chats[0]?.chatId
-    }
-    const [selectedChat, setSelectedChat] = useState(initialChat);
-
+    const { selectedChat, setSelectedChat } = useContext(SelectedChatContext);
 
     return (
         <Layout style={{ height: '100vh' }}>
@@ -47,7 +42,7 @@ export default function Dashboard() {
                     </Col>
                     <Col span={18}>
                         <ChatViewContainer>
-                            {selectedChat !== null ?
+                            {selectedChat !== undefined ?
                                 <React.Fragment>
                                     <ChatViewContent chat={selectedChat} />
                                     <ChatMessageInput />
