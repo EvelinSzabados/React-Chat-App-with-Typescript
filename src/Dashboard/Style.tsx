@@ -2,10 +2,10 @@ import styled from '@emotion/styled';
 
 
 export const DashboardContent = styled.div`
-margin: 3rem auto;
-width: 80%;
-height: 80vh;
-background-color: white;
+        margin: 3rem auto;
+        width: 80%;
+        height: 80vh;
+        background-color: white;
 
 `;
 export const ChatViewContainer = styled.div`
@@ -16,9 +16,12 @@ export const ChatViewContainer = styled.div`
 `;
 
 export const ChatListContainer = styled.div`
-    padding: 1rem;
-    height: 80vh;
-
+        
+        box-sizing: border-box;
+        overflow-y:auto;
+        padding: 1rem;
+        height: 80%;
+   
 `;
 
 export const ChatListItemContainer = styled.div<{ selected: boolean }>((props) => ({
@@ -27,6 +30,7 @@ export const ChatListItemContainer = styled.div<{ selected: boolean }>((props) =
         marginTop: '10px',
         borderBottom: '0.7px solig #f2f2',
         cursor: 'pointer'
+
 }));
 
 
@@ -80,3 +84,14 @@ export const MessageInput = styled.input`
         padding: 5px 20px;
         color: #404040;
 `;
+
+export const FloatingButton = styled.div`
+       
+        position: sticky;
+        position: -webkit-sticky;
+        bottom: 0;
+        color: #db2052;
+        float: right;
+        z-index:1;
+        cursor: pointer;
+`
