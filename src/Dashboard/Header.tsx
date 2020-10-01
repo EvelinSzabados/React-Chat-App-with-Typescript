@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { PageHeader } from 'antd';
+import { PageHeader, Tooltip } from 'antd';
 import { LogoutOutlined, UserOutlined } from '@ant-design/icons';
 import { UserContext } from '../Context/UserContext';
 
@@ -19,11 +19,12 @@ export default function Header(): JSX.Element {
                 ghost={true}
                 title={<span style={{ color: 'white' }}>{"Hello, " + currentUser.displayName}</span>}
 
-                avatar={{ icon: <UserOutlined /> }}
+                avatar={{ icon: <Tooltip title="Profile"><UserOutlined style={{ cursor: 'pointer' }} /></Tooltip> }}
                 extra={[
-                    <LogoutOutlined style={{ fontSize: '30px', color: 'white', cursor: 'pointer' }}
-                        role="button"
-                        onClick={(e) => { logout(e) }} />
+                    <Tooltip placement="bottom" title="Log out">
+                        <LogoutOutlined style={{ fontSize: '30px', color: 'white', cursor: 'pointer' }}
+                            role="button"
+                            onClick={(e) => { logout(e) }} /></Tooltip>
                 ]}
             >
             </PageHeader>
