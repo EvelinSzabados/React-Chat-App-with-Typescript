@@ -15,12 +15,11 @@ export default function SearchFriend() {
             email: "eszter@gmail.com"
         },
         {
-            displayName: "Dezső Tóth",
-            email: "dezso@gmail.com"
+            displayName: "Norbert Aranyos",
+            email: "nobert@gmail.com"
         },
 
     ]);
-    const [search, setSearch] = useState('');
 
     const { Option } = Mentions;
 
