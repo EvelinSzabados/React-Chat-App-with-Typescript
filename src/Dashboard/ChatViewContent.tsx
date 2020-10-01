@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import { UserContext } from '../Context/UserContext';
 import { UserSent, FriendSent, MessageContainer } from './Style';
 import { ChatContext } from '../Context/ChatContext';
+import Emoji from "react-emoji-render";
 
 export default function ChatViewContainer(props: { chat: string }) {
     const { currentUser } = useContext(UserContext);
@@ -19,9 +20,9 @@ export default function ChatViewContainer(props: { chat: string }) {
 
                             if (messageData.senderId === currentUser.id) {
 
-                                return (<UserSent>{messageData.message}</UserSent>)
+                                return (<UserSent><Emoji text={messageData.message} /></UserSent>)
                             } else {
-                                return (<FriendSent>{messageData.message}</FriendSent>)
+                                return (<FriendSent><Emoji text={messageData.message} /></FriendSent>)
                             }
                         } else {
                             return null;

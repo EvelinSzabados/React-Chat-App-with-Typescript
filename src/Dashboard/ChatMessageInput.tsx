@@ -4,6 +4,7 @@ import { SendOutlined, SmileOutlined, FileAddOutlined } from '@ant-design/icons'
 import { ChatContext } from '../Context/ChatContext';
 import { UserContext } from '../Context/UserContext';
 
+
 export default function ChatMessageInput(props: { chat: string }) {
     const { chats, setChats } = useContext(ChatContext);
     const { currentUser } = useContext(UserContext);

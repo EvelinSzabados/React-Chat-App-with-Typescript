@@ -23,7 +23,7 @@ const data = [
             },
             {
                 senderId: '1',
-                message: "I am fine! Thanks!",
+                message: "I am fine! Thanks! :D ",
                 sent: new Date(),
 
             }
@@ -44,7 +44,7 @@ const data = [
         messages: [
             {
                 senderId: '1',
-                message: "Hi! Can you send me the title of that book we were talking baout last Sunday?",
+                message: "Hi! Can you send me the title of that book we were talking baout last Sunday? :)",
                 sent: new Date(),
 
             },
