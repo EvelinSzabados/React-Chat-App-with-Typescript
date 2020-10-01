@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { Layout, List, Avatar } from 'antd';
 import { Row, Col } from 'antd';
-import { ChatViewContainer, DashboardContent, ChatListContainer, ChatListItemContainer, FloatingButton, Scrollable } from './Style';
+import { ChatViewContainer, DashboardContent, ChatListContainer, ChatListItemContainer, Scrollable } from './Style';
 import ChatViewContent from './ChatViewContent';
 import Header from './Header';
 import { ChatContext } from '../Context/ChatContext';
@@ -9,7 +9,7 @@ import { UserContext } from '../Context/UserContext';
 import { SelectedChatContext } from '../Context/SelectedChatContext'
 import ChatMessageInput from './ChatMessageInput';
 import { RouteComponentProps } from 'react-router';
-import { PlusCircleFilled } from '@ant-design/icons';
+import FloatingButton from '../NewChat/FloatingButton';
 
 interface ChildComponentProps extends RouteComponentProps { }
 
@@ -45,7 +45,7 @@ export default function Dashboard(props: ChildComponentProps) {
                                     )}
                                 />
                             </Scrollable>
-                            <FloatingButton><PlusCircleFilled style={{ fontSize: '35px' }} /></FloatingButton>
+                            <FloatingButton />
                         </ChatListContainer>
                     </Col>
                     <Col span={18}>

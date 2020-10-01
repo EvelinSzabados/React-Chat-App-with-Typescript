@@ -16,13 +16,7 @@ export const ChatViewContainer = styled.div`
 `;
 
 export const ChatListContainer = styled.div`
-        
-        /* box-sizing: border-box;
-        overflow-y:auto; */
         padding: 1rem;
-        /* min-height: 65vh;
-        max-height: 65vh; */
-   
 `;
 
 export const ChatListItemContainer = styled.div<{ selected: boolean }>((props) => ({
@@ -94,20 +88,6 @@ export const Scrollable = styled.div`
         z-index: -1;
 
 `;
-
-export const FloatingButton = styled.div`
-       
-        position: sticky;
-        position: -webkit-sticky;
-        bottom: 200px;
-        color: #db2052;
-        margin-right: 1rem;
-        
-        float: right;
-        z-index:1;
-        cursor: pointer;
-        
-`
 export const SubmitButton = styled.button`
         background-color: transparent;
         padding: 0;
