@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { Layout, List, Avatar } from 'antd';
 import { Row, Col } from 'antd';
-import { ChatViewContainer, DashboardContent, ChatListContainer, ChatListItemContainer, FloatingButton } from './Style';
+import { ChatViewContainer, DashboardContent, ChatListContainer, ChatListItemContainer, FloatingButton, Scrollable } from './Style';
 import ChatViewContent from './ChatViewContent';
 import Header from './Header';
 import { ChatContext } from '../Context/ChatContext';
@@ -26,23 +26,25 @@ export default function Dashboard(props: ChildComponentProps) {
                 <Row>
                     <Col span={6}>
                         <ChatListContainer>
-                            <List
-                                itemLayout="horizontal"
-                                dataSource={chats}
-                                renderItem={chat => (
-                                    <ChatListItemContainer selected={chat?.chatId === selectedChat ? true : false}>
-                                        {chat !== null ?
-                                            <List.Item onClick={() => { setSelectedChat(chat.chatId) }}>
-                                                <List.Item.Meta
-                                                    avatar={<Avatar size={40} style={{ backgroundColor: '#51588e' }}>{chat.users.filter(user => user.id !== currentUser.id)[0].displayName[0]}</Avatar>}
-                                                    title={chat.users.filter(user => user.id !== currentUser.id)[0].displayName}
-                                                    description={chat.messages[chat.messages.length - 1]?.message.slice(0, 30)}
-                                                />
-                                            </List.Item> : <div>No chats available</div>}
+                            <Scrollable>
+                                <List
+                                    itemLayout="horizontal"
+                                    dataSource={chats}
+                                    renderItem={chat => (
+                                        <ChatListItemContainer selected={chat?.chatId === selectedChat ? true : false}>
+                                            {chat !== null ?
+                                                <List.Item onClick={() => { setSelectedChat(chat.chatId) }}>
+                                                    <List.Item.Meta
+                                                        avatar={<Avatar size={40} style={{ backgroundColor: '#51588e' }}>{chat.users.filter(user => user.id !== currentUser.id)[0].displayName[0]}</Avatar>}
+                                                        title={chat.users.filter(user => user.id !== currentUser.id)[0].displayName}
+                                                        description={chat.messages[chat.messages.length - 1]?.message.slice(0, 30)}
+                                                    />
+                                                </List.Item> : <div>No chats available</div>}
 
-                                    </ChatListItemContainer>
-                                )}
-                            />
+                                        </ChatListItemContainer>
+                                    )}
+                                />
+                            </Scrollable>
                             <FloatingButton><PlusCircleFilled style={{ fontSize: '35px' }} /></FloatingButton>
                         </ChatListContainer>
                     </Col>

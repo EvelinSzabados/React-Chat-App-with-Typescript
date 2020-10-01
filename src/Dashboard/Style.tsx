@@ -17,10 +17,11 @@ export const ChatViewContainer = styled.div`
 
 export const ChatListContainer = styled.div`
         
-        box-sizing: border-box;
-        overflow-y:auto;
+        /* box-sizing: border-box;
+        overflow-y:auto; */
         padding: 1rem;
-        height: 80%;
+        /* min-height: 65vh;
+        max-height: 65vh; */
    
 `;
 
@@ -84,16 +85,28 @@ export const MessageInput = styled.input`
         padding: 5px 20px;
         color: #404040;
 `;
+export const Scrollable = styled.div`
+
+        box-sizing: border-box;
+        overflow-y:auto;
+        min-height: 65vh;
+        max-height: 65vh;
+        z-index: -1;
+
+`;
 
 export const FloatingButton = styled.div`
        
         position: sticky;
         position: -webkit-sticky;
-        bottom: 0;
+        bottom: 200px;
         color: #db2052;
+        margin-right: 1rem;
+        
         float: right;
         z-index:1;
         cursor: pointer;
+        
 `
 export const SubmitButton = styled.button`
         background-color: transparent;
