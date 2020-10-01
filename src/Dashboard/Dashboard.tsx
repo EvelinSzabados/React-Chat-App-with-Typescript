@@ -58,7 +58,9 @@ export default function Dashboard(props: ChildComponentProps) {
 
                         </ChatViewContainer></Col>
                 </Row>
+
             </DashboardContent>
+
         </Layout>
     )
 }

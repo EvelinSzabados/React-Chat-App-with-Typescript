@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 
 
 export const DashboardContent = styled.div`
-        margin: 3rem auto;
+        margin: 3rem auto 0 auto;
         width: 80%;
         height: 80vh;
         background-color: white;
@@ -37,7 +37,7 @@ export const FriendSent = styled.p`
         box-sizing: border-box;
         word-wrap: break-word;
         margin-top: 10px;
-        background-color: #d6d6d6;
+        background-color: #f2f2f2;
         color: #303030;
         width: 35%;
         border-top-left-radius: 20px;
