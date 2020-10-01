@@ -95,3 +95,10 @@ export const FloatingButton = styled.div`
         z-index:1;
         cursor: pointer;
 `
+export const SubmitButton = styled.button`
+        background-color: transparent;
+        padding: 0;
+        margin: 0;
+        border: none;
+        outline: none;
+`
