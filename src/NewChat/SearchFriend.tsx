@@ -5,7 +5,7 @@ import { MentionProps } from 'antd/lib/mentions';
 
 export default function SearchFriend() {
 
-    const [users, setUsers] = useState([
+    const [users] = useState([
         {
             displayName: "Tamás Sallai",
             email: "tamas@gmail.com"
