@@ -22,12 +22,13 @@ export const ChatProvider = (props: any) => {
     const { currentUser } = useContext(UserContext);
     const { setSelectedChat } = useContext(SelectedChatContext);
 
-
+    console.log(chats)
     useEffect(() => {
         if (currentUser.id !== null) {
             const allChatData = allChat(currentUser.id)
-            setChats(allChatData);
+            setTimeout(() => setChats(allChatData), 2000);
             if (allChatData[0] !== null) {
+
                 setSelectedChat(allChatData[0].chatId)
             }
         }

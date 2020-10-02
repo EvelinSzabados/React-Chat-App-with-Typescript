@@ -5,7 +5,7 @@ import Dashboard from './Dashboard/Dashboard';
 import { UserProvider } from './Context/UserContext';
 import { ChatProvider } from './Context/ChatContext';
 import { SelectedChatProvider } from './Context/SelectedChatContext';
-import { PrivateRoute } from './PrivateRoute';
+import { PrivateRoute } from './Common/PrivateRoute';
 
 function App(): JSX.Element {
 

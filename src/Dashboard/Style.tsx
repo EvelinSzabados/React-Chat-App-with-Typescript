@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
 
-export const DashboardContent = styled.div`
+export const DashboardContainer = styled.div`
         margin: 3rem auto 0 auto;
         width: 80%;
         height: 80vh;
