@@ -28,39 +28,25 @@ export const ChatListItemContainer = styled.div<{ selected: boolean }>((props) =
 
 }));
 
+export const MessageBox = styled.p<{ isFriendSent: boolean }>((props) => ({
 
-export const FriendSent = styled.p`
+        backgroundColor: props.isFriendSent ? '#f2f2f2' : '#51588e',
+        float: props.isFriendSent ? 'left' : 'right',
+        borderTopLeftRadius: props.isFriendSent ? '20px' : '25px',
+        borderTopRightRadius: props.isFriendSent ? '25px' : '20px',
+        borderBottomRightRadius: props.isFriendSent ? '20px' : 'none',
+        borderBottomLeftRadius: props.isFriendSent ? 'none' : '20px',
+        clear: 'both',
+        padding: '20px',
+        boxSizing: 'border-box',
+        wordWrap: 'break-word',
+        marginTop: '10px',
+        marginRight: props.isFriendSent ? '0' : '10px',
+        color: props.isFriendSent ? '#404040' : 'white',
+        width: '35%',
 
-        float: left;
-        clear: both;
-        padding: 20px;
-        box-sizing: border-box;
-        word-wrap: break-word;
-        margin-top: 10px;
-        background-color: #f2f2f2;
-        color: #303030;
-        width: 35%;
-        border-top-left-radius: 20px;
-        border-top-right-radius: 25px;
-        border-bottom-right-radius: 20px;
 
-`;
-export const UserSent = styled.p`
-
-        float: right;
-        clear: both;
-        padding: 20px;
-        box-sizing: border-box;
-        word-wrap: break-word;
-        margin-top: 10px;
-        margin-right:10px;
-        background-color: #51588e;
-        color: white;
-        width: 35%;
-        border-top-right-radius: 20px;
-        border-top-left-radius: 25px;
-        border-bottom-left-radius: 20px;
-`;
+}));
 
 export const MessageContainer = styled.div`
         height: 85%;
