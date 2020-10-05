@@ -27,7 +27,7 @@ export const ChatProvider = (props: any) => {
         if (currentUser.id !== null) {
             const allChatData = allChat(currentUser.id)
             setChats(allChatData);
-            if (allChatData[0] !== null) {
+            if (allChatData[0] !== null && allChatData.length !== 0) {
                 setSelectedChat(allChatData[0].chatId)
             }
         }
