@@ -1,12 +1,12 @@
 import React, { useState, createContext, Dispatch, SetStateAction } from "react";
 
-type userData = {
+export type userData = {
     id: string | null,
     email: string | null,
     displayName: string | null
 }
 //initial state is filled for testing purposes
-const initialState = { id: null, email: null, displayName: null };
+const initialState = { id: '1', email: null, displayName: 'Evelin Szabados' };
 
 interface ContextState {
     currentUser: userData,

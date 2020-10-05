@@ -2,10 +2,10 @@ import styled from '@emotion/styled';
 
 
 export const DashboardContent = styled.div`
-margin: 3rem auto;
-width: 80%;
-height: 80vh;
-background-color: white;
+        margin: 3rem auto 0 auto;
+        width: 80%;
+        height: 80vh;
+        background-color: white;
 
 `;
 export const ChatViewContainer = styled.div`
@@ -16,9 +16,7 @@ export const ChatViewContainer = styled.div`
 `;
 
 export const ChatListContainer = styled.div`
-    padding: 1rem;
-    height: 80vh;
-
+        padding: 1rem;
 `;
 
 export const ChatListItemContainer = styled.div<{ selected: boolean }>((props) => ({
@@ -27,41 +25,28 @@ export const ChatListItemContainer = styled.div<{ selected: boolean }>((props) =
         marginTop: '10px',
         borderBottom: '0.7px solig #f2f2',
         cursor: 'pointer'
+
 }));
 
+export const MessageBox = styled.p<{ isFriendSent: boolean }>((props) => ({
 
-export const FriendSent = styled.p`
+        backgroundColor: props.isFriendSent ? '#f2f2f2' : '#51588e',
+        float: props.isFriendSent ? 'left' : 'right',
+        borderTopLeftRadius: props.isFriendSent ? '20px' : '25px',
+        borderTopRightRadius: props.isFriendSent ? '25px' : '20px',
+        borderBottomRightRadius: props.isFriendSent ? '20px' : 'none',
+        borderBottomLeftRadius: props.isFriendSent ? 'none' : '20px',
+        clear: 'both',
+        padding: '20px',
+        boxSizing: 'border-box',
+        wordWrap: 'break-word',
+        marginTop: '10px',
+        marginRight: props.isFriendSent ? '0' : '10px',
+        color: props.isFriendSent ? '#404040' : 'white',
+        width: '35%',
 
-        float: left;
-        clear: both;
-        padding: 20px;
-        box-sizing: border-box;
-        word-wrap: break-word;
-        margin-top: 10px;
-        background-color: #d6d6d6;
-        color: #303030;
-        width: 35%;
-        border-top-left-radius: 20px;
-        border-top-right-radius: 25px;
-        border-bottom-right-radius: 20px;
 
-`;
-export const UserSent = styled.p`
-
-        float: right;
-        clear: both;
-        padding: 20px;
-        box-sizing: border-box;
-        word-wrap: break-word;
-        margin-top: 10px;
-        margin-right:10px;
-        background-color: #51588e;
-        color: white;
-        width: 35%;
-        border-top-right-radius: 20px;
-        border-top-left-radius: 25px;
-        border-bottom-left-radius: 20px;
-`;
+}));
 
 export const MessageContainer = styled.div`
         height: 85%;
@@ -80,3 +65,19 @@ export const MessageInput = styled.input`
         padding: 5px 20px;
         color: #404040;
 `;
+export const Scrollable = styled.div`
+
+        box-sizing: border-box;
+        overflow-y:auto;
+        min-height: 65vh;
+        max-height: 65vh;
+        z-index: -1;
+
+`;
+export const SubmitButton = styled.button`
+        background-color: transparent;
+        padding: 0;
+        margin: 0;
+        border: none;
+        outline: none;
+`

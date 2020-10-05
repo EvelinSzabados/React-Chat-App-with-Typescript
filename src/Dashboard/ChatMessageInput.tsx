@@ -1,14 +1,16 @@
 import React, { useContext, useState } from 'react';
-import { InputContainer, MessageInput } from './Style';
+import { InputContainer, MessageInput, SubmitButton } from './Style';
 import { SendOutlined, SmileOutlined, FileAddOutlined } from '@ant-design/icons';
 import { ChatContext } from '../Context/ChatContext';
 import { UserContext } from '../Context/UserContext';
+
 
 export default function ChatMessageInput(props: { chat: string }) {
     const { chats, setChats } = useContext(ChatContext);
     const { currentUser } = useContext(UserContext);
     let selectedChat = props.chat;
     const [message, setMessage] = useState('');
+
 
     const iconStyle = { fontSize: '25px', margin: '5px', cursor: 'pointer', color: '#51588e' };
 
@@ -30,12 +32,13 @@ export default function ChatMessageInput(props: { chat: string }) {
     }
     return (
         <InputContainer>
-            <form onSubmit={(e) => { sendMessage(e) }}>
+            <form id="sendmsg" onSubmit={(e) => { sendMessage(e) }}>
                 <MessageInput type="text" value={message} onChange={(e) => { setMessage(e.target.value) }} />
                 <FileAddOutlined style={iconStyle} />
-                <SmileOutlined style={iconStyle} /><SendOutlined
+                <SmileOutlined style={iconStyle} />
+                <SubmitButton type="submit"><SendOutlined
                     style={iconStyle}
-                />
+                /></SubmitButton>
             </form>
         </InputContainer>
     )
