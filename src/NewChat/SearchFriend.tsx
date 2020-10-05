@@ -1,26 +1,11 @@
-import React, { useState } from 'react'
+import React, { useContext } from 'react'
 import { Mentions } from 'antd';
 import { MentionProps } from 'antd/lib/mentions';
-
+import { FriendContext } from '../Context/FriendContext';
 
 export default function SearchFriend() {
 
-    const [users] = useState([
-        {
-            displayName: "Tamás Sallai",
-            email: "tamas@gmail.com"
-        },
-        {
-            displayName: "Eszter Lévai",
-            email: "eszter@gmail.com"
-        },
-        {
-            displayName: "Norbert Aranyos",
-            email: "nobert@gmail.com"
-        },
-
-    ]);
-
+    const { friends } = useContext(FriendContext);
     const { Option } = Mentions;
 
     function onChange(value: string) {
@@ -33,10 +18,11 @@ export default function SearchFriend() {
     return (
         <Mentions style={{ width: '100%' }} onChange={onChange}
             onSelect={onSelect} placeholder="@friend email">
-            {users.map(({ displayName, email }) => (
-                <Option key={email} value={email} className="antd-demo-dynamic-option">
-                    <span>{email} - </span>
-                    <span>{displayName}</span>
+            {friends.map(({ id, displayName, email }) => (
+                <Option key={id} value={id !== null ? id + ":" + email + ":" + displayName : ''} className="antd-demo-dynamic-option">
+                    <span>{displayName} - </span>
+                    <span>{email}</span>
+
                 </Option>
             ))}
 

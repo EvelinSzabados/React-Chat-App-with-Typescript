@@ -6,6 +6,7 @@ import { UserProvider } from './Context/UserContext';
 import { ChatProvider } from './Context/ChatContext';
 import { SelectedChatProvider } from './Context/SelectedChatContext';
 import { PrivateRoute } from './PrivateRoute';
+import { FriendProvider } from './Context/FriendContext';
 
 function App(): JSX.Element {
 
@@ -15,7 +16,9 @@ function App(): JSX.Element {
         <ChatProvider>
           <Router>
             <Route exact path="/" component={Login}></Route>
-            <PrivateRoute path="/dashboard" component={Dashboard}></PrivateRoute>
+            <FriendProvider>
+              <PrivateRoute path="/dashboard" component={Dashboard}></PrivateRoute>
+            </FriendProvider>
           </Router>
         </ChatProvider>
       </SelectedChatProvider>

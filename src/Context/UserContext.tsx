@@ -1,6 +1,6 @@
 import React, { useState, createContext, Dispatch, SetStateAction } from "react";
 
-type userData = {
+export type userData = {
     id: string | null,
     email: string | null,
     displayName: string | null

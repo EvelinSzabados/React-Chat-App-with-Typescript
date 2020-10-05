@@ -37,7 +37,7 @@ const data = [
                 displayName: 'Evelin Szabados'
             },
             {
-                id: '4',
+                id: '3',
                 displayName: 'Eszter Lévai'
             }
         ],
