@@ -16,13 +16,13 @@ export default function SearchFriend() {
     const { setSelectedChat } = useContext(SelectedChatContext);
     const { Option } = Mentions;
 
-
     function getFriendByEmail(email: string | undefined): userData[] {
+        // will be single backend axios call
         return friends.filter(friend => friend.email === email)
     }
 
     function onSelect(option: MentionProps) {
-
+        // check if chat already exists with user will be implemented on backend
         const selectedFriend = getFriendByEmail(option.value)
         let chatList = chats;
         const chatId = uuidv4();

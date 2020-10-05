@@ -38,7 +38,7 @@ export default function Dashboard(props: ChildComponentProps) {
                                                     <List.Item.Meta
                                                         avatar={<Avatar size={40} style={{ backgroundColor: '#51588e' }}>{chat.users.filter(user => user.id !== currentUser.id)[0].displayName[0]}</Avatar>}
                                                         title={chat.users.filter(user => user.id !== currentUser.id)[0].displayName}
-                                                        description={chat.messages[chat.messages.length - 1]?.message.slice(0, 30)}
+                                                        description={chat.messages.length === 0 ? 'No messages yet' : chat.messages[chat.messages.length - 1]?.message.slice(0, 30)}
                                                     />
                                                 </List.Item> : <div>No chats available</div>}
 
