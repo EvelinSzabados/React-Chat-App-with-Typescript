@@ -21,8 +21,10 @@
     "react-emoji-render": "^1.2.4",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
+    "react-uuid": "^1.0.2",
     "typescript": "^3.9.7",
-    "use-lodash-debounce": "^1.1.0"
+    "use-lodash-debounce": "^1.1.0",
+    "uuid": "^8.3.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -44,5 +46,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/uuid": "^8.3.0"
   }
 }

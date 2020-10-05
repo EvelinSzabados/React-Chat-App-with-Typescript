@@ -31,9 +31,10 @@ export default function Dashboard(props: ChildComponentProps) {
                                     itemLayout="horizontal"
                                     dataSource={chats}
                                     renderItem={chat => (
+
                                         <ChatListItemContainer selected={chat?.chatId === selectedChat ? true : false}>
                                             {chat !== null ?
-                                                <List.Item onClick={() => { setSelectedChat(chat.chatId) }}>
+                                                <List.Item key={chat.chatId} onClick={() => { setSelectedChat(chat.chatId) }}>
                                                     <List.Item.Meta
                                                         avatar={<Avatar size={40} style={{ backgroundColor: '#51588e' }}>{chat.users.filter(user => user.id !== currentUser.id)[0].displayName[0]}</Avatar>}
                                                         title={chat.users.filter(user => user.id !== currentUser.id)[0].displayName}
@@ -42,6 +43,7 @@ export default function Dashboard(props: ChildComponentProps) {
                                                 </List.Item> : <div>No chats available</div>}
 
                                         </ChatListItemContainer>
+
                                     )}
                                 />
                             </Scrollable>

@@ -19,9 +19,9 @@ export default function Header(): JSX.Element {
                 ghost={true}
                 title={<span style={{ color: 'white' }}>{"Hello, " + currentUser.displayName}</span>}
 
-                avatar={{ icon: <Tooltip title="Profile"><UserOutlined style={{ cursor: 'pointer' }} /></Tooltip> }}
+                avatar={{ icon: <Tooltip key={'Profile'} title="Profile"><UserOutlined style={{ cursor: 'pointer' }} /></Tooltip> }}
                 extra={[
-                    <Tooltip placement="bottom" title="Log out">
+                    <Tooltip key={'Logout'} placement="bottom" title="Log out">
                         <LogoutOutlined style={{ fontSize: '30px', color: 'white', cursor: 'pointer' }}
                             role="button"
                             onClick={(e) => { logout(e) }} /></Tooltip>
