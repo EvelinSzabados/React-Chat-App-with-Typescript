@@ -4,7 +4,7 @@ import { UserContext } from '../Context/UserContext';
 
 interface RedirectProps {
     component: (props: any) => JSX.Element,
-    path?: string
+    [rest: string]: any
 }
 
 export const PrivateRoute = ({ component: Component, ...rest }: RedirectProps) => {
