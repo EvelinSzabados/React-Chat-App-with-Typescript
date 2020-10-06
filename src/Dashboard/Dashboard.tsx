@@ -13,7 +13,7 @@ import FloatingButton from '../NewChat/FloatingButton';
 
 interface ChildComponentProps extends RouteComponentProps { }
 
-export default function Dashboard(props: ChildComponentProps) {
+export default function Dashboard(props: ChildComponentProps): JSX.Element {
 
     const { chats } = useContext(ChatContext);
     const { currentUser } = useContext(UserContext);
