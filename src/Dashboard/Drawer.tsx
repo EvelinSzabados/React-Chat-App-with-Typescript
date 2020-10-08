@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Avatar, Button, Popover, Upload, message, } from 'antd';
+import { Avatar, Button, Popover, Upload, message, Tabs, List } from 'antd';
 import { UserOutlined, UploadOutlined } from '@ant-design/icons';
 import { ProfileContainer, NameContainer, ProfileDataContainer, ProfileDataLabel, ProfileDataItem } from './Style';
 import { UserContext } from '../Context/UserContext';
@@ -8,6 +8,7 @@ export default function DrawerContent() {
     const [profilePicUrl, setProfilePicUrl] = useState('')
     const { currentUser } = useContext(UserContext);
 
+    const { TabPane } = Tabs;
     const props = {
         name: 'file',
         action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
@@ -26,6 +27,20 @@ export default function DrawerContent() {
             }
         },
     };
+    const data = [
+        {
+            title: 'Ant Design Title 1',
+        },
+        {
+            title: 'Ant Design Title 2',
+        },
+        {
+            title: 'Ant Design Title 3',
+        },
+        {
+            title: 'Ant Design Title 4',
+        },
+    ];
 
     return (
         <ProfileContainer>
@@ -44,7 +59,32 @@ export default function DrawerContent() {
             <ProfileDataContainer>
                 <ProfileDataItem><ProfileDataLabel>Email:</ProfileDataLabel>{currentUser.email}</ProfileDataItem>
                 <ProfileDataItem><ProfileDataLabel>Member since:</ProfileDataLabel>2020.08.23.</ProfileDataItem>
+
+                <Tabs defaultActiveKey="1" type="card" size='middle'>
+                    <TabPane tab="Friends" key="1">
+                        <List
+                            itemLayout="horizontal"
+                            dataSource={data}
+                            renderItem={item => (
+                                <List.Item>
+                                    <List.Item.Meta
+                                        avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
+                                        title={<a href="https://ant.design">{item.title}</a>}
+                                        description="Ant Design, a design language for background applications, is refined by Ant UED Team"
+                                    />
+                                </List.Item>
+                            )}
+                        />
+                    </TabPane>
+                    <TabPane tab="Notifications" key="2">
+                        No notifications.
+                    </TabPane>
+                    <TabPane tab="Pending friend requests" key="3">
+                        No pending friend requests.
+                    </TabPane>
+                </Tabs>
             </ProfileDataContainer>
+
         </ProfileContainer>
     )
 }
