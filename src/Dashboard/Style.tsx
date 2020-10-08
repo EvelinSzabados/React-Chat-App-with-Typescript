@@ -81,3 +81,19 @@ export const SubmitButton = styled.button`
         border: none;
         outline: none;
 `
+export const ProfileContainer = styled.div(() => ({
+
+        display: 'flex',
+        alignContent: 'center',
+        flexDirection: 'column'
+
+
+}))
+
+export const NameContainer = styled.p(() => ({
+
+        color: '#51588e',
+        margin: '1rem auto 0 auto',
+        fontSize: 25,
+        fontWeight: 'bold'
+}))
