@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Avatar, Button, Popover, Upload, message, } from 'antd';
 import { UserOutlined, UploadOutlined } from '@ant-design/icons';
-import { ProfileContainer, NameContainer } from './Style';
+import { ProfileContainer, NameContainer, ProfileDataContainer, ProfileDataLabel, ProfileDataItem } from './Style';
+import { UserContext } from '../Context/UserContext';
 
 export default function DrawerContent() {
     const [profilePicUrl, setProfilePicUrl] = useState('')
+    const { currentUser } = useContext(UserContext);
 
     const props = {
         name: 'file',
@@ -38,8 +40,11 @@ export default function DrawerContent() {
                 <Avatar size={64} icon={<UserOutlined />} src={profilePicUrl} style={{ margin: '0 auto', cursor: 'pointer' }} />
             </Popover>
 
-            <NameContainer>Evelin Szabados</NameContainer>
-
+            <NameContainer>{currentUser.displayName}</NameContainer>
+            <ProfileDataContainer>
+                <ProfileDataItem><ProfileDataLabel>Email:</ProfileDataLabel>{currentUser.email}</ProfileDataItem>
+                <ProfileDataItem><ProfileDataLabel>Member since:</ProfileDataLabel>2020.08.23.</ProfileDataItem>
+            </ProfileDataContainer>
         </ProfileContainer>
     )
 }

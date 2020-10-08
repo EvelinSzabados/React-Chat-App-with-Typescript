@@ -97,3 +97,18 @@ export const NameContainer = styled.p(() => ({
         fontSize: 25,
         fontWeight: 'bold'
 }))
+
+export const ProfileDataContainer = styled.div(() => ({
+
+}))
+
+export const ProfileDataLabel = styled.span(() => ({
+        color: '#51588e',
+        margin: '0.5rem'
+}))
+
+export const ProfileDataItem = styled.p(() => ({
+        padding: '1rem',
+        border: '1px solid #f2f2f2',
+        margin: '1rem auto'
+}))
