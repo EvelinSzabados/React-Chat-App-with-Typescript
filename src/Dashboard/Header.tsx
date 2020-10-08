@@ -3,9 +3,11 @@ import { PageHeader, Tooltip } from 'antd';
 import { LogoutOutlined, UserOutlined } from '@ant-design/icons';
 import { UserContext } from '../Context/UserContext';
 
-export default function Header(): JSX.Element {
+export default function Header(props: { setVisible: React.Dispatch<React.SetStateAction<boolean>> }): JSX.Element {
 
     const { currentUser, setCurrentUser } = useContext(UserContext);
+
+    const setVisible = props.setVisible;
 
     const logout = (e: React.MouseEvent<HTMLSpanElement>) => {
         e.preventDefault();
@@ -19,7 +21,7 @@ export default function Header(): JSX.Element {
                 ghost={true}
                 title={<span style={{ color: 'white' }}>{"Hello, " + currentUser.displayName}</span>}
 
-                avatar={{ icon: <Tooltip key={'Profile'} title="Profile"><UserOutlined style={{ cursor: 'pointer' }} /></Tooltip> }}
+                avatar={{ icon: <Tooltip key={'Profile'} title="Profile"><UserOutlined onClick={(e) => { setVisible(true) }} style={{ cursor: 'pointer' }} /></Tooltip> }}
                 extra={[
                     <Tooltip key={'Logout'} placement="bottom" title="Log out">
                         <LogoutOutlined style={{ fontSize: '30px', color: 'white', cursor: 'pointer' }}

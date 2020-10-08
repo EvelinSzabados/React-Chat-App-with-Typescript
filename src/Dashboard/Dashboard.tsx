@@ -1,5 +1,5 @@
-import React, { useContext } from 'react'
-import { Layout, List, Avatar } from 'antd';
+import React, { useContext, useState } from 'react'
+import { Layout, List, Avatar, Drawer } from 'antd';
 import { Row, Col } from 'antd';
 import { ChatViewContainer, DashboardContent, ChatListContainer, ChatListItemContainer, Scrollable } from './Style';
 import ChatViewContent from './ChatViewContent';
@@ -10,6 +10,7 @@ import { SelectedChatContext } from '../Context/SelectedChatContext'
 import ChatMessageInput from './ChatMessageInput';
 import { RouteComponentProps } from 'react-router';
 import FloatingButton from '../NewChat/FloatingButton';
+import DrawerContent from './Drawer';
 
 interface ChildComponentProps extends RouteComponentProps { }
 
@@ -18,11 +19,28 @@ export default function Dashboard(props: ChildComponentProps): JSX.Element {
     const { chats } = useContext(ChatContext);
     const { currentUser } = useContext(UserContext);
     const { selectedChat, setSelectedChat } = useContext(SelectedChatContext);
+    const [visible, setVisible] = useState(false)
+
+    const ProfileDrawer = () => {
+        return (
+            <Drawer
+                width={640}
+                title="Profile"
+                placement="left"
+                closable={true}
+                onClose={() => { setVisible(false) }}
+                visible={visible}
+                style={{ position: 'absolute' }}>
+                <DrawerContent />
+            </Drawer>
+        )
+    }
 
     return (
         <Layout style={{ height: '100vh' }}>
             <DashboardContent>
-                <Header />
+                <ProfileDrawer />
+                <Header setVisible={setVisible} />
                 <Row>
                     <Col span={6}>
                         <ChatListContainer>
@@ -48,6 +66,7 @@ export default function Dashboard(props: ChildComponentProps): JSX.Element {
                                 />
                             </Scrollable>
                             <FloatingButton />
+
                         </ChatListContainer>
                     </Col>
                     <Col span={18}>
@@ -58,7 +77,9 @@ export default function Dashboard(props: ChildComponentProps): JSX.Element {
                                     <ChatMessageInput chat={selectedChat} />
                                 </React.Fragment> : ''}
 
-                        </ChatViewContainer></Col>
+                        </ChatViewContainer>
+                    </Col>
+
                 </Row>
 
             </DashboardContent>
