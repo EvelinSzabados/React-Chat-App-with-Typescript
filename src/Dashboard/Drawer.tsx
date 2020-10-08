@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Avatar, Button, Popover, Upload, message, Tabs, List } from 'antd';
+import { Avatar, Button, Popover, Upload, message, Tabs, List, Badge } from 'antd';
 import { UserOutlined, UploadOutlined } from '@ant-design/icons';
 import { ProfileContainer, NameContainer, ProfileDataContainer, ProfileDataLabel, ProfileDataItem } from './Style';
 import { UserContext } from '../Context/UserContext';
@@ -60,7 +60,7 @@ export default function DrawerContent() {
                 <ProfileDataItem><ProfileDataLabel>Email:</ProfileDataLabel>{currentUser.email}</ProfileDataItem>
                 <ProfileDataItem><ProfileDataLabel>Member since:</ProfileDataLabel>2020.08.23.</ProfileDataItem>
 
-                <Tabs defaultActiveKey="1" type="card" size='middle'>
+                <Tabs defaultActiveKey="1" type="card" size='large'>
                     <TabPane tab="Friends" key="1">
                         <List
                             itemLayout="horizontal"
@@ -76,8 +76,8 @@ export default function DrawerContent() {
                             )}
                         />
                     </TabPane>
-                    <TabPane tab="Notifications" key="2">
-                        No notifications.
+                    <TabPane tab={<Badge size="small" offset={[11, 0]} count={2}> Notifications </Badge>} key="2">
+                        No notifications
                     </TabPane>
                     <TabPane tab="Pending friend requests" key="3">
                         No pending friend requests.
