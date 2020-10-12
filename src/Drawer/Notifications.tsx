@@ -3,12 +3,12 @@ import { Avatar, List, Badge, Tag, message } from 'antd';
 import { MessageOutlined, DeleteOutlined } from '@ant-design/icons';
 import { NotificationContext, notificationType } from '../Context/NotificationContext';
 import { UserContext } from '../Context/UserContext';
-
+import { FriendContext } from '../Context/FriendContext';
 
 export default function Notifications() {
 
     const { notifications, setNotifications } = useContext(NotificationContext);
-
+    const { friends, setFriends } = useContext(FriendContext);
     const { currentUser } = useContext(UserContext);
 
     const sendAnswer = (accepted: boolean, notif: notificationType) => {
@@ -19,6 +19,8 @@ export default function Notifications() {
         setNotifications([...notificationArray]);
         if (accepted) {
             message.success(`Friendrequest of ${notif.sender?.displayName} is accepted`, 5);
+            setFriends([...friends, notif.sender])
+
         } else {
             message.success(`Friendrequest of ${notif.sender?.displayName} is declined`, 5);
         }

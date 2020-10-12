@@ -4,8 +4,8 @@ import { UserContext } from '../Context/UserContext';
 
 export type notificationType = {
     id: string | null,
-    sender: userData | null,
-    reciever: userData | null,
+    sender: userData,
+    reciever: userData,
     accepted: boolean
 }
 
@@ -28,8 +28,8 @@ const notificationData = [
 const initialState = [
     {
         id: null,
-        sender: null,
-        reciever: null,
+        sender: { id: null, email: null, displayName: null },
+        reciever: { id: null, email: null, displayName: null },
         accepted: false
 
     },
