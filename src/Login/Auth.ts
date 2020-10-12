@@ -19,6 +19,11 @@ const users = [
         email: 'norbert@gmail.com',
         displayName: "Norbert Aranyos"
     },
+    {
+        id: '5',
+        email: 'cecilia@gmail.com',
+        displayName: "Cecília Tóth"
+    },
 ]
 export async function auth(email: string | null): Promise<any[]> {
     return users.filter(user => user.email === email);

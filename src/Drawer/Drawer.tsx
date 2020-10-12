@@ -30,10 +30,12 @@ export default function DrawerContent() {
                     <TabPane tab="Friends" key="1">
                         <Friends />
                     </TabPane>
-                    <TabPane tab={<span> Notifications <Badge size="small" count={notifications.length} /></span>} key="2">
+                    <TabPane tab={<span> Notifications <Badge size="small"
+                        count={notifications.filter(notif => notif.reciever.id === currentUser.id).length} /></span>} key="2">
                         <Notifications />
                     </TabPane>
-                    <TabPane tab="Pending friend requests" key="3">
+                    <TabPane tab={<span> Pending Friend requests <Badge size="small"
+                        count={notifications.filter(notif => notif.sender.id === currentUser.id).length} /></span>} key="3">
                         <PendingRequests />
                     </TabPane>
                 </Tabs>

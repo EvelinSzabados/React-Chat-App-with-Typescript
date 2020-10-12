@@ -23,7 +23,15 @@ const notificationData = [
         reciever: { id: '4', email: 'norbert@gmail.com', displayName: 'Norbert Aranyos' },
         accepted: false
 
+    },
+    {
+        id: '3',
+        sender: { id: '1', email: 'evelin@gmail.com', displayName: 'Evelin Szabados' },
+        reciever: { id: '5', email: 'cecilia@gmail.com', displayName: 'Cecília Tóth' },
+        accepted: false
+
     },]
+
 
 const initialState = [
     {

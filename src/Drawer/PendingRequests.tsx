@@ -1,33 +1,43 @@
-import React from 'react'
-import { Avatar, List, Badge, Tag } from 'antd';
+import React, { useContext } from 'react'
+import { Avatar, List, Badge, Tag, message } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
+import { NotificationContext, notificationType } from '../Context/NotificationContext';
+import { UserContext } from '../Context/UserContext';
 
 export default function PendingRequests() {
+    const { notifications, setNotifications } = useContext(NotificationContext);
+    const { currentUser } = useContext(UserContext);
 
-    const data = [
-        {
-            displayName: 'Cecília Faragó',
-            email: 'cecilia@gmail.com'
-        }
-    ]
+    const sendAnswer = (notif: notificationType) => {
+        let notificationArray = notifications;
+        const index = notificationArray.indexOf(notif);
+        notificationArray.splice(index, 1);
+
+        setNotifications([...notificationArray]);
+        message.success(`Friendrequest of ${notif.reciever?.displayName} is withdrawend`, 5);
+
+    }
+
     return (
         <List
             style={{ marginTop: '1rem' }}
             itemLayout="horizontal"
-            dataSource={data}
-            renderItem={friend => (
-                <List.Item actions={
-                    [
-                        <Tag style={{ cursor: 'pointer' }} icon={<DeleteOutlined />} color="error">Withdraw</Tag>
-                    ]
-                }>
-                    <List.Item.Meta
-                        avatar={<Badge offset={[0, 30]} status="success"><Avatar>{friend.displayName?.slice(0, 1)}</Avatar></Badge>}
-                        title={friend.displayName}
-                        description={friend.email}
+            dataSource={notifications}
+            renderItem={notif => (
+                notif.sender?.id === currentUser.id ?
+                    <List.Item actions={
+                        [
+                            <Tag onClick={() => { sendAnswer(notif) }}
+                                style={{ cursor: 'pointer' }} icon={<DeleteOutlined />} color="error">Withdraw</Tag>
+                        ]
+                    }>
+                        <List.Item.Meta
+                            avatar={<Badge offset={[0, 30]} status="success"><Avatar>{notif.reciever.displayName?.slice(0, 1)}</Avatar></Badge>}
+                            title={notif.reciever.displayName}
+                            description={notif.reciever.email}
 
-                    />
-                </List.Item>
+                        />
+                    </List.Item> : ''
 
             )}
         />
