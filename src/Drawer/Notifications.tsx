@@ -44,7 +44,7 @@ export default function Notifications() {
                         ]
                     }>
                         <List.Item.Meta
-                            avatar={<Badge offset={[0, 30]} status="success"><Avatar>{notif.sender?.displayName?.slice(0, 1)}</Avatar></Badge>}
+                            avatar={<Avatar>{notif.sender?.displayName?.slice(0, 1)}</Avatar>}
                             title={notif.sender?.displayName}
                             description={notif.sender?.displayName}
 

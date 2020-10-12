@@ -32,7 +32,7 @@ export default function PendingRequests() {
                         ]
                     }>
                         <List.Item.Meta
-                            avatar={<Badge offset={[0, 30]} status="success"><Avatar>{notif.reciever.displayName?.slice(0, 1)}</Avatar></Badge>}
+                            avatar={<Avatar>{notif.reciever.displayName?.slice(0, 1)}</Avatar>}
                             title={notif.reciever.displayName}
                             description={notif.reciever.email}
 
