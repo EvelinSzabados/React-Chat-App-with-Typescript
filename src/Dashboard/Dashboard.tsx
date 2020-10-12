@@ -10,7 +10,7 @@ import { SelectedChatContext } from '../Context/SelectedChatContext'
 import ChatMessageInput from './ChatMessageInput';
 import { RouteComponentProps } from 'react-router';
 import FloatingButton from '../NewChat/FloatingButton';
-import DrawerContent from './Drawer';
+import DrawerContent from '../Drawer/Drawer';
 
 interface ChildComponentProps extends RouteComponentProps { }
 
