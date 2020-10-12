@@ -2,11 +2,12 @@ import React, { useContext } from 'react';
 import { PageHeader, Tooltip, Badge, Avatar } from 'antd';
 import { LogoutOutlined, UserOutlined } from '@ant-design/icons';
 import { UserContext } from '../Context/UserContext';
+import { NotificationContext } from '../Context/NotificationContext';
 
 export default function Header(props: { setVisible: React.Dispatch<React.SetStateAction<boolean>> }): JSX.Element {
 
     const { currentUser, setCurrentUser } = useContext(UserContext);
-
+    const { notifications } = useContext(NotificationContext);
     const setVisible = props.setVisible;
 
     const logout = (e: React.MouseEvent<HTMLSpanElement>) => {
@@ -21,7 +22,7 @@ export default function Header(props: { setVisible: React.Dispatch<React.SetStat
                 ghost={true}
                 title={<React.Fragment>
                     <Tooltip key={'Profile'} title="Profile">
-                        <Badge offset={[-10, 10]} size="default" count={2}>
+                        <Badge offset={[-10, 10]} size="default" count={notifications.length}>
                             <Avatar icon={<UserOutlined onClick={(e) => { setVisible(true) }} />} style={{ cursor: 'pointer' }} />
                         </Badge>
                     </Tooltip>

@@ -6,10 +6,13 @@ import ProfilePicture from './ProfilePicture';
 import Friends from './Friends';
 import Notifications from './Notifications';
 import PendingRequests from './PendingRequests'
+import { NotificationContext } from '../Context/NotificationContext';
 
 export default function DrawerContent() {
 
     const { currentUser } = useContext(UserContext);
+    const { notifications } = useContext(NotificationContext);
+
 
     const { TabPane } = Tabs;
 
@@ -27,7 +30,7 @@ export default function DrawerContent() {
                     <TabPane tab="Friends" key="1">
                         <Friends />
                     </TabPane>
-                    <TabPane tab={<span> Notifications <Badge size="small" count={2} /></span>} key="2">
+                    <TabPane tab={<span> Notifications <Badge size="small" count={notifications.length} /></span>} key="2">
                         <Notifications />
                     </TabPane>
                     <TabPane tab="Pending friend requests" key="3">

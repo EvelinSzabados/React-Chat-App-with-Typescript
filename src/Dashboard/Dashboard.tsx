@@ -21,6 +21,7 @@ export default function Dashboard(props: ChildComponentProps): JSX.Element {
     const { selectedChat, setSelectedChat } = useContext(SelectedChatContext);
     const [visible, setVisible] = useState(false)
 
+
     const ProfileDrawer = () => {
         return (
             <Drawer
