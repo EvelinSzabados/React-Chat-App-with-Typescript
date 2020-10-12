@@ -6,7 +6,7 @@ export type userData = {
     displayName: string | null
 }
 //initial state is filled for testing purposes
-const initialState = { id: '1', email: 'evelin@gmail.com', displayName: 'Evelin Szabados' };
+const initialState = { id: null, email: null, displayName: null };
 
 interface ContextState {
     currentUser: userData,

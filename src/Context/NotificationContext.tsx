@@ -27,7 +27,7 @@ const notificationData = [
     {
         id: '3',
         sender: { id: '1', email: 'evelin@gmail.com', displayName: 'Evelin Szabados' },
-        reciever: { id: '5', email: 'cecilia@gmail.com', displayName: 'Cecília Tóth' },
+        reciever: { id: '6', email: 'cecilia@gmail.com', displayName: 'Cecília Tóth' },
         accepted: false
 
     },]
@@ -62,7 +62,7 @@ export const NotificationProvider = (props: any): JSX.Element => {
 
     useEffect(() => {
         setNotifications(notificationData.filter(notification => notification.reciever.id === currentUser.id || notification.sender.id === currentUser.id))
-    }, [currentUser])
+    }, [currentUser.id])
 
 
     return (

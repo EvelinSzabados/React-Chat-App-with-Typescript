@@ -21,6 +21,11 @@ const users = [
     },
     {
         id: '5',
+        email: 'adam@gmail.com',
+        displayName: 'Ádám Kovács'
+    },
+    {
+        id: '6',
         email: 'cecilia@gmail.com',
         displayName: "Cecília Tóth"
     },
