@@ -37,54 +37,61 @@ export default function Dashboard(props: ChildComponentProps): JSX.Element {
     }
 
     return (
-        <Layout style={{ height: '100vh' }}>
-            <DashboardContent>
-                <ProfileDrawer />
-                <Header setVisible={setVisible} />
-                <Row>
-                    <Col span={6}>
-                        <ChatListContainer>
-                            <Scrollable>
-                                <List
-                                    itemLayout="horizontal"
-                                    dataSource={chats}
-                                    renderItem={chat => (
+        <React.Fragment>
+            <Layout style={{ height: '100vh' }}>
+                <DashboardContent>
+                    <ProfileDrawer />
+                    <Header setVisible={setVisible} />
+                    <Row>
+                        <Col span={6}>
+                            <ChatListContainer>
+                                <Scrollable>
+                                    <List
+                                        itemLayout="horizontal"
+                                        dataSource={chats}
+                                        renderItem={chat => (
 
-                                        <ChatListItemContainer selected={chat?.chatId === selectedChat ? true : false}>
-                                            {chat !== null ?
-                                                <List.Item key={chat.chatId} onClick={() => { setSelectedChat(chat.chatId) }}>
-                                                    <List.Item.Meta
-                                                        avatar={<Avatar size={40} style={{ backgroundColor: '#51588e' }}>{chat.users.filter(user => user.id !== currentUser.id)[0].displayName[0]}</Avatar>}
-                                                        title={chat.users.filter(user => user.id !== currentUser.id)[0].displayName}
-                                                        description={chat.messages.length === 0 ? 'No messages yet' : chat.messages[chat.messages.length - 1]?.message.slice(0, 30)}
-                                                    />
-                                                </List.Item> : <div>No chats available</div>}
+                                            <ChatListItemContainer selected={chat?.chatId === selectedChat ? true : false}>
+                                                {chat !== null ?
+                                                    <List.Item key={chat.chatId} onClick={() => { setSelectedChat(chat.chatId) }}>
+                                                        <List.Item.Meta
+                                                            avatar={<Avatar size={40} style={{ backgroundColor: '#51588e' }}>{chat.users.filter(user => user.id !== currentUser.id)[0].displayName[0]}</Avatar>}
+                                                            title={chat.users.filter(user => user.id !== currentUser.id)[0].displayName}
+                                                            description={chat.messages.length === 0 ? 'No messages yet' : chat.messages[chat.messages.length - 1]?.message.slice(0, 30)}
+                                                        />
+                                                    </List.Item> : <div>No chats available</div>}
 
-                                        </ChatListItemContainer>
+                                            </ChatListItemContainer>
 
-                                    )}
-                                />
-                            </Scrollable>
-                            <FloatingButton />
+                                        )}
+                                    />
+                                </Scrollable>
+                                <FloatingButton />
 
-                        </ChatListContainer>
-                    </Col>
-                    <Col span={18}>
-                        <ChatViewContainer>
-                            {selectedChat !== undefined && currentUser.id !== null ?
-                                <React.Fragment>
-                                    <ChatViewContent chat={selectedChat} />
-                                    <ChatMessageInput chat={selectedChat} />
-                                </React.Fragment> : ''}
+                            </ChatListContainer>
+                        </Col>
+                        <Col span={18} >
+                            <ChatViewContainer>
+                                {selectedChat !== undefined && currentUser.id !== null ?
+                                    <React.Fragment>
+                                        <ChatViewContent chat={selectedChat} />
+                                        <ChatMessageInput chat={selectedChat} />
+                                    </React.Fragment> : ''}
 
-                        </ChatViewContainer>
-                    </Col>
+                            </ChatViewContainer>
+                        </Col>
 
-                </Row>
+                    </Row>
 
-            </DashboardContent>
+                </DashboardContent>
+                <Layout.Footer style={{
+                    backgroundColor: '#51588E', padding: '0.5rem', color: 'white',
+                    width: '80%', margin: '0 auto', textAlign: 'center'
+                }}>
+                    Kinsta Pet Project</Layout.Footer>
+            </Layout>
 
-        </Layout>
+        </React.Fragment>
     )
 }
 
