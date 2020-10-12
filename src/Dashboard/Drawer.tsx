@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
-import { Avatar, Button, Popover, Upload, message, Tabs, List, Badge } from 'antd';
-import { UserOutlined, UploadOutlined } from '@ant-design/icons';
+import { Avatar, Button, Popover, Upload, message, Tabs, List, Badge, Tag, Input } from 'antd';
+import { UserOutlined, UploadOutlined, MessageOutlined, DeleteOutlined } from '@ant-design/icons';
 import { ProfileContainer, NameContainer, ProfileDataContainer, ProfileDataLabel, ProfileDataItem } from './Style';
 import { UserContext } from '../Context/UserContext';
 
@@ -8,6 +8,7 @@ export default function DrawerContent() {
     const [profilePicUrl, setProfilePicUrl] = useState('')
     const { currentUser } = useContext(UserContext);
 
+    const { Search } = Input;
     const { TabPane } = Tabs;
     const props = {
         name: 'file',
@@ -29,16 +30,16 @@ export default function DrawerContent() {
     };
     const data = [
         {
-            title: 'Ant Design Title 1',
+            title: 'Friend1',
         },
         {
-            title: 'Ant Design Title 2',
+            title: 'Friend2',
         },
         {
-            title: 'Ant Design Title 3',
+            title: 'Friend3',
         },
         {
-            title: 'Ant Design Title 4',
+            title: 'Friend4',
         },
     ];
 
@@ -59,18 +60,28 @@ export default function DrawerContent() {
             <ProfileDataContainer>
                 <ProfileDataItem><ProfileDataLabel>Email:</ProfileDataLabel>{currentUser.email}</ProfileDataItem>
                 <ProfileDataItem><ProfileDataLabel>Member since:</ProfileDataLabel>2020.08.23.</ProfileDataItem>
+                <ProfileDataItem><ProfileDataLabel>Status:</ProfileDataLabel><Tag color="green">Active</Tag></ProfileDataItem>
 
                 <Tabs defaultActiveKey="1" type="card" size='large'>
                     <TabPane tab="Friends" key="1">
+                        <Search
+                            placeholder="Search friends"
+                            onSearch={value => console.log(value)}
+                        />
                         <List
                             itemLayout="horizontal"
                             dataSource={data}
                             renderItem={item => (
-                                <List.Item>
+                                <List.Item actions={
+                                    [<Tag color="geekblue" style={{ cursor: 'pointer' }} icon={<MessageOutlined />}>Message</Tag>,
+                                    <Tag style={{ cursor: 'pointer' }} icon={<DeleteOutlined />} color="error">Delete</Tag>
+                                    ]
+                                }>
                                     <List.Item.Meta
-                                        avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
-                                        title={<a href="https://ant.design">{item.title}</a>}
-                                        description="Ant Design, a design language for background applications, is refined by Ant UED Team"
+                                        avatar={<Badge offset={[0, 30]} status="success"><Avatar>F</Avatar></Badge>}
+                                        title={item.title}
+                                        description={item.title + "@gmail.com"}
+
                                     />
                                 </List.Item>
                             )}
