@@ -46,7 +46,7 @@ export default function Notifications() {
                         <List.Item.Meta
                             avatar={<Avatar>{notif.sender?.displayName?.slice(0, 1)}</Avatar>}
                             title={notif.sender?.displayName}
-                            description={notif.sender?.displayName}
+                            description={notif.sender?.email}
 
                         />
                     </List.Item> : ''

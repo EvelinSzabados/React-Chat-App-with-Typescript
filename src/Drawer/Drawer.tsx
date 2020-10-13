@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Tabs, Badge, Tag } from 'antd';
+import { Tabs, Badge, Tag, Select } from 'antd';
 import { ProfileContainer, NameContainer, ProfileDataContainer, ProfileDataLabel, ProfileDataItem } from '../Drawer/Style';
 import { UserContext } from '../Context/UserContext';
 import ProfilePicture from './ProfilePicture';
@@ -12,7 +12,10 @@ export default function DrawerContent() {
 
     const { currentUser } = useContext(UserContext);
     const { notifications } = useContext(NotificationContext);
-
+    const options = [
+        { label: <Tag color="green">Active</Tag>, value: 'active' },
+        { label: <Tag color="gold">Busy</Tag>, value: 'busy' },
+        { label: <Tag color="purple">Offline</Tag>, value: 'offline' }];
 
     const { TabPane } = Tabs;
 
@@ -24,7 +27,18 @@ export default function DrawerContent() {
             <ProfileDataContainer>
                 <ProfileDataItem><ProfileDataLabel>Email:</ProfileDataLabel>{currentUser.email}</ProfileDataItem>
                 <ProfileDataItem><ProfileDataLabel>Member since:</ProfileDataLabel>2020.08.23.</ProfileDataItem>
-                <ProfileDataItem><ProfileDataLabel>Status:</ProfileDataLabel><Tag color="green">Active</Tag></ProfileDataItem>
+                <ProfileDataItem><ProfileDataLabel>Status:</ProfileDataLabel>
+
+                    <Select
+                        showArrow
+                        bordered={false}
+                        defaultValue={['active']}
+                        style={{ width: '20%', cursor: 'pointer' }}
+                        options={options}
+                    />
+
+
+                </ProfileDataItem>
 
                 <Tabs animated={true} tabPosition="top" defaultActiveKey="1" type="card" size='large'>
                     <TabPane tab="Friends" key="1">
