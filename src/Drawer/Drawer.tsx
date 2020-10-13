@@ -7,19 +7,17 @@ import Friends from './Friends';
 import Notifications from './Notifications';
 import PendingRequests from './PendingRequests'
 import { NotificationContext } from '../Context/NotificationContext';
-import { StatusContext } from '../Context/StatusContext';
-import { Statuses } from '../Context/StatusContext';
+import { Statuses, StatusColors } from '../Context/StatusTypes';
 
 export default function DrawerContent() {
 
-    const { currentUser } = useContext(UserContext);
+    const { currentUser, setCurrentUser } = useContext(UserContext);
     const { notifications } = useContext(NotificationContext);
-    const { status, setStatus } = useContext(StatusContext);
 
     const options = [
-        { label: <Tag color="green">Active</Tag>, value: Statuses.Active },
-        { label: <Tag color="gold">Busy</Tag>, value: Statuses.Busy },
-        { label: <Tag color="purple">Offline</Tag>, value: Statuses.Offline }];
+        { label: <Tag color={StatusColors.Active}>Active</Tag>, value: Statuses.Active },
+        { label: <Tag color={StatusColors.Busy}>Busy</Tag>, value: Statuses.Busy },
+        { label: <Tag color={StatusColors.Offline}>Offline</Tag>, value: Statuses.Offline }];
 
     const { TabPane } = Tabs;
 
@@ -36,10 +34,14 @@ export default function DrawerContent() {
                     <Select
                         showArrow
                         bordered={false}
-                        defaultValue={status}
+                        defaultValue={currentUser.status}
                         style={{ width: '20%', cursor: 'pointer' }}
                         options={options}
-                        onSelect={(value: Statuses) => { setStatus(value) }}
+                        onSelect={(value: Statuses) => {
+                            const user = currentUser;
+                            user.status = value;
+                            setCurrentUser(user);
+                        }}
                     />
 
 

@@ -2,10 +2,12 @@ import React, { useContext } from 'react'
 import { FriendContext } from '../Context/FriendContext';
 import { Avatar, List, Badge, Tag, Input, Popconfirm, Empty } from 'antd';
 import { MessageOutlined, DeleteOutlined, QuestionCircleOutlined } from '@ant-design/icons';
+import { StatusColors } from '../Context/StatusTypes';
 
 export default function Friends() {
     const { Search } = Input;
     const { friends } = useContext(FriendContext);
+
 
     return (
         <React.Fragment>
@@ -33,7 +35,7 @@ export default function Friends() {
                                 ]
                             }>
                                 <List.Item.Meta
-                                    avatar={<Badge offset={[0, 30]} status="success"><Avatar>{friend.displayName?.slice(0, 1)}</Avatar></Badge>}
+                                    avatar={<Badge offset={[0, 30]} color={StatusColors[friend.status]}><Avatar>{friend.displayName?.slice(0, 1)}</Avatar></Badge>}
                                     title={friend.displayName}
                                     description={friend.email}
 

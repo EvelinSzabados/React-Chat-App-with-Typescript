@@ -3,6 +3,7 @@ import { PageHeader, Tooltip, Badge, Avatar } from 'antd';
 import { LogoutOutlined, UserOutlined } from '@ant-design/icons';
 import { UserContext } from '../Context/UserContext';
 import { NotificationContext } from '../Context/NotificationContext';
+import { Statuses } from '../Context/StatusTypes';
 
 export default function Header(props: { setVisible: React.Dispatch<React.SetStateAction<boolean>> }): JSX.Element {
 
@@ -12,7 +13,7 @@ export default function Header(props: { setVisible: React.Dispatch<React.SetStat
 
     const logout = (e: React.MouseEvent<HTMLSpanElement>) => {
         e.preventDefault();
-        setCurrentUser({ id: null, email: null, displayName: null });
+        setCurrentUser({ id: null, email: null, displayName: null, status: Statuses.Offline });
 
     }
 

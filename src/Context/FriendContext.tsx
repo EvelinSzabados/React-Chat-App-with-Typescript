@@ -1,4 +1,5 @@
 import React, { useState, createContext, Dispatch, SetStateAction } from "react";
+import { Statuses } from "./StatusTypes";
 import { userData } from './UserContext';
 
 // const initialState = [{ id: null, email: null, displayName: null }];
@@ -8,18 +9,21 @@ const initialState = [
         id: '2',
         email: "tamas@gmail.com",
         displayName: "Tamás Sallai",
+        status: Statuses.Offline
 
     },
     {
         id: '3',
         email: "eszter@gmail.com",
         displayName: "Eszter Lévai",
+        status: Statuses.Offline
 
     },
     {
         id: '4',
         email: "nobert@gmail.com",
         displayName: "Norbert Aranyos",
+        status: Statuses.Offline
 
     },
 

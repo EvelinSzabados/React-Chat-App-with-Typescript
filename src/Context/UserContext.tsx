@@ -1,12 +1,14 @@
 import React, { useState, createContext, Dispatch, SetStateAction } from "react";
+import { Statuses } from "./StatusTypes";
 
 export type userData = {
     id: string | null,
     email: string | null,
-    displayName: string | null
+    displayName: string | null,
+    status: Statuses
 }
 //initial state is filled for testing purposes
-const initialState = { id: '1', email: null, displayName: 'Evelin Szabados' };
+const initialState = { id: '1', email: null, displayName: 'Evelin Szabados', status: Statuses.Offline };
 
 interface ContextState {
     currentUser: userData,
