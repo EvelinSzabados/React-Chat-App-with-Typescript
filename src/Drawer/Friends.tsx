@@ -1,26 +1,35 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { FriendContext } from '../Context/FriendContext';
 import { Avatar, List, Badge, Tag, Input, Popconfirm, Empty } from 'antd';
 import { MessageOutlined, DeleteOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import { StatusColors } from '../Context/StatusTypes';
+import { userData } from '../Context/UserContext';
 
 export default function Friends() {
     const { Search } = Input;
     const { friends } = useContext(FriendContext);
+    const [searchResults, setSearchResults] = useState<userData[]>(friends.slice(0, 5))
 
 
+    const searchUsers = (searchValue: string) => {
+        let result = friends.filter(friend => friend.displayName?.includes(searchValue)
+            || friend.email?.includes(searchValue))
+        setSearchResults(result)
+
+    }
     return (
         <React.Fragment>
             {friends[0].id === null ? <Empty description="No friends found" /> :
                 <React.Fragment>
                     <Search
                         placeholder="Search friends"
-                        onSearch={value => console.log(value)}
+                        onChange={e => searchUsers(e.target.value)}
+
                     />
                     <List
                         style={{ marginTop: '1rem' }}
                         itemLayout="horizontal"
-                        dataSource={friends}
+                        dataSource={searchResults}
                         renderItem={friend => (
                             <List.Item actions={
                                 [<Tag color="geekblue" style={{ cursor: 'pointer' }} icon={<MessageOutlined />}>Message</Tag>,
