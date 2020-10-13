@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { Avatar, List, Badge, Tag, message } from 'antd';
+import { Avatar, List, Tag, message } from 'antd';
 import { MessageOutlined, DeleteOutlined } from '@ant-design/icons';
 import { NotificationContext, notificationType } from '../Context/NotificationContext';
 import { UserContext } from '../Context/UserContext';
