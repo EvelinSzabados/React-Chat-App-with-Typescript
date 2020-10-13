@@ -24,6 +24,7 @@ export default function Friends() {
                         onChange={e => searchUsers(e.target.value)}
                     />
                     <List
+                        pagination={searchResults.length > 5 ? { defaultCurrent: 1, total: searchResults.length, pageSize: 5 } : false}
                         style={{ marginTop: '1rem' }}
                         itemLayout="horizontal"
                         locale={{ emptyText: "No friends found" }}
