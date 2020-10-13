@@ -5,6 +5,7 @@ import { Layout, Typography } from 'antd';
 import { auth } from './Auth';
 import { RouteComponentProps } from 'react-router';
 import { UserContext } from '../Context/UserContext';
+import { Statuses } from '../Context/StatusTypes';
 
 interface ChildComponentProps extends RouteComponentProps { }
 
@@ -21,7 +22,7 @@ export default function Login(props: ChildComponentProps): JSX.Element {
     const onFinish = async (values: { email: string, password: string }) => {
         auth(values.email).then(userData => {
             if (userData.length > 0) {
-
+                userData[0].status = Statuses.Active;
                 setCurrentUser(userData[0])
                 props.history.push("/dashboard")
 
