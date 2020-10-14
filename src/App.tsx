@@ -8,7 +8,7 @@ import { SelectedChatProvider } from './Context/SelectedChatContext';
 import { PrivateRoute } from './Common/PrivateRoute';
 import { FriendProvider } from './Context/FriendContext';
 import { NotificationProvider } from './Context/NotificationContext';
-
+import { DrawerVisibleProvider } from './Context/DrawerVisibleContext';
 
 function App(): JSX.Element {
 
@@ -20,9 +20,9 @@ function App(): JSX.Element {
             <Route exact path="/" component={Login}></Route>
             <FriendProvider>
               <NotificationProvider>
-
-                <PrivateRoute path="/dashboard" component={Dashboard}></PrivateRoute>
-
+                <DrawerVisibleProvider>
+                  <PrivateRoute path="/dashboard" component={Dashboard}></PrivateRoute>
+                </DrawerVisibleProvider>
               </NotificationProvider>
             </FriendProvider>
           </Router>

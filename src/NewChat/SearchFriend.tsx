@@ -21,9 +21,7 @@ export default function SearchFriend() {
         return friends.filter(friend => friend.email === email)
     }
 
-    function onSelect(option: MentionProps) {
-        // check if chat already exists with user will be implemented on backend
-        const selectedFriend = getFriendByEmail(option.value)
+    function newChat(friend: userData) {
         let chatList = chats;
         const chatId = uuidv4();
         chatList.push({
@@ -34,8 +32,8 @@ export default function SearchFriend() {
                     displayName: currentUser.displayName
                 },
                 {
-                    id: selectedFriend[0].id,
-                    displayName: selectedFriend[0].displayName
+                    id: friend.id,
+                    displayName: friend.displayName
 
                 }
             ],
@@ -43,6 +41,12 @@ export default function SearchFriend() {
         })
         setChats([...chatList])
         setSelectedChat(chatId)
+    }
+
+    function onSelect(option: MentionProps) {
+        // check if chat already exists with user will be implemented on backend
+        const selectedFriend = getFriendByEmail(option.value)
+        newChat(selectedFriend[0])
 
     }
     return (
