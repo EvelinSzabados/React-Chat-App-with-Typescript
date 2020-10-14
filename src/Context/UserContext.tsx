@@ -8,7 +8,7 @@ export type userData = {
     status: Statuses
 }
 //initial state is filled for testing purposes
-const initialState = { id: '1', email: null, displayName: 'Evelin Szabados', status: Statuses.Offline };
+const initialState = { id: '1', email: 'evelin@gmail.com', displayName: 'Evelin Szabados', status: Statuses.Offline };
 
 interface ContextState {
     currentUser: userData,
@@ -22,7 +22,7 @@ export const UserContext = createContext<ContextState>(
         setCurrentUser: () => { }
     });
 
-export const UserProvider = (props: any): JSX.Element => {
+export const UserProvider = (props: { children: React.ReactNode; }): JSX.Element => {
 
     const [currentUser, setCurrentUser] = useState<userData>(initialState);
 

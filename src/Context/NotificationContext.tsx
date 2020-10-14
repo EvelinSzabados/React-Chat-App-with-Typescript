@@ -57,7 +57,7 @@ export const NotificationContext = createContext<ContextState>(
         setNotifications: () => { }
     });
 
-export const NotificationProvider = (props: any): JSX.Element => {
+export const NotificationProvider = (props: { children: React.ReactNode; }): JSX.Element => {
     const { currentUser } = useContext(UserContext);
     const [notifications, setNotifications] = useState<notificationType[]>(initialState);
 
