@@ -7,44 +7,21 @@ import { userData } from '../Context/UserContext';
 import { SelectedChatContext } from '../Context/SelectedChatContext';
 import { ChatContext } from '../Context/ChatContext';
 import { DrawerVisibleContext } from '../Context/DrawerVisibleContext';
-import { v4 as uuidv4 } from 'uuid';
-import { UserContext } from '../Context/UserContext';
+import WithNewChat from '../Common/WithNewChat'
 
-export default function Friends() {
+function Friends(props: { newChat: (friend: userData) => void }) {
     const { Search } = Input;
     const { friends } = useContext(FriendContext);
     const { setSelectedChat } = useContext(SelectedChatContext);
-    const { chats, setChats } = useContext(ChatContext);
+    const { chats } = useContext(ChatContext);
     const [searchResults, setSearchResults] = useState<userData[]>(friends.slice(0, 5))
     const { setVisible } = useContext(DrawerVisibleContext)
-    const { currentUser } = useContext(UserContext);
+
 
     const searchUsers = (searchValue: string) => {
         let result = friends.filter(friend => friend.displayName?.includes(searchValue)
             || friend.email?.includes(searchValue))
         setSearchResults(result)
-    }
-
-    const newChat = (friend: userData) => {
-        let chatList = chats;
-        const chatId = uuidv4();
-        chatList.push({
-            chatId: chatId,
-            users: [
-                {
-                    id: currentUser.id,
-                    displayName: currentUser.displayName
-                },
-                {
-                    id: friend.id,
-                    displayName: friend.displayName
-
-                }
-            ],
-            messages: []
-        })
-        setChats([...chatList])
-        setSelectedChat(chatId)
     }
 
     const getChatWithFriend = (friendId: string | null) => {
@@ -75,7 +52,8 @@ export default function Friends() {
             setVisible(false)
             message.loading('Loading...', 0.75)
             setTimeout(() => {
-                newChat(friend)
+
+                props.newChat(friend)
             }, 700)
 
 
@@ -119,3 +97,4 @@ export default function Friends() {
         </React.Fragment>
     )
 }
+export default WithNewChat(Friends)
