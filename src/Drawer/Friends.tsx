@@ -7,9 +7,14 @@ import { userData } from '../Context/UserContext';
 import { SelectedChatContext } from '../Context/SelectedChatContext';
 import { ChatContext } from '../Context/ChatContext';
 import { DrawerVisibleContext } from '../Context/DrawerVisibleContext';
-import WithNewChat from '../Common/WithNewChat'
+import WithChatActions from '../Common/WithChatActions'
+import { chatData } from '../Context/ChatData';
 
-function Friends(props: { newChat: (friend: userData) => void }) {
+interface PropTypes {
+    newChat?: (friend: userData) => void,
+    deleteFriend?: (friend: userData, friendChat: chatData) => {}
+}
+function Friends(props: PropTypes) {
     const { Search } = Input;
     const { friends } = useContext(FriendContext);
     const { setSelectedChat } = useContext(SelectedChatContext);
@@ -24,36 +29,35 @@ function Friends(props: { newChat: (friend: userData) => void }) {
         setSearchResults(result)
     }
 
-    const getChatWithFriend = (friendId: string | null) => {
+    function getChatWithFriend(friendId: string | null): chatData {
 
-        let chatIdWithFriend = '';
+        let chatWithFriend = null;
         chats.forEach(chat => {
             if (chat !== null) {
                 if (chat?.users.filter(user => user.id === friendId).length > 0) {
-                    chatIdWithFriend = chat.chatId
+                    chatWithFriend = chat
                 }
             }
-
         })
-        return chatIdWithFriend;
+        return chatWithFriend;
 
     }
 
     const handleFriendActions = (friend: userData) => {
         const chatWithFriend = getChatWithFriend(friend.id)
-        if (chatWithFriend !== '') {
+        if (chatWithFriend !== null) {
             setVisible(false)
             message.loading('Loading...', 0.75)
             setTimeout(() => {
-                setSelectedChat(chatWithFriend)
+                setSelectedChat(chatWithFriend?.chatId)
             }, 700)
 
         } else {
             setVisible(false)
             message.loading('Loading...', 0.75)
             setTimeout(() => {
-
-                props.newChat(friend)
+                if (props.newChat !== undefined)
+                    props.newChat(friend)
             }, 700)
 
 
@@ -78,10 +82,15 @@ function Friends(props: { newChat: (friend: userData) => void }) {
                                 [<Tag color="geekblue" onClick={() => { handleFriendActions(friend) }} style={{ cursor: 'pointer' }} icon={<MessageOutlined />}>Message</Tag>,
                                 <Popconfirm
                                     title="Are you sure？"
-                                    onConfirm={() => { console.log(`Deleted ${friend.displayName}`) }}
+                                    onConfirm={() => {
+                                        if (props.deleteFriend !== undefined)
+                                            props.deleteFriend(friend, getChatWithFriend(friend.id))
+
+                                    }}
                                     icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
                                 >
                                     <Tag style={{ cursor: 'pointer' }} icon={<DeleteOutlined />} color="error">Delete</Tag>
+                                    {/* props.deleteFriend(friend, getChatWithFriend(friend.id)) */}
                                 </Popconfirm>,
                                 ]
                             }>
@@ -97,4 +106,4 @@ function Friends(props: { newChat: (friend: userData) => void }) {
         </React.Fragment>
     )
 }
-export default WithNewChat(Friends)
+export default WithChatActions(Friends)

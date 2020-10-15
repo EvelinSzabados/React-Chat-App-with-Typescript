@@ -3,7 +3,7 @@ import { Mentions } from 'antd';
 import { MentionProps } from 'antd/lib/mentions';
 import { FriendContext } from '../Context/FriendContext';
 import { userData } from '../Context/UserContext';
-import WithNewChat from '../Common/WithNewChat';
+import WithChatActions from '../Common/WithChatActions';
 
 function SearchFriend(props: { newChat: (friend: userData) => void }) {
 
@@ -37,4 +37,4 @@ function SearchFriend(props: { newChat: (friend: userData) => void }) {
     )
 }
 
-export default WithNewChat(SearchFriend)
+export default WithChatActions(SearchFriend)

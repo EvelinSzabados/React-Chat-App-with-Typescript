@@ -50,7 +50,7 @@ export default function DrawerContent() {
 
                 <Tabs animated={true} tabPosition="top" defaultActiveKey="1" type="card" size='large'>
                     <TabPane tab="Friends" key="1">
-                        <Friends />
+                        <Friends newChat={() => { }} />
                     </TabPane>
                     <TabPane tab={<span> Notifications <Badge size="small"
                         count={notifications.filter(notif => notif.reciever.id === currentUser.id).length} /></span>} key="2">
