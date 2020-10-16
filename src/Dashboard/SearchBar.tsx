@@ -16,7 +16,18 @@ export default function SearchBar() {
 
     const sendFriendRequest = (user: userData) => {
 
+        let notifArray = notifications;
+        notifArray.push(
+            {
+                id: uuidv4(),
+                sender: currentUser,
+                reciever: user,
+                accepted: false
 
+            }
+        )
+        setTimeout(() => { setNotifications([...notifArray]) }, 700)
+        message.success(`Your friend request was successfully sent to ${user.displayName}`, 700)
     }
     const renderItem = (user: userData) => {
         const hasPendingNotification = notifications.filter(notif => notif.reciever.id === user.id || notif.sender.id === user.id).length > 0;
