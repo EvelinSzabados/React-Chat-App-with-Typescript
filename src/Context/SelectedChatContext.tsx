@@ -13,7 +13,7 @@ export const SelectedChatContext = createContext<ContextState>(
         setSelectedChat: () => { }
     });
 
-export const SelectedChatProvider = (props: any): JSX.Element => {
+export const SelectedChatProvider = (props: { children: React.ReactNode; }): JSX.Element => {
 
     const [selectedChat, setSelectedChat] = useState<string>('');
 

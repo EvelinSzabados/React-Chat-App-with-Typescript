@@ -1,6 +1,6 @@
 import { Statuses } from "../Context/StatusTypes";
 
-const users = [
+export const users = [
     {
         id: '1',
         email: 'evelin@gmail.com',

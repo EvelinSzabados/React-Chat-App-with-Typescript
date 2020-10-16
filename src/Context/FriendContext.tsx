@@ -27,6 +27,8 @@ const initialState = [
 
     },
 
+
+
 ];
 
 interface ContextState {
@@ -41,7 +43,7 @@ export const FriendContext = createContext<ContextState>(
         setFriends: () => { }
     });
 
-export const FriendProvider = (props: any): JSX.Element => {
+export const FriendProvider = (props: { children: React.ReactNode; }): JSX.Element => {
 
     const [friends, setFriends] = useState<userData[]>(initialState);
 

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import { Layout, List, Avatar, Drawer } from 'antd';
 import { Row, Col } from 'antd';
 import { ChatViewContainer, DashboardContent, ChatListContainer, ChatListItemContainer, Scrollable } from './Style';
@@ -11,6 +11,7 @@ import ChatMessageInput from './ChatMessageInput';
 import { RouteComponentProps } from 'react-router';
 import FloatingButton from '../NewChat/FloatingButton';
 import DrawerContent from '../Drawer/Drawer';
+import { DrawerVisibleContext } from '../Context/DrawerVisibleContext';
 
 interface ChildComponentProps extends RouteComponentProps { }
 
@@ -19,7 +20,7 @@ export default function Dashboard(props: ChildComponentProps): JSX.Element {
     const { chats } = useContext(ChatContext);
     const { currentUser } = useContext(UserContext);
     const { selectedChat, setSelectedChat } = useContext(SelectedChatContext);
-    const [visible, setVisible] = useState(false)
+    const { visible, setVisible } = useContext(DrawerVisibleContext)
 
 
     const ProfileDrawer = () => {

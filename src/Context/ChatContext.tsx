@@ -16,7 +16,7 @@ export const ChatContext = createContext<ContextState>(
         setChats: () => { }
     });
 
-export const ChatProvider = (props: any) => {
+export const ChatProvider = (props: { children: React.ReactNode; }) => {
 
     const [chats, setChats] = useState<chatData[]>([]);
     const { currentUser } = useContext(UserContext);
