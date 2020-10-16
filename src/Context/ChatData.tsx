@@ -1,3 +1,5 @@
+import { Statuses } from "./StatusTypes";
+
 export type messageData = { senderId: string, message: string, sent: Date } | null
 export type chatData = { chatId: string, users: any[], messages: messageData[] } | null
 
@@ -7,11 +9,15 @@ const data = [
         users: [
             {
                 id: '1',
-                displayName: 'Evelin Szabados'
+                email: 'evelin@gmail.com',
+                displayName: "Evelin Szabados",
+                status: Statuses.Offline
             },
             {
                 id: '2',
-                displayName: 'Tamás Sallai'
+                email: 'tamas@gmail.com',
+                displayName: "Tamás Sallai",
+                status: Statuses.Offline
             }
         ],
         messages: [
@@ -34,11 +40,15 @@ const data = [
         users: [
             {
                 id: '1',
-                displayName: 'Evelin Szabados'
+                email: 'evelin@gmail.com',
+                displayName: "Evelin Szabados",
+                status: Statuses.Offline
             },
             {
                 id: '3',
-                displayName: 'Eszter Lévai'
+                email: 'eszter@gmail.com',
+                displayName: "Eszter Lévai",
+                status: Statuses.Offline
             }
         ],
         messages: [

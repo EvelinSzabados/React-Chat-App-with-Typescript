@@ -35,7 +35,7 @@ export default function SearchBar() {
         return {
             value: user.displayName === null ? '' : user.displayName,
             label: (
-                <div style={{ display: 'flex', justifyContent: 'space-between', cursor: 'default' }}>
+                <div key={user.id} style={{ display: 'flex', justifyContent: 'space-between', cursor: 'default' }}>
                     <React.Fragment>
                         <span style={{ minWidth: '150px' }}>{user.displayName}</span>
                     </React.Fragment>
