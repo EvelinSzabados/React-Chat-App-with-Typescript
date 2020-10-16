@@ -1,8 +1,10 @@
 import React, { useContext, useState } from 'react';
 import { InputContainer, MessageInput, SubmitButton } from './Style';
+import { Popover } from 'antd';
 import { SendOutlined, SmileOutlined, FileAddOutlined } from '@ant-design/icons';
 import { ChatContext } from '../Context/ChatContext';
 import { UserContext } from '../Context/UserContext';
+import Picker, { IEmojiData } from 'emoji-picker-react';
 
 
 export default function ChatMessageInput(props: { chat: string }) {
@@ -11,6 +13,11 @@ export default function ChatMessageInput(props: { chat: string }) {
     let selectedChat = props.chat;
     const [message, setMessage] = useState('');
 
+
+    const onEmojiClick = (event: MouseEvent, emojiObject: IEmojiData) => {
+
+        setMessage(message + " " + emojiObject.emoji)
+    };
 
     const iconStyle = { fontSize: '25px', margin: '5px', cursor: 'pointer', color: '#51588e' };
 
@@ -35,7 +42,11 @@ export default function ChatMessageInput(props: { chat: string }) {
             <form id="sendmsg" onSubmit={(e) => { sendMessage(e) }}>
                 <MessageInput type="text" value={message} onChange={(e) => { setMessage(e.target.value) }} />
                 <FileAddOutlined style={iconStyle} />
-                <SmileOutlined style={iconStyle} />
+
+                <Popover content={<Picker onEmojiClick={onEmojiClick} />} title="Select emoji" trigger="click">
+                    <SmileOutlined style={iconStyle} />
+                </Popover>
+
                 <SubmitButton type="submit"><SendOutlined
                     style={iconStyle}
                 /></SubmitButton>
