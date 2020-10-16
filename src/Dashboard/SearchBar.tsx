@@ -36,14 +36,14 @@ export default function SearchBar() {
             value: user.displayName === null ? '' : user.displayName,
             label: (
                 <div style={{ display: 'flex', justifyContent: 'space-between', cursor: 'default' }}>
+                    <React.Fragment>
+                        <span style={{ minWidth: '150px' }}>{user.displayName}</span>
+                    </React.Fragment>
                     {!hasPendingNotification ?
-                        <React.Fragment>
-                            <span style={{ minWidth: '150px' }}>{user.displayName}</span>
-                            <Button onClick={() => { sendFriendRequest(user) }} style={{ width: '150px' }}>Send friend request</Button>
-                        </React.Fragment> : <React.Fragment>
-                            <span style={{ minWidth: '150px' }}>{user.displayName}</span>
-                            <Button disabled style={{ width: '150px' }}>Pending request</Button>
-                        </React.Fragment>}
+                        <Button onClick={() => { sendFriendRequest(user) }} style={{ width: '150px' }}>Send friend request</Button>
+                        :
+                        <Button disabled style={{ width: '150px' }}>Pending request</Button>
+                    }
                 </div >
             ),
         };
