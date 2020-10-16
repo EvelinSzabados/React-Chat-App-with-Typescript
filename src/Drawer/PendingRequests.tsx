@@ -14,7 +14,7 @@ export default function PendingRequests() {
         notificationArray.splice(index, 1);
 
         setNotifications([...notificationArray]);
-        message.success(`Friendrequest of ${notif.reciever?.displayName} is withdrawend`, 5);
+        message.success(`Friendrequest of ${notif.reciever?.displayName} is withdrawend`, 3);
 
     }
 
