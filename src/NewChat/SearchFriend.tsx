@@ -24,7 +24,7 @@ function SearchFriend(props: { newChat: (friend: userData) => void }) {
     }
     return (
         <Mentions style={{ width: '100%' }}
-            onSelect={onSelect} placeholder="@friend email" autoSize={false}>
+            onSelect={onSelect} prefix='' placeholder="@friend email" autoSize={false} defaultValue=''>
             {friends.map(({ id, displayName, email }) => (
                 <Option key={id} value={email !== null ? email : ''} className="antd-demo-dynamic-option">
                     <span>{displayName} - </span>
