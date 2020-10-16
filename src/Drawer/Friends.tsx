@@ -24,7 +24,7 @@ function Friends(props: PropTypes) {
 
 
     const searchUsers = (searchValue: string) => {
-        let result = friends.filter(friend => friend.displayName?.includes(searchValue)
+        let result = friends.filter(friend => friend.displayName?.toLocaleLowerCase().includes(searchValue.toLowerCase())
             || friend.email?.includes(searchValue))
         setSearchResults(result)
     }
