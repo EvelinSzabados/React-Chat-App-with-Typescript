@@ -83,14 +83,21 @@ function Friends(props: PropTypes) {
                                 <Popconfirm
                                     title="Are you sure？"
                                     onConfirm={() => {
-                                        if (props.deleteFriend !== undefined)
-                                            props.deleteFriend(friend, getChatWithFriend(friend.id))
+
+                                        message.loading('Loading...', 0.75)
+                                        setTimeout(() => {
+                                            if (props.deleteFriend !== undefined) {
+                                                props.deleteFriend(friend, getChatWithFriend(friend.id))
+                                                setVisible(false)
+                                            }
+                                        }, 700)
+
+
 
                                     }}
                                     icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
                                 >
                                     <Tag style={{ cursor: 'pointer' }} icon={<DeleteOutlined />} color="error">Delete</Tag>
-                                    {/* props.deleteFriend(friend, getChatWithFriend(friend.id)) */}
                                 </Popconfirm>,
                                 ]
                             }>
