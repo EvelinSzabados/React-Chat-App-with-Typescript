@@ -15,7 +15,6 @@ export default function ChatMessageInput(props: { chat: string }) {
 
 
     const onEmojiClick = (event: MouseEvent, emojiObject: IEmojiData) => {
-
         setMessage(message + " " + emojiObject.emoji)
     };
 
