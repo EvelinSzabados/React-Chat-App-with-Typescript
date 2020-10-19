@@ -6,6 +6,7 @@ import { SelectedChatContext } from '../Context/SelectedChatContext';
 import { ChatContext } from '../Context/ChatContext';
 import { FriendContext } from '../Context/FriendContext';
 import { chatData } from '../Context/ChatData';
+import { Statuses } from '../Context/StatusTypes';
 
 interface ComponentProps {
     newChat: (friend: userData) => void
@@ -26,11 +27,13 @@ export default function WithChatActions<T>(Component: React.ComponentType<T & Co
                 users: [
                     {
                         id: currentUser.id,
-                        displayName: currentUser.displayName
+                        displayName: currentUser.displayName,
+                        status: Statuses.Offline
                     },
                     {
                         id: friend.id,
-                        displayName: friend.displayName
+                        displayName: friend.displayName,
+                        status: Statuses.Offline
 
                     }
                 ],

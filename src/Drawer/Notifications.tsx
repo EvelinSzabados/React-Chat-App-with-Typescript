@@ -18,11 +18,11 @@ export default function Notifications() {
 
         setNotifications([...notificationArray]);
         if (accepted) {
-            message.success(`Friendrequest of ${notif.sender?.displayName} is accepted`, 5);
+            message.success(`Friendrequest of ${notif.sender?.displayName} is accepted`, 3);
             setFriends([...friends, notif.sender])
 
         } else {
-            message.success(`Friendrequest of ${notif.sender?.displayName} is declined`, 5);
+            message.success(`Friendrequest of ${notif.sender?.displayName} is declined`, 3);
         }
 
 

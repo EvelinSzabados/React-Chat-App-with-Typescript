@@ -37,6 +37,12 @@ export const users = [
         displayName: "Cecília Tóth",
         status: Statuses.Offline
     },
+    {
+        id: '7',
+        email: 'bence@gmail.com',
+        displayName: "Bence Faragó",
+        status: Statuses.Offline
+    },
 ]
 export async function auth(email: string | null): Promise<any[]> {
     return users.filter(user => user.email === email);

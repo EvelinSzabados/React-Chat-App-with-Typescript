@@ -4,6 +4,7 @@ import { LogoutOutlined, UserOutlined } from '@ant-design/icons';
 import { UserContext } from '../Context/UserContext';
 import { NotificationContext } from '../Context/NotificationContext';
 import { Statuses } from '../Context/StatusTypes';
+import SearchBar from './SearchBar';
 
 export default function Header(props: { setVisible: React.Dispatch<React.SetStateAction<boolean>> }): JSX.Element {
 
@@ -31,6 +32,7 @@ export default function Header(props: { setVisible: React.Dispatch<React.SetStat
                 </React.Fragment>}
 
                 extra={[
+                    <SearchBar />,
                     <Tooltip key={'Logout'} placement="bottom" title="Log out">
                         <LogoutOutlined style={{ fontSize: '30px', color: 'white', cursor: 'pointer' }}
                             role="button"
