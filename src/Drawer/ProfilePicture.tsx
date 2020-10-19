@@ -15,9 +15,9 @@ export default function ProfilePicture() {
 
     return (
         <Popover placement="left" content={
-            <label style={{ width: '50%', margin: '0 auto', border: 'none', cursor: 'pointer' }}>
+            <label style={{ width: '50%', cursor: 'pointer' }}>
                 <UploadOutlined />
-                Change profile picture
+                <span style={{ marginLeft: '5px' }}>Change profile picture</span>
                 <input style={{ display: "none" }} type="file" onChange={(e) => { upload(e.target.files) }} />
             </label>
         }>

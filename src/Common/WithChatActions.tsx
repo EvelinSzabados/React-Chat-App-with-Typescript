@@ -10,6 +10,7 @@ import { Statuses } from '../Context/StatusTypes';
 
 interface ComponentProps {
     newChat: (friend: userData) => void
+    deleteFriend: (friend: userData, friendChat: chatData) => void
 }
 export default function WithChatActions<T>(Component: React.ComponentType<T & ComponentProps>) {
 
