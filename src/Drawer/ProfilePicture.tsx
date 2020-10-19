@@ -6,7 +6,7 @@ import { UserOutlined, UploadOutlined } from '@ant-design/icons';
 export default function ProfilePicture() {
     const [profilePicUrl, setProfilePicUrl] = useState('')
 
-    function upload(files: any) {
+    function upload(files: FileList | null) {
         if (files && files[0]) {
             setProfilePicUrl(URL.createObjectURL(files[0]))
             message.success(`${files[0].name} file uploaded successfully`, 3);
