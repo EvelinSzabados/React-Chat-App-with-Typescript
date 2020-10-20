@@ -25,7 +25,6 @@ export default function Notifications() {
             message.success(`Friendrequest of ${notif.sender?.displayName} is declined`, 3);
         }
 
-
     }
     return (
         <List

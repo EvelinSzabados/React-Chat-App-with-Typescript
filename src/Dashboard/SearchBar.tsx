@@ -36,9 +36,9 @@ export default function SearchBar() {
             value: user.displayName === null ? '' : user.displayName,
             label: (
                 <div key={user.id} style={{ display: 'flex', justifyContent: 'space-between', cursor: 'default' }}>
-                    <React.Fragment>
-                        <span style={{ minWidth: '150px' }}>{user.displayName}</span>
-                    </React.Fragment>
+
+                    <span style={{ minWidth: '150px' }}>{user.displayName}</span>
+
                     {!hasPendingNotification ?
                         <Button onClick={() => { sendFriendRequest(user) }} style={{ width: '150px' }}>Send friend request</Button>
                         :

@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { Avatar, Popover, message } from 'antd';
 import { UserOutlined, UploadOutlined } from '@ant-design/icons';
 
-
 export default function ProfilePicture() {
     const [profilePicUrl, setProfilePicUrl] = useState('')
 

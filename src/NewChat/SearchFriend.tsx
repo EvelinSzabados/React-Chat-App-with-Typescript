@@ -5,7 +5,7 @@ import { FriendContext } from '../Context/FriendContext';
 import { userData } from '../Context/UserContext';
 import WithChatActions from '../Common/WithChatActions';
 
-function SearchFriend(props: { newChat: (friend: userData) => void }) {
+function SearchFriend(props: { newChat?: (friend: userData) => void }) {
 
     const { friends } = useContext(FriendContext);
     const { Option } = Mentions;
@@ -19,7 +19,8 @@ function SearchFriend(props: { newChat: (friend: userData) => void }) {
     function onSelect(option: MentionProps) {
         // check if chat already exists with user will be implemented on backend
         const selectedFriend = getFriendByEmail(option.value)
-        props.newChat(selectedFriend[0])
+        if (props.newChat !== undefined)
+            props.newChat(selectedFriend[0])
 
     }
     return (

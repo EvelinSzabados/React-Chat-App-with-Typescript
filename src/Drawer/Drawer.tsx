@@ -9,7 +9,6 @@ import PendingRequests from './PendingRequests'
 import { NotificationContext } from '../Context/NotificationContext';
 import { Statuses, StatusColors } from '../Context/StatusTypes';
 
-
 export default function DrawerContent() {
 
     const { currentUser, setCurrentUser } = useContext(UserContext);
