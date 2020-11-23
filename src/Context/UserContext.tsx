@@ -1,5 +1,7 @@
-import React, { useState, createContext, Dispatch, SetStateAction } from "react";
+import React, { useState, createContext, Dispatch, SetStateAction, useEffect } from "react";
 import { Statuses } from "./StatusTypes";
+import { gql } from '@apollo/client';
+import { client } from "../index"
 
 export type userData = {
     id: string | null,
@@ -8,7 +10,7 @@ export type userData = {
     status: Statuses
 }
 //initial state is filled for testing purposes
-const initialState = { id: '1', email: 'evelin@gmail.com', displayName: 'Evelin Szabados', status: Statuses.Offline };
+let initialState = { id: null, email: null, displayName: null, status: Statuses.Offline };
 
 interface ContextState {
     currentUser: userData,
@@ -22,9 +24,21 @@ export const UserContext = createContext<ContextState>(
         setCurrentUser: () => { }
     });
 
-export const UserProvider = (props: { children: React.ReactNode; }): JSX.Element => {
+export const UserProvider = (props: { children: React.ReactNode; }): JSX.Element | null => {
 
     const [currentUser, setCurrentUser] = useState<userData>(initialState);
+    const GET_USER = gql`
+    query currentUser {
+        currentUser{id,displayName,email,status,profilePictureUrl}
+    }
+  `;
+    useEffect(() => {
+        client.query({
+            query: GET_USER
+        }).then(response => setCurrentUser(response.data.currentUser))
+    }, [])
+
+
 
     return (
         <UserContext.Provider
@@ -33,3 +47,4 @@ export const UserProvider = (props: { children: React.ReactNode; }): JSX.Element
         </UserContext.Provider>
     );
 };
+

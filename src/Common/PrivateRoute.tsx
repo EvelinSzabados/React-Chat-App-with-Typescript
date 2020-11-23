@@ -7,7 +7,7 @@ export function PrivateRoute<T extends RouteProps>({ component: Component, ...re
     if (!Component) return null;
 
     return (<Route {...rest} render={(props) => (
-        currentUser.id !== null
+        localStorage.getItem('user') !== null
             ? <Component {...props} />
             : <Redirect to="/" />
     )} />)

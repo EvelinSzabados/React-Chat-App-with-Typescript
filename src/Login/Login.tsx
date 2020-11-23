@@ -4,8 +4,8 @@ import styled from '@emotion/styled';
 import { Layout, Typography } from 'antd';
 import { RouteComponentProps } from 'react-router';
 import { UserContext } from '../Context/UserContext';
-import { gql } from 'apollo-boost';
-import { useMutation } from 'react-apollo';
+
+import { gql, useMutation } from '@apollo/client';
 
 
 interface ChildComponentProps extends RouteComponentProps { }
@@ -33,13 +33,14 @@ export default function Login(props: ChildComponentProps): JSX.Element {
     const onFinish = async (values: { email: string, password: string }) => {
 
         login({ variables: { email: values.email, password: values.password } })
-            .then(response => {
+            .then((response: any) => {
 
                 setCurrentUser(response.data.login.user)
+                localStorage.setItem('user', 'true');
                 props.history.push("/dashboard")
 
 
-            }).catch(error => alert("No account found! Try again!"))
+            }).catch((error: any) => alert("No account found! Try again!"))
 
     }
 
