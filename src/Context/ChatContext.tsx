@@ -1,8 +1,9 @@
 import React, { useState, createContext, Dispatch, SetStateAction, useEffect, useContext } from "react";
 import { UserContext } from '../Context/UserContext';
-import { chatData, allChat } from './ChatData';
+import { chatData } from './ChatData';
 import { SelectedChatContext } from '../Context/SelectedChatContext';
-;
+import { client } from "../index"
+import { gql } from "apollo-boost";
 
 interface ContextState {
     chats: chatData[],
@@ -18,18 +19,27 @@ export const ChatContext = createContext<ContextState>(
 
 export const ChatProvider = (props: { children: React.ReactNode; }) => {
 
-    const [chats, setChats] = useState<chatData[]>([]);
+    const [chats, setChats] = useState<any[]>([]);
     const { currentUser } = useContext(UserContext);
     const { setSelectedChat } = useContext(SelectedChatContext);
 
 
     useEffect(() => {
         if (currentUser.id !== null) {
-            const allChatData = allChat(currentUser.id)
-            setChats(allChatData);
-            if (allChatData[0] !== null && allChatData.length !== 0) {
-                setSelectedChat(allChatData[0].chatId)
-            }
+
+            client.query({
+                query: gql`
+                  {
+                    chats{
+                id,lastUpdated,messages{id,text,sender{id,email,displayName,status,profilePictureUrl}},users{id,email,displayName,status,profilePictureUrl}
+            }                  }
+                `
+            }).then((response: any) => setChats(response.data.chats))
+
+            // if (chats[0] !== null && chats.length !== 0) {
+            //     setSelectedChat(chats[0].id)
+            // }
+            setSelectedChat('43')
         }
 
     }, [currentUser, setSelectedChat])

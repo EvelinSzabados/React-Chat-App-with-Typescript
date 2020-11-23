@@ -23,14 +23,13 @@ export default function ChatMessageInput(props: { chat: string }) {
     const sendMessage = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         let allChats = chats;
-        let currentChat = allChats.filter(chat => chat?.chatId === selectedChat);
-        if (currentChat[0] !== null && currentUser.id !== null) {
-            currentChat[0]?.messages.push({
-                senderId: currentUser.id,
-                message: message,
-                sent: new Date(),
-            })
-        }
+        let currentChat = allChats.filter(chat => chat?.id === selectedChat);
+        // if (currentChat[0] !== null && currentUser.id !== null) {
+        //     currentChat[0]?.messages.push({
+        //         sender: currentUser.id,
+        //         text: message,
+        //     })
+        // }
 
         setChats([...allChats])
         setMessage('');

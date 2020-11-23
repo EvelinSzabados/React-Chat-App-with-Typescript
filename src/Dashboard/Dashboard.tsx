@@ -56,13 +56,13 @@ export default function Dashboard(props: ChildComponentProps): JSX.Element {
                                         renderItem={chat => {
                                             const friend: userData = chat?.users.filter(user => user.id !== currentUser.id)[0]
 
-                                            return (<ChatListItemContainer selected={chat?.chatId === selectedChat ? true : false}>
+                                            return (<ChatListItemContainer selected={chat?.id === selectedChat ? true : false}>
                                                 {chat !== null && friend !== null ?
-                                                    <List.Item key={chat.chatId} onClick={() => { setSelectedChat(chat.chatId) }}>
+                                                    <List.Item key={chat.id} onClick={() => { setSelectedChat(chat.id) }}>
                                                         <List.Item.Meta
                                                             avatar={<Badge offset={[0, 30]} color={StatusColors[friend.status]}><Avatar size={40} style={{ backgroundColor: '#51588e' }}>{friend.displayName?.slice(0, 1)}</Avatar></Badge>}
                                                             title={friend.displayName}
-                                                            description={chat.messages.length === 0 ? 'No messages yet' : chat.messages[chat.messages.length - 1]?.message.slice(0, 30)}
+                                                            description={chat.messages.length === 0 ? 'No messages yet' : chat.messages[chat.messages.length - 1]?.text.slice(0, 30)}
                                                         />
                                                     </List.Item> : <div>No chats available</div>}
 

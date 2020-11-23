@@ -9,6 +9,7 @@ import { PrivateRoute } from './Common/PrivateRoute';
 import { FriendProvider } from './Context/FriendContext';
 import { NotificationProvider } from './Context/NotificationContext';
 import { DrawerVisibleProvider } from './Context/DrawerVisibleContext';
+import Test from './Test';
 
 function App(): JSX.Element {
 
@@ -22,6 +23,7 @@ function App(): JSX.Element {
               <NotificationProvider>
                 <DrawerVisibleProvider>
                   <PrivateRoute path="/dashboard" component={Dashboard}></PrivateRoute>
+                  <PrivateRoute path="/test" component={Test}></PrivateRoute>
                 </DrawerVisibleProvider>
               </NotificationProvider>
             </FriendProvider>

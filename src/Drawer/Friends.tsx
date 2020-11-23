@@ -49,7 +49,7 @@ function Friends(props: PropTypes) {
             setVisible(false)
             message.loading('Loading...', 0.75)
             setTimeout(() => {
-                setSelectedChat(chatWithFriend?.chatId)
+                setSelectedChat(chatWithFriend?.id)
             }, 700)
 
         } else {

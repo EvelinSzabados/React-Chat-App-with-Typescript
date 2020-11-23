@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 export default function ChatViewContainer(props: { chat: string }) {
     const { currentUser } = useContext(UserContext);
     const { chats } = useContext(ChatContext);
-    let selectedChat = chats.filter(chatToDisplay => { return chatToDisplay?.chatId === props.chat })
+    let selectedChat = chats.filter(chatToDisplay => { return chatToDisplay?.id === props.chat })
 
     useEffect(() => {
         const chatView = document.getElementById('chat-container')!;
@@ -24,8 +24,8 @@ export default function ChatViewContainer(props: { chat: string }) {
                         if (messageData !== null && currentUser.id !== null) {
 
                             return (
-                                <MessageBox key={uuidv4()} isFriendSent={messageData.senderId !== currentUser.id}>
-                                    <Emoji text={messageData.message} />
+                                <MessageBox key={uuidv4()} isFriendSent={messageData.sender.id !== currentUser.id}>
+                                    <Emoji text={messageData.text} />
                                 </MessageBox>)
                         } else {
                             return null;

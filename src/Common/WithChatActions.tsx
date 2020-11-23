@@ -24,7 +24,7 @@ export default function WithChatActions<T>(Component: React.ComponentType<T & Co
             let chatList = chats;
             const chatId = uuidv4();
             chatList.push({
-                chatId: chatId,
+                id: chatId,
                 users: [
                     {
                         id: currentUser.id,
