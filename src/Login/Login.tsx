@@ -2,10 +2,11 @@ import React, { useContext } from 'react'
 import { Form, Input, Button } from 'antd';
 import styled from '@emotion/styled';
 import { Layout, Typography } from 'antd';
-import { auth } from './Auth';
 import { RouteComponentProps } from 'react-router';
 import { UserContext } from '../Context/UserContext';
-import { Statuses } from '../Context/StatusTypes';
+import { gql } from 'apollo-boost';
+import { useMutation } from 'react-apollo';
+
 
 interface ChildComponentProps extends RouteComponentProps { }
 
@@ -19,18 +20,28 @@ export default function Login(props: ChildComponentProps): JSX.Element {
     const [form] = Form.useForm();
     const { setCurrentUser } = useContext(UserContext);
 
+    const LOGIN_MUTATION = gql`
+        mutation login($email: String! ,$password: String!) {
+            login(email: $email, password: $password) {
+                token,
+                user{id,email,displayName,profilePictureUrl,status}
+            }
+        }
+  `;
+    const [login] = useMutation(LOGIN_MUTATION);
+
     const onFinish = async (values: { email: string, password: string }) => {
-        auth(values.email).then(userData => {
-            if (userData.length > 0) {
-                userData[0].status = Statuses.Active;
-                setCurrentUser(userData[0])
+
+        login({ variables: { email: values.email, password: values.password } })
+            .then(response => {
+
+                setCurrentUser(response.data.login.user)
                 props.history.push("/dashboard")
 
-            } else {
-                alert("No account found! Sign up!")
-            }
-        });
-    };
+
+            }).catch(error => alert("No account found! Try again!"))
+
+    }
 
     return (
         <Layout style={{ backgroundColor: 'white' }}>
@@ -53,6 +64,7 @@ export default function Login(props: ChildComponentProps): JSX.Element {
 
                     <Form.Item >
                         <p>Don't have an account? <a href="/signup">Sign up now!</a></p>
+
                         <Button type="primary" htmlType="submit">Submit</Button>
 
                     </Form.Item>
