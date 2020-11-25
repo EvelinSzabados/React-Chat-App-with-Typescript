@@ -4,7 +4,7 @@ import { UserContext } from '../Context/UserContext';
 import { Statuses } from "./StatusTypes";
 
 export type notificationType = {
-    id: string | null,
+    id: number | null,
     sender: userData,
     reciever: userData,
     accepted: boolean
@@ -12,23 +12,23 @@ export type notificationType = {
 
 const notificationData = [
     {
-        id: '1',
-        sender: { id: '5', email: 'adam@gmail.com', displayName: 'Ádám Kovács', status: Statuses.Offline },
-        reciever: { id: '1', email: 'evelin@gmail.com', displayName: 'Evelin Szabados', status: Statuses.Offline },
+        id: 1,
+        sender: { id: 5, email: 'adam@gmail.com', displayName: 'Ádám Kovács', status: Statuses.Offline },
+        reciever: { id: 1, email: 'evelin@gmail.com', displayName: 'Evelin Szabados', status: Statuses.Offline },
         accepted: false
 
     },
     {
-        id: '2',
-        sender: { id: '3', email: 'eszter@gmail.com', displayName: 'Eszter Lévai', status: Statuses.Offline },
-        reciever: { id: '4', email: 'norbert@gmail.com', displayName: 'Norbert Aranyos', status: Statuses.Offline },
+        id: 2,
+        sender: { id: 3, email: 'eszter@gmail.com', displayName: 'Eszter Lévai', status: Statuses.Offline },
+        reciever: { id: 4, email: 'norbert@gmail.com', displayName: 'Norbert Aranyos', status: Statuses.Offline },
         accepted: false
 
     },
     {
-        id: '3',
-        sender: { id: '1', email: 'evelin@gmail.com', displayName: 'Evelin Szabados', status: Statuses.Offline },
-        reciever: { id: '6', email: 'cecilia@gmail.com', displayName: 'Cecília Tóth', status: Statuses.Offline },
+        id: 3,
+        sender: { id: 1, email: 'evelin@gmail.com', displayName: 'Evelin Szabados', status: Statuses.Offline },
+        reciever: { id: 6, email: 'cecilia@gmail.com', displayName: 'Cecília Tóth', status: Statuses.Offline },
         accepted: false
 
     },]

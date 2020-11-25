@@ -21,7 +21,7 @@ export default function SearchBar() {
         let notifArray = notifications;
         notifArray.push(
             {
-                id: uuidv4(),
+                id: parseInt(uuidv4()),
                 sender: currentUser,
                 reciever: user,
                 accepted: false

@@ -4,7 +4,7 @@ import { gql } from '@apollo/client';
 import { client } from "../index"
 
 export type userData = {
-    id: string | null,
+    id: number | null,
     email: string | null,
     displayName: string | null,
     status: Statuses

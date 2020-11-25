@@ -8,34 +8,33 @@ import { gql, useSubscription } from '@apollo/client';
 import { chatData } from '../Context/ChatData';
 
 export default function ChatViewContainer(props: { chat: string }) {
-    const { currentUser } = useContext(UserContext);
-    const { chats, setChats } = useContext(ChatContext);
-    let allChat = chats;
-    let selectedChat = allChat.filter(chatToDisplay => chatToDisplay?.id === props.chat)[0]
-
 
     const MESSAGE_SUBSCRIPTION = gql`
-        subscription newMessage {
-            newMessage {
-                id,sender{id,email,status,displayName,profilePictureUrl},text,chat{id}
-            } 
-        }
-    `;
+    subscription newMessage {
+        newMessage {
+            id,sender{id,email,status,displayName,profilePictureUrl},text,chat{id}
+        } 
+    }
+`;
     const { data, loading } = useSubscription(MESSAGE_SUBSCRIPTION);
+
+    const { currentUser } = useContext(UserContext);
+    const { chats, setChats } = useContext(ChatContext);
+    const selectedChat = chats.filter(chatToDisplay => chatToDisplay?.id === props.chat)[0]
 
 
     useEffect(() => {
+        let allChat = JSON.parse(JSON.stringify(chats))
         if (!loading && data) {
 
             allChat.map((chat: chatData) => {
                 if (chat)
                     if (chat?.id === data.newMessage.chat.id) {
                         chat.messages.push(data.newMessage)
-                        Object.preventExtensions(allChat);
+
                     }
             })
             setChats([...allChat])
-
         }
     }, [data])
     useEffect(() => {

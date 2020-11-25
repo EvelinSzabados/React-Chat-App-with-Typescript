@@ -6,21 +6,21 @@ import { userData } from './UserContext';
 
 const initialState = [
     {
-        id: '2',
+        id: 2,
         email: "tamas@gmail.com",
         displayName: "Tamás Sallai",
         status: Statuses.Offline
 
     },
     {
-        id: '3',
+        id: 3,
         email: "eszter@gmail.com",
         displayName: "Eszter Lévai",
         status: Statuses.Offline
 
     },
     {
-        id: '4',
+        id: 4,
         email: "nobert@gmail.com",
         displayName: "Norbert Aranyos",
         status: Statuses.Offline

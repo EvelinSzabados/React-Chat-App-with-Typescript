@@ -29,7 +29,7 @@ function Friends(props: PropTypes) {
         setSearchResults(result)
     }
 
-    function getChatWithFriend(friendId: string | null): chatData {
+    function getChatWithFriend(friendId: number | null): chatData {
 
         let chatWithFriend = null;
         chats.forEach(chat => {
