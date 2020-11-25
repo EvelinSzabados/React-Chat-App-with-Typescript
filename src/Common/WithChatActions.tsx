@@ -38,7 +38,8 @@ export default function WithChatActions<T>(Component: React.ComponentType<T & Co
 
                     }
                 ],
-                messages: []
+                messages: [],
+                lastUpdated: Date.now().toString()
             })
             setChats([...chatList])
             setSelectedChat(chatId)

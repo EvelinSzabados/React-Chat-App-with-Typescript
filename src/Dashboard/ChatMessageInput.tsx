@@ -5,6 +5,8 @@ import { SendOutlined, SmileOutlined, FileAddOutlined } from '@ant-design/icons'
 import { ChatContext } from '../Context/ChatContext';
 import { UserContext } from '../Context/UserContext';
 import Picker, { IEmojiData } from 'emoji-picker-react';
+import { v4 as uuidv4 } from 'uuid';
+import { chatData } from '../Context/ChatData';
 
 
 export default function ChatMessageInput(props: { chat: string }) {
@@ -23,14 +25,21 @@ export default function ChatMessageInput(props: { chat: string }) {
     const sendMessage = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         let allChats = chats;
-        let currentChat = allChats.filter(chat => chat?.id === selectedChat);
-        // if (currentChat[0] !== null && currentUser.id !== null) {
-        //     currentChat[0]?.messages.push({
-        //         sender: currentUser.id,
-        //         text: message,
-        //     })
-        // }
-
+        allChats = JSON.parse(JSON.stringify(allChats))
+        allChats.map((chat: chatData) => {
+            if (chat) {
+                if (chat.id === selectedChat) {
+                    chat.messages.push(
+                        {
+                            id: uuidv4(),
+                            sender: currentUser,
+                            text: message,
+                            chat: JSON.parse(JSON.stringify(chat))
+                        }
+                    )
+                }
+            }
+        })
         setChats([...allChats])
         setMessage('');
 
