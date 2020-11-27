@@ -74,7 +74,7 @@ export default function SearchBar() {
             backfill={true}
             onChange={onChange}
             value={value}
-            style={{ width: 600 }}
+            style={{ width: 350 }}
             options={options}
             placeholder="Search people on MyChatApp"
         />

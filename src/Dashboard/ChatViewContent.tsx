@@ -16,11 +16,11 @@ export default function ChatViewContainer(props: { chat: string }) {
         } 
     }
 `;
-    const { data, loading } = useSubscription(MESSAGE_SUBSCRIPTION);
 
     const { currentUser } = useContext(UserContext);
     const { chats, setChats } = useContext(ChatContext);
     const selectedChat = chats.filter(chatToDisplay => chatToDisplay?.id === props.chat)[0]
+    const { data, loading } = useSubscription(MESSAGE_SUBSCRIPTION, { fetchPolicy: 'network-only', shouldResubscribe: true });
 
 
     useEffect(() => {

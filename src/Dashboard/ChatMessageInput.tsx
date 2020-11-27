@@ -27,13 +27,13 @@ export default function ChatMessageInput(props: { chat: string }) {
 
     const iconStyle = { fontSize: '25px', margin: '5px', cursor: 'pointer', color: '#51588e' };
 
-    const sendMessage = (e: React.FormEvent<HTMLFormElement>) => {
+    const sendMessage = async (e: React.FormEvent<HTMLFormElement>) => {
 
         e.preventDefault();
-        setMessage('');
         if (currentUser.id !== null) {
-            addMessage({ variables: { senderId: currentUser.id, chatId: parseInt(selectedChat), text: message } });
+            await addMessage({ variables: { senderId: currentUser.id, chatId: parseInt(selectedChat), text: message } });
         }
+        setMessage('');
 
     }
 

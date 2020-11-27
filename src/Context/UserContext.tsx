@@ -1,7 +1,8 @@
-import React, { useState, createContext, Dispatch, SetStateAction, useEffect } from "react";
+import React, { useState, createContext, Dispatch, SetStateAction, useEffect, useContext } from "react";
 import { Statuses } from "./StatusTypes";
 import { gql } from '@apollo/client';
 import { client } from "../index"
+import { ValidLoginContext } from "../Context/ValidLoginContext"
 
 export type userData = {
     id: number | null,
@@ -27,15 +28,19 @@ export const UserContext = createContext<ContextState>(
 export const UserProvider = (props: { children: React.ReactNode; }): JSX.Element | null => {
 
     const [currentUser, setCurrentUser] = useState<userData>(initialState);
+    const { validLogin } = useContext(ValidLoginContext)
     const GET_USER = gql`
     query currentUser {
         currentUser{id,displayName,email,status,profilePictureUrl}
     }
   `;
     useEffect(() => {
-        client.query({
-            query: GET_USER
-        }).then(response => setCurrentUser(response.data.currentUser))
+        if (validLogin) {
+            client.query({
+                query: GET_USER
+            }).then(response => setCurrentUser(response.data.currentUser))
+        }
+
     }, [])
 
 

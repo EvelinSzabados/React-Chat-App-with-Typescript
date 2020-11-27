@@ -4,6 +4,8 @@ import { chatData } from './ChatData';
 import { SelectedChatContext } from '../Context/SelectedChatContext';
 import { gql } from "@apollo/client";
 import { client } from "../index";
+import { ValidLoginContext } from "../Context/ValidLoginContext"
+
 
 interface ContextState {
     chats: chatData[],
@@ -21,12 +23,14 @@ export const ChatProvider = (props: { children: React.ReactNode; }) => {
 
     const [chats, setChats] = useState<chatData[]>([]);
     const { currentUser } = useContext(UserContext);
+    const { validLogin } = useContext(ValidLoginContext)
     const { selectedChat, setSelectedChat } = useContext(SelectedChatContext);
 
 
     useEffect(() => {
-        client.query({
-            query: gql`
+        if (validLogin) {
+            client.query({
+                query: gql`
                 {
                     chats{
                         id,
@@ -39,15 +43,15 @@ export const ChatProvider = (props: { children: React.ReactNode; }) => {
                         }                  
                 }
                 `,
-            fetchPolicy: 'network-only'
-        }).then((response: any) => {
-            if (response.data.chats[0] !== null && response.data.chats.length !== 0) {
-                setSelectedChat(response.data.chats[0].id)
-            }
-            setChats(response.data.chats)
-            console.log(response.data.chats)
-        })
+                fetchPolicy: 'network-only'
+            }).then((response: any) => {
+                if (response.data.chats[0] !== null && response.data.chats.length !== 0) {
+                    setSelectedChat(response.data.chats[0].id)
+                }
+                setChats(response.data.chats)
 
+            })
+        }
 
 
     }, [currentUser])

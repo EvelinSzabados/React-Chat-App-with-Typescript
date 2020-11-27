@@ -4,9 +4,8 @@ import styled from '@emotion/styled';
 import { Layout, Typography } from 'antd';
 import { RouteComponentProps } from 'react-router';
 import { UserContext } from '../Context/UserContext';
-
 import { gql, useMutation } from '@apollo/client';
-
+import { ValidLoginContext } from "../Context/ValidLoginContext"
 
 interface ChildComponentProps extends RouteComponentProps { }
 
@@ -19,6 +18,7 @@ export default function Login(props: ChildComponentProps): JSX.Element {
     const { Title } = Typography;
     const [form] = Form.useForm();
     const { setCurrentUser } = useContext(UserContext);
+    const { setValidLogin } = useContext(ValidLoginContext)
 
     const LOGIN_MUTATION = gql`
         mutation login($email: String! ,$password: String!) {
@@ -34,7 +34,7 @@ export default function Login(props: ChildComponentProps): JSX.Element {
 
         login({ variables: { email: values.email, password: values.password } })
             .then((response: any) => {
-
+                setValidLogin(true)
                 setCurrentUser(response.data.login.user)
                 localStorage.setItem('user', 'true');
                 props.history.push("/dashboard")

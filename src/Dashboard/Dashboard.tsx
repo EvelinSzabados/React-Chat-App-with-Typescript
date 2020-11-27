@@ -91,11 +91,7 @@ export default function Dashboard(props: ChildComponentProps): JSX.Element {
                     </Row>
 
                 </DashboardContent>
-                <Layout.Footer style={{
-                    backgroundColor: '#51588E', padding: '0.5rem', color: 'white',
-                    width: '80%', margin: '0 auto', textAlign: 'center'
-                }}>
-                    Kinsta Pet Project</Layout.Footer>
+
             </Layout>
 
         </React.Fragment>
