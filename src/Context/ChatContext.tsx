@@ -22,39 +22,39 @@ export const ChatContext = createContext<ContextState>(
 export const ChatProvider = (props: { children: React.ReactNode; }) => {
 
     const [chats, setChats] = useState<chatData[]>([]);
+    const { setSelectedChat } = useContext(SelectedChatContext)
     const { currentUser } = useContext(UserContext);
     const { validLogin } = useContext(ValidLoginContext)
-    const { selectedChat, setSelectedChat } = useContext(SelectedChatContext);
-
 
     useEffect(() => {
-        if (validLogin) {
+
+        if (validLogin && currentUser.id !== null)
             client.query({
                 query: gql`
-                {
-                    chats{
+            {
+                chats{
+                    id,
+                    lastUpdated,
+                    messages{
                         id,
-                        lastUpdated,
-                        messages{
-                            id,
-                            text,
-                            sender{id,email,displayName,status,profilePictureUrl}},
-                            users{id,email,displayName,status,profilePictureUrl}
-                        }                  
-                }
-                `,
+                        text,
+                        sender{id,email,displayName,status,profilePictureUrl}},
+                        users{id,email,displayName,status,profilePictureUrl}
+                    }                  
+            }
+            `,
                 fetchPolicy: 'network-only'
             }).then((response: any) => {
+                console.log("Chats: ", response.data.chats, "User: ", currentUser.displayName)
                 if (response.data.chats[0] !== null && response.data.chats.length !== 0) {
                     setSelectedChat(response.data.chats[0].id)
                 }
                 setChats(response.data.chats)
 
             })
-        }
-
-
-    }, [currentUser])
+    }
+        //eslint-disable-next-line
+        , [currentUser, validLogin])
 
     return (
         <ChatContext.Provider

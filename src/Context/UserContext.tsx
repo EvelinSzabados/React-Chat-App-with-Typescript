@@ -8,10 +8,10 @@ export type userData = {
     id: number | null,
     email: string | null,
     displayName: string | null,
-    status: Statuses
+    status: Statuses,
+    profilePictureUrl?: string | null
 }
-//initial state is filled for testing purposes
-let initialState = { id: null, email: null, displayName: null, status: Statuses.Offline };
+let initialState = { id: null, email: null, displayName: null, status: Statuses.Offline, profilePictureUrl: null };
 
 interface ContextState {
     currentUser: userData,
@@ -37,11 +37,14 @@ export const UserProvider = (props: { children: React.ReactNode; }): JSX.Element
     useEffect(() => {
         if (validLogin) {
             client.query({
-                query: GET_USER
-            }).then(response => setCurrentUser(response.data.currentUser))
+                query: GET_USER,
+                fetchPolicy: 'network-only'
+            }).then(response => {
+                setCurrentUser(response.data.currentUser)
+            })
         }
-
-    }, [])
+        //eslint-disable-next-line
+    }, [GET_USER, validLogin])
 
 
 

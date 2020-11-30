@@ -2,7 +2,6 @@ import React, { useContext, useState } from 'react';
 import { InputContainer, MessageInput, SubmitButton } from './Style';
 import { Popover } from 'antd';
 import { SendOutlined, SmileOutlined, FileAddOutlined } from '@ant-design/icons';
-import { ChatContext } from '../Context/ChatContext';
 import { UserContext } from '../Context/UserContext';
 import Picker, { IEmojiData } from 'emoji-picker-react';
 import { gql, useMutation } from '@apollo/client';

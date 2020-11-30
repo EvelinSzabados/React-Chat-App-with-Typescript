@@ -1,4 +1,4 @@
-import React, { useState, createContext, Dispatch, SetStateAction, useEffect } from "react";
+import React, { useState, createContext, Dispatch, SetStateAction } from "react";
 
 interface ContextState {
     validLogin: boolean,
@@ -14,7 +14,7 @@ export const ValidLoginContext = createContext<ContextState>(
 
 export const ValidLoginProvider = (props: { children: React.ReactNode; }): JSX.Element | null => {
 
-    const [validLogin, setValidLogin] = useState(localStorage.getItem('user') !== null);
+    const [validLogin, setValidLogin] = useState(sessionStorage.getItem('user') !== null);
 
     return (
         <ValidLoginContext.Provider

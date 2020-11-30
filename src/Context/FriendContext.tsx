@@ -9,21 +9,24 @@ const initialState = [
         id: 2,
         email: "tamas@gmail.com",
         displayName: "Tamás Sallai",
-        status: Statuses.Offline
+        status: Statuses.Offline,
+        profilePictureUrl: ''
 
     },
     {
         id: 3,
         email: "eszter@gmail.com",
         displayName: "Eszter Lévai",
-        status: Statuses.Offline
+        status: Statuses.Offline,
+        profilePictureUrl: ''
 
     },
     {
         id: 4,
         email: "nobert@gmail.com",
         displayName: "Norbert Aranyos",
-        status: Statuses.Offline
+        status: Statuses.Offline,
+        profilePictureUrl: ''
 
     },
 

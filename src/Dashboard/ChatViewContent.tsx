@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { UserContext } from '../Context/UserContext';
 import { MessageBox, MessageContainer } from './Style';
 import { ChatContext } from '../Context/ChatContext';
@@ -16,7 +16,6 @@ export default function ChatViewContainer(props: { chat: string }) {
         } 
     }
 `;
-
     const { currentUser } = useContext(UserContext);
     const { chats, setChats } = useContext(ChatContext);
     const selectedChat = chats.filter(chatToDisplay => chatToDisplay?.id === props.chat)[0]
@@ -27,7 +26,7 @@ export default function ChatViewContainer(props: { chat: string }) {
         let allChat = JSON.parse(JSON.stringify(chats))
         if (!loading && data) {
 
-            allChat.map((chat: chatData) => {
+            allChat.forEach((chat: chatData) => {
                 if (chat)
                     if (chat?.id === data.newMessage.chat.id) {
                         chat.messages.push(data.newMessage)
@@ -36,6 +35,7 @@ export default function ChatViewContainer(props: { chat: string }) {
             })
             setChats([...allChat])
         }
+        //eslint-disable-next-line
     }, [data])
     useEffect(() => {
         const chatView = document.getElementById('chat-container')!;

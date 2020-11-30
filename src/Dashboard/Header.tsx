@@ -6,19 +6,32 @@ import { NotificationContext } from '../Context/NotificationContext';
 import { Statuses } from '../Context/StatusTypes';
 import { ChatContext } from '../Context/ChatContext';
 import SearchBar from './SearchBar';
+import { ValidLoginContext } from "../Context/ValidLoginContext"
+import { gql, useMutation } from '@apollo/client';
 
 export default function Header(props: { setVisible: React.Dispatch<React.SetStateAction<boolean>> }): JSX.Element {
 
     const { currentUser, setCurrentUser } = useContext(UserContext);
     const { notifications } = useContext(NotificationContext);
-    const { chats, setChats } = useContext(ChatContext);
+    const { setValidLogin } = useContext(ValidLoginContext)
+    const { setChats } = useContext(ChatContext);
     const setVisible = props.setVisible;
 
-    const logout = (e: React.MouseEvent<HTMLSpanElement>) => {
+    const LOG_OUT = gql`
+        mutation logout {
+            logout
+        }
+        `;
+    const [logOutMutation] = useMutation(LOG_OUT);
+
+    const logout = async (e: React.MouseEvent<HTMLSpanElement>) => {
         e.preventDefault();
         setCurrentUser({ id: null, email: null, displayName: null, status: Statuses.Offline });
-        localStorage.removeItem('user')
+        logOutMutation()
         setChats([])
+        sessionStorage.removeItem('user')
+        setValidLogin(false)
+        console.log("Current user: ", currentUser.displayName)
     }
 
     return (

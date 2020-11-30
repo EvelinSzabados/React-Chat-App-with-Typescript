@@ -28,15 +28,15 @@ export default function Login(props: ChildComponentProps): JSX.Element {
             }
         }
   `;
-    const [login] = useMutation(LOGIN_MUTATION);
+    const [login] = useMutation(LOGIN_MUTATION, { fetchPolicy: 'no-cache' });
 
     const onFinish = async (values: { email: string, password: string }) => {
 
         login({ variables: { email: values.email, password: values.password } })
             .then((response: any) => {
-                setValidLogin(true)
                 setCurrentUser(response.data.login.user)
-                localStorage.setItem('user', 'true');
+                sessionStorage.setItem('user', 'true');
+                setValidLogin(true)
                 props.history.push("/dashboard")
 
 

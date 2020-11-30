@@ -16,6 +16,7 @@ function App(): JSX.Element {
   return (
     <ValidLoginProvider>
       <UserProvider>
+
         <SelectedChatProvider>
           <ChatProvider>
             <Router>
@@ -24,13 +25,13 @@ function App(): JSX.Element {
                 <NotificationProvider>
                   <DrawerVisibleProvider>
                     <PrivateRoute path="/dashboard" component={Dashboard}></PrivateRoute>
-                    {/* <PrivateRoute path="/test" component={Test}></PrivateRoute> */}
                   </DrawerVisibleProvider>
                 </NotificationProvider>
               </FriendProvider>
             </Router>
           </ChatProvider>
         </SelectedChatProvider>
+
       </UserProvider>
     </ValidLoginProvider>
   );
