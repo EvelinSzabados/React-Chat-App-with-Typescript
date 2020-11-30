@@ -1,8 +1,11 @@
 import React, { useState, createContext, Dispatch, SetStateAction, useEffect, useContext } from "react";
 import { UserContext } from '../Context/UserContext';
-import { chatData, allChat } from './ChatData';
+import { chatData } from './ChatData';
 import { SelectedChatContext } from '../Context/SelectedChatContext';
-;
+import { gql } from "@apollo/client";
+import { client } from "../index";
+import { ValidLoginContext } from "../Context/ValidLoginContext"
+
 
 interface ContextState {
     chats: chatData[],
@@ -19,20 +22,39 @@ export const ChatContext = createContext<ContextState>(
 export const ChatProvider = (props: { children: React.ReactNode; }) => {
 
     const [chats, setChats] = useState<chatData[]>([]);
+    const { setSelectedChat } = useContext(SelectedChatContext)
     const { currentUser } = useContext(UserContext);
-    const { setSelectedChat } = useContext(SelectedChatContext);
-
+    const { validLogin } = useContext(ValidLoginContext)
 
     useEffect(() => {
-        if (currentUser.id !== null) {
-            const allChatData = allChat(currentUser.id)
-            setChats(allChatData);
-            if (allChatData[0] !== null && allChatData.length !== 0) {
-                setSelectedChat(allChatData[0].chatId)
-            }
-        }
 
-    }, [currentUser, setSelectedChat])
+        if (validLogin && currentUser.id !== null)
+            client.query({
+                query: gql`
+            {
+                chats{
+                    id,
+                    lastUpdated,
+                    messages{
+                        id,
+                        text,
+                        sender{id,email,displayName,status,profilePictureUrl}},
+                        users{id,email,displayName,status,profilePictureUrl}
+                    }                  
+            }
+            `,
+                fetchPolicy: 'network-only'
+            }).then((response: any) => {
+                console.log("Chats: ", response.data.chats, "User: ", currentUser.displayName)
+                if (response.data.chats[0] !== null && response.data.chats.length !== 0) {
+                    setSelectedChat(response.data.chats[0].id)
+                }
+                setChats(response.data.chats)
+
+            })
+    }
+        //eslint-disable-next-line
+        , [currentUser, validLogin])
 
     return (
         <ChatContext.Provider

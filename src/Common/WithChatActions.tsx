@@ -24,7 +24,7 @@ export default function WithChatActions<T>(Component: React.ComponentType<T & Co
             let chatList = chats;
             const chatId = uuidv4();
             chatList.push({
-                chatId: chatId,
+                id: chatId,
                 users: [
                     {
                         id: currentUser.id,
@@ -38,7 +38,8 @@ export default function WithChatActions<T>(Component: React.ComponentType<T & Co
 
                     }
                 ],
-                messages: []
+                messages: [],
+                lastUpdated: Date.now().toString()
             })
             setChats([...chatList])
             setSelectedChat(chatId)

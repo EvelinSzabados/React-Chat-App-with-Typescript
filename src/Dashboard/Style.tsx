@@ -6,6 +6,12 @@ export const DashboardContent = styled.div`
         width: 80%;
         height: 80vh;
         background-color: white;
+        @media (max-width: 1000px) {
+        width: 99%;
+      };
+      @media (max-width: 700px) {
+        font-size: 12px
+      }
 
 `;
 export const ChatViewContainer = styled.div`
@@ -17,6 +23,9 @@ export const ChatViewContainer = styled.div`
 
 export const ChatListContainer = styled.div`
         padding: 1rem;
+        @media (max-width: 1000px) {
+        font-size: 12px;
+      }
 `;
 
 export const ChatListItemContainer = styled.div<{ selected: boolean }>((props) => ({
@@ -25,6 +34,7 @@ export const ChatListItemContainer = styled.div<{ selected: boolean }>((props) =
         marginTop: '10px',
         borderBottom: '0.7px solig #f2f2',
         cursor: 'pointer'
+
 
 }));
 
@@ -64,6 +74,12 @@ export const MessageInput = styled.input`
         border-radius: 20px;
         padding: 5px 20px;
         color: #404040;
+        @media (max-width: 1000px) {
+        width: 80%;
+      }
+      @media (max-width: 700px) {
+        width: 70%;
+      }
 `;
 export const Scrollable = styled.div`
 

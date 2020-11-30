@@ -1,6 +1,5 @@
 import React, { useState, useContext } from 'react'
 import { AutoComplete, Button, message } from 'antd';
-import { users } from '../Login/Auth';
 import { UserContext, userData } from '../Context/UserContext';
 import { FriendContext } from '../Context/FriendContext';
 import { NotificationContext, } from '../Context/NotificationContext';
@@ -13,13 +12,15 @@ export default function SearchBar() {
     const { currentUser } = useContext(UserContext);
     const { friends } = useContext(FriendContext);
     const { notifications, setNotifications } = useContext(NotificationContext);
+    //get all users from db
+    const users: any[] = []
 
     const sendFriendRequest = (user: userData) => {
 
         let notifArray = notifications;
         notifArray.push(
             {
-                id: uuidv4(),
+                id: parseInt(uuidv4()),
                 sender: currentUser,
                 reciever: user,
                 accepted: false
@@ -72,7 +73,7 @@ export default function SearchBar() {
             backfill={true}
             onChange={onChange}
             value={value}
-            style={{ width: 600 }}
+            style={{ width: 350 }}
             options={options}
             placeholder="Search people on MyChatApp"
         />

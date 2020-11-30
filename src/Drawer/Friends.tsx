@@ -29,7 +29,7 @@ function Friends(props: PropTypes) {
         setSearchResults(result)
     }
 
-    function getChatWithFriend(friendId: string | null): chatData {
+    function getChatWithFriend(friendId: number | null): chatData {
 
         let chatWithFriend = null;
         chats.forEach(chat => {
@@ -49,7 +49,7 @@ function Friends(props: PropTypes) {
             setVisible(false)
             message.loading('Loading...', 0.75)
             setTimeout(() => {
-                setSelectedChat(chatWithFriend?.chatId)
+                setSelectedChat(chatWithFriend?.id)
             }, 700)
 
         } else {

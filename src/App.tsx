@@ -9,26 +9,31 @@ import { PrivateRoute } from './Common/PrivateRoute';
 import { FriendProvider } from './Context/FriendContext';
 import { NotificationProvider } from './Context/NotificationContext';
 import { DrawerVisibleProvider } from './Context/DrawerVisibleContext';
+import { ValidLoginProvider } from "./Context/ValidLoginContext"
 
 function App(): JSX.Element {
 
   return (
-    <UserProvider>
-      <SelectedChatProvider>
-        <ChatProvider>
-          <Router>
-            <Route exact path="/" component={Login}></Route>
-            <FriendProvider>
-              <NotificationProvider>
-                <DrawerVisibleProvider>
-                  <PrivateRoute path="/dashboard" component={Dashboard}></PrivateRoute>
-                </DrawerVisibleProvider>
-              </NotificationProvider>
-            </FriendProvider>
-          </Router>
-        </ChatProvider>
-      </SelectedChatProvider>
-    </UserProvider>
+    <ValidLoginProvider>
+      <UserProvider>
+
+        <SelectedChatProvider>
+          <ChatProvider>
+            <Router>
+              <Route exact path="/" component={Login}></Route>
+              <FriendProvider>
+                <NotificationProvider>
+                  <DrawerVisibleProvider>
+                    <PrivateRoute path="/dashboard" component={Dashboard}></PrivateRoute>
+                  </DrawerVisibleProvider>
+                </NotificationProvider>
+              </FriendProvider>
+            </Router>
+          </ChatProvider>
+        </SelectedChatProvider>
+
+      </UserProvider>
+    </ValidLoginProvider>
   );
 }
 

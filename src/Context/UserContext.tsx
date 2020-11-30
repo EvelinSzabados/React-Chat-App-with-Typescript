@@ -1,14 +1,17 @@
-import React, { useState, createContext, Dispatch, SetStateAction } from "react";
+import React, { useState, createContext, Dispatch, SetStateAction, useEffect, useContext } from "react";
 import { Statuses } from "./StatusTypes";
+import { gql } from '@apollo/client';
+import { client } from "../index"
+import { ValidLoginContext } from "../Context/ValidLoginContext"
 
 export type userData = {
-    id: string | null,
+    id: number | null,
     email: string | null,
     displayName: string | null,
-    status: Statuses
+    status: Statuses,
+    profilePictureUrl?: string | null
 }
-//initial state is filled for testing purposes
-const initialState = { id: '1', email: 'evelin@gmail.com', displayName: 'Evelin Szabados', status: Statuses.Offline };
+let initialState = { id: null, email: null, displayName: null, status: Statuses.Offline, profilePictureUrl: null };
 
 interface ContextState {
     currentUser: userData,
@@ -22,9 +25,28 @@ export const UserContext = createContext<ContextState>(
         setCurrentUser: () => { }
     });
 
-export const UserProvider = (props: { children: React.ReactNode; }): JSX.Element => {
+export const UserProvider = (props: { children: React.ReactNode; }): JSX.Element | null => {
 
     const [currentUser, setCurrentUser] = useState<userData>(initialState);
+    const { validLogin } = useContext(ValidLoginContext)
+    const GET_USER = gql`
+    query currentUser {
+        currentUser{id,displayName,email,status,profilePictureUrl}
+    }
+  `;
+    useEffect(() => {
+        if (validLogin) {
+            client.query({
+                query: GET_USER,
+                fetchPolicy: 'network-only'
+            }).then(response => {
+                setCurrentUser(response.data.currentUser)
+            })
+        }
+        //eslint-disable-next-line
+    }, [GET_USER, validLogin])
+
+
 
     return (
         <UserContext.Provider
@@ -33,3 +55,4 @@ export const UserProvider = (props: { children: React.ReactNode; }): JSX.Element
         </UserContext.Provider>
     );
 };
+

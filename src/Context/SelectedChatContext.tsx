@@ -1,11 +1,9 @@
 import React, { useState, createContext, Dispatch, SetStateAction } from "react";
-;
 
 interface ContextState {
     selectedChat: string,
     setSelectedChat: Dispatch<SetStateAction<string>>
 }
-
 
 export const SelectedChatContext = createContext<ContextState>(
     {
