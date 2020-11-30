@@ -45,7 +45,7 @@ export const ChatProvider = (props: { children: React.ReactNode; }) => {
             `,
                 fetchPolicy: 'network-only'
             }).then((response: any) => {
-                console.log("Chats: ", response.data.chats, "User: ", currentUser.displayName)
+
                 if (response.data.chats[0] !== null && response.data.chats.length !== 0) {
                     setSelectedChat(response.data.chats[0].id)
                 }

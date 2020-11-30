@@ -52,11 +52,11 @@ export default function DrawerContent() {
                         <Friends />
                     </TabPane>
                     <TabPane tab={<span> Notifications <Badge size="small"
-                        count={notifications.filter(notif => notif.reciever.id === currentUser.id).length} /></span>} key="2">
+                        count={notifications.length > 0 ? notifications.filter(notif => notif.reciever.id === currentUser.id).length : 0} /></span>} key="2">
                         <Notifications />
                     </TabPane>
                     <TabPane tab={<span> Pending Friend requests <Badge size="small"
-                        count={notifications.filter(notif => notif.sender.id === currentUser.id).length} /></span>} key="3">
+                        count={notifications.length > 0 ? notifications.filter(notif => notif.sender.id === currentUser.id).length : 0} /></span>} key="3">
                         <PendingRequests />
                     </TabPane>
                 </Tabs>

@@ -3,8 +3,8 @@ import { userData } from './UserContext';
 import { UserContext } from '../Context/UserContext';
 import { Statuses } from "./StatusTypes";
 import { ValidLoginContext } from "../Context/ValidLoginContext";
-import { gql } from "@apollo/client";
 import { client } from "../index";
+import { gql, useSubscription } from '@apollo/client';
 
 export type notificationType = {
     id: number | null,
@@ -39,6 +39,28 @@ export const NotificationProvider = (props: { children: React.ReactNode; }): JSX
     const { currentUser } = useContext(UserContext);
     const { validLogin } = useContext(ValidLoginContext)
     const [notifications, setNotifications] = useState<notificationType[]>(initialState);
+
+    const NOTIF_SUBSCRIPTION = gql`
+    subscription sendRequest {
+        sendRequest {
+            id,
+            sender{id,email,displayName,status,profilePictureUrl},
+            reciever{id,email,displayName,status,profilePictureUrl},
+
+        } 
+    }
+`;
+    const { data, loading } = useSubscription(NOTIF_SUBSCRIPTION, { fetchPolicy: 'network-only' });
+
+    useEffect(() => {
+        let allNotifs = JSON.parse(JSON.stringify(notifications))
+
+        if (!loading && data) {
+            allNotifs.push(data.sendRequest)
+            setNotifications([...allNotifs])
+        }
+        //eslint-disable-next-line
+    }, [data])
 
     useEffect(() => {
 
