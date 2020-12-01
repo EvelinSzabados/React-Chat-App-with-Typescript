@@ -19,7 +19,7 @@ function Friends(props: PropTypes) {
     const { friends } = useContext(FriendContext);
     const { setSelectedChat } = useContext(SelectedChatContext);
     const { chats } = useContext(ChatContext);
-    const [searchResults, setSearchResults] = useState<userData[]>(friends.slice(0, 5))
+    const [searchResults, setSearchResults] = useState<userData[]>([])
     const { setVisible } = useContext(DrawerVisibleContext)
 
 
@@ -76,7 +76,7 @@ function Friends(props: PropTypes) {
                         style={{ marginTop: '1rem' }}
                         itemLayout="horizontal"
                         locale={{ emptyText: "No friends found" }}
-                        dataSource={searchResults}
+                        dataSource={searchResults.length > 0 ? searchResults : friends.slice(0, 5)}
                         renderItem={friend => (
                             <List.Item actions={
                                 [<Tag color="geekblue" onClick={() => { handleFriendActions(friend) }} style={{ cursor: 'pointer' }} icon={<MessageOutlined />}>Message</Tag>,

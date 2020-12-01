@@ -52,7 +52,7 @@ export const NotificationProvider = (props: { children: React.ReactNode }): JSX.
     const { data: sentRequestData, loading: sentRequestIsLoading } = useSubscription(NOTIF_SUBSCRIPTION, {
         fetchPolicy: 'network-only',
         skip: currentUser.id === null && !validLogin,
-        shouldResubscribe: true
+        shouldResubscribe: true,
     });
 
 

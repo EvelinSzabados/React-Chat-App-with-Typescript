@@ -3,7 +3,7 @@ import { Statuses } from "./StatusTypes";
 import { gql } from '@apollo/client';
 import { client } from "../index"
 import { ValidLoginContext } from "../Context/ValidLoginContext"
-import { FriendContext } from "./FriendContext"
+
 
 export type userData = {
     id: number | null,
@@ -31,7 +31,7 @@ export const UserProvider = (props: { children: React.ReactNode; }): JSX.Element
 
     const [currentUser, setCurrentUser] = useState<userData>(initialState);
     const { validLogin } = useContext(ValidLoginContext)
-    const { setFriends } = useContext(FriendContext)
+
     const GET_USER = gql`
     query currentUser {
         currentUser{
@@ -50,10 +50,7 @@ export const UserProvider = (props: { children: React.ReactNode; }): JSX.Element
                 query: GET_USER,
                 fetchPolicy: 'network-only'
             }).then(response => {
-
                 setCurrentUser(response.data.currentUser)
-
-
             })
         }
         //eslint-disable-next-line
