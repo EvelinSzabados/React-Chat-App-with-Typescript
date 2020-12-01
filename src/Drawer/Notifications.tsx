@@ -6,12 +6,12 @@ import { UserContext } from '../Context/UserContext';
 import { FriendContext } from '../Context/FriendContext';
 import { gql, useMutation } from '@apollo/client';
 
+
 export default function Notifications() {
 
     const { notifications, setNotifications } = useContext(NotificationContext);
     const { friends, setFriends } = useContext(FriendContext);
     const { currentUser } = useContext(UserContext);
-
 
 
     const ACCEPT_REQUEST = gql`
@@ -20,6 +20,13 @@ export default function Notifications() {
     }
     `;
     const [acceptRequest] = useMutation(ACCEPT_REQUEST);
+    const DECLINE_REQUEST = gql`
+
+    mutation declineRequest($requestId: ID!) {
+        declineRequest(requestId: $requestId){id}
+    }`;
+
+    const [declineRequest] = useMutation(DECLINE_REQUEST);
 
     const sendAnswer = (accepted: boolean, notif: notificationType) => {
         let notificationArray = notifications;
@@ -38,6 +45,7 @@ export default function Notifications() {
             setFriends([...friends, notif.sender])
 
         } else {
+            declineRequest({ variables: { requestId: notif.id } })
             message.success(`Friendrequest of ${notif.sender?.displayName} is declined`, 3);
         }
 

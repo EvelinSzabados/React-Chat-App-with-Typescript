@@ -40,7 +40,7 @@ export default function Header(props: { setVisible: React.Dispatch<React.SetStat
                 ghost={true}
                 title={<React.Fragment>
                     <Tooltip key={'Profile'} title="Profile">
-                        <Badge offset={[-10, 10]} size="default" count={notifications.length}>
+                        <Badge offset={[-10, 10]} size="default" count={notifications.filter(notif => notif.reciever?.id === currentUser.id).length}>
                             <Avatar icon={<UserOutlined onClick={(e) => { setVisible(true) }} />} style={{ cursor: 'pointer' }} />
                         </Badge>
                     </Tooltip>

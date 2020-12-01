@@ -14,7 +14,6 @@ import DrawerContent from '../Drawer/Drawer';
 import { DrawerVisibleContext } from '../Context/DrawerVisibleContext';
 import { StatusColors } from '../Context/StatusTypes';
 
-
 interface ChildComponentProps extends RouteComponentProps { }
 
 export default function Dashboard(props: ChildComponentProps): JSX.Element {
@@ -23,7 +22,6 @@ export default function Dashboard(props: ChildComponentProps): JSX.Element {
     const { currentUser } = useContext(UserContext);
     const { selectedChat, setSelectedChat } = useContext(SelectedChatContext);
     const { visible, setVisible } = useContext(DrawerVisibleContext)
-
 
     const ProfileDrawer = () => {
         return (
@@ -42,6 +40,7 @@ export default function Dashboard(props: ChildComponentProps): JSX.Element {
 
 
     return (
+
         <React.Fragment>
             <Layout style={{ height: '100vh' }}>
                 <DashboardContent>
@@ -82,7 +81,8 @@ export default function Dashboard(props: ChildComponentProps): JSX.Element {
                                 {selectedChat !== undefined && currentUser.id !== null ?
                                     <React.Fragment>
                                         <ChatViewContent chat={selectedChat} />
-                                        <ChatMessageInput chat={selectedChat} />
+                                        {chats.length > 0 ? <ChatMessageInput chat={selectedChat} /> : null}
+
                                     </React.Fragment> : ''}
 
                             </ChatViewContainer>
@@ -97,6 +97,8 @@ export default function Dashboard(props: ChildComponentProps): JSX.Element {
         </React.Fragment>
     )
 }
+
+
 
 
 

@@ -55,7 +55,7 @@ export default function DrawerContent() {
                         count={notifications.length > 0 ? notifications.filter(notif => notif.reciever.id === currentUser.id).length : 0} /></span>} key="2">
                         <Notifications />
                     </TabPane>
-                    <TabPane tab={<span> Pending Friend requests <Badge size="small"
+                    <TabPane tab={<span> Pending Friend requests <Badge size="small" style={{ backgroundColor: '#51588E' }}
                         count={notifications.length > 0 ? notifications.filter(notif => notif.sender.id === currentUser.id).length : 0} /></span>} key="3">
                         <PendingRequests />
                     </TabPane>

@@ -65,7 +65,7 @@ function Friends(props: PropTypes) {
     }
     return (
         <React.Fragment>
-            {friends[0].id === null ? <Empty description="No friends found" /> :
+            {friends.length === 0 || friends[0].id === null ? <Empty description="No friends found" /> :
                 <React.Fragment>
                     <Search
                         placeholder="Search friends"

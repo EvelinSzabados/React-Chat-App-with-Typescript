@@ -7,6 +7,8 @@ import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client'
 import { split, HttpLink } from '@apollo/client';
 import { getMainDefinition } from '@apollo/client/utilities';
 import { WebSocketLink } from '@apollo/client/link/ws';
+import { ValidLoginProvider } from "./Context/ValidLoginContext"
+import { UserProvider } from './Context/UserContext';
 
 const httpLink = new HttpLink({
   uri: 'http://localhost:4000/',
@@ -27,6 +29,7 @@ const wsLink = new WebSocketLink({
 const splitLink = split(
   ({ query }) => {
     const definition = getMainDefinition(query);
+
     return (
       definition.kind === 'OperationDefinition' &&
       definition.operation === 'subscription'
@@ -43,7 +46,11 @@ export const client = new ApolloClient({
 ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <App />
+      <ValidLoginProvider>
+        <UserProvider>
+          <App />
+        </UserProvider>
+      </ValidLoginProvider>
     </ApolloProvider>
   </React.StrictMode>,
   document.getElementById('root')
