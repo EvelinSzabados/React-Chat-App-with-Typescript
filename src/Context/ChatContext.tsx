@@ -22,9 +22,10 @@ export const ChatProvider = (props: { children: React.ReactNode; }) => {
     const [chats, setChats] = useState<chatData[]>([]);
     const { setSelectedChat } = useContext(SelectedChatContext)
     const { validLogin } = useContext(ValidLoginContext)
-    const { refetch } = useQuery(GET_CHATS, { skip: !validLogin, fetchPolicy: 'network-only' });
+    const { refetch } = useQuery(GET_CHATS, { fetchPolicy: 'network-only' });
 
     useEffect(() => {
+
         refetch().then(res => {
             if (res.data.chats.length !== 0) {
                 setSelectedChat(res.data.chats[0].id)

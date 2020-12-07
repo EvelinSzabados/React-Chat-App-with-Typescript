@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Route, BrowserRouter as Router } from 'react-router-dom';
 import Login from './Login/Login';
 import Dashboard from './Dashboard/Dashboard';
@@ -8,26 +8,29 @@ import { PrivateRoute } from './Common/PrivateRoute';
 import { FriendProvider } from './Context/FriendContext';
 import { NotificationProvider } from './Context/NotificationContext';
 import { DrawerVisibleProvider } from './Context/DrawerVisibleContext';
-
+import { ValidLoginContext } from "./Context/ValidLoginContext"
 
 function App(): JSX.Element {
-
+  const { validLogin } = useContext(ValidLoginContext)
   return (
 
     <Router>
       <Route exact path="/" component={Login}></Route>
-      <SelectedChatProvider>
-        <ChatProvider>
-          <FriendProvider>
-            <NotificationProvider>
-              <DrawerVisibleProvider>
-                <PrivateRoute path="/dashboard" component={Dashboard}></PrivateRoute>
-              </DrawerVisibleProvider>
-            </NotificationProvider>
-          </FriendProvider>
-        </ChatProvider>
+      {validLogin ?
+        <SelectedChatProvider>
+          <ChatProvider>
+            <FriendProvider>
+              <NotificationProvider>
+                <DrawerVisibleProvider>
+                  <PrivateRoute path="/dashboard" component={Dashboard}></PrivateRoute>
+                </DrawerVisibleProvider>
+              </NotificationProvider>
+            </FriendProvider>
+          </ChatProvider>
 
-      </SelectedChatProvider>
+        </SelectedChatProvider> :
+        <PrivateRoute path="/dashboard" component={Dashboard}></PrivateRoute>}
+
     </Router>
   );
 }
