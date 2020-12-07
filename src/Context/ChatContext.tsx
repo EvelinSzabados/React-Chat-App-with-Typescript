@@ -1,9 +1,9 @@
 import React, { useState, createContext, Dispatch, SetStateAction, useEffect, useContext } from "react";
 import { chatData } from './ChatData';
 import { SelectedChatContext } from '../Context/SelectedChatContext';
-import { GET_CHATS } from "../Common/GraphqlQueries"
+import { GET_CHATS, NEWCHAT_SUBSCRIPTION } from "../Common/GraphqlQueries"
 import { ValidLoginContext } from "../Context/ValidLoginContext"
-import { useQuery } from '@apollo/client';
+import { useQuery, useSubscription } from '@apollo/client';
 
 interface ContextState {
     chats: chatData[],
@@ -23,6 +23,22 @@ export const ChatProvider = (props: { children: React.ReactNode; }) => {
     const { setSelectedChat } = useContext(SelectedChatContext)
     const { validLogin } = useContext(ValidLoginContext)
     const { refetch } = useQuery(GET_CHATS, { fetchPolicy: 'network-only' });
+    const { data: newChatData, loading: newChatDataIsLoading } = useSubscription(NEWCHAT_SUBSCRIPTION, {
+        fetchPolicy: 'network-only',
+        skip: !validLogin,
+        shouldResubscribe: true,
+    });
+
+    useEffect(() => {
+        let chatList = JSON.parse(JSON.stringify(chats))
+        if (!newChatDataIsLoading && newChatData) {
+
+            chatList.push(newChatData.newChat)
+            setChats([...chatList])
+            setSelectedChat(newChatData.newChat.id)
+        }
+        //eslint-disable-next-line
+    }, [newChatData])
 
     useEffect(() => {
 

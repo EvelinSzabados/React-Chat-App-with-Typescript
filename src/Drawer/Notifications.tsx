@@ -4,8 +4,8 @@ import { MessageOutlined, DeleteOutlined } from '@ant-design/icons';
 import { NotificationContext, notificationType } from '../Context/NotificationContext';
 import { UserContext } from '../Context/UserContext';
 import { FriendContext } from '../Context/FriendContext';
-import { gql, useMutation } from '@apollo/client';
-
+import { useMutation } from '@apollo/client';
+import { ACCEPT_REQUEST, DECLINE_REQUEST } from "../Common/GraphqlQueries"
 
 export default function Notifications() {
 
@@ -13,18 +13,7 @@ export default function Notifications() {
     const { friends, setFriends } = useContext(FriendContext);
     const { currentUser } = useContext(UserContext);
 
-
-    const ACCEPT_REQUEST = gql`
-    mutation acceptRequest($requestId: ID!) {
-        acceptRequest(requestId: $requestId){id}
-    }
-    `;
     const [acceptRequest] = useMutation(ACCEPT_REQUEST);
-    const DECLINE_REQUEST = gql`
-
-    mutation declineRequest($requestId: ID!) {
-        declineRequest(requestId: $requestId){id}
-    }`;
 
     const [declineRequest] = useMutation(DECLINE_REQUEST);
 
