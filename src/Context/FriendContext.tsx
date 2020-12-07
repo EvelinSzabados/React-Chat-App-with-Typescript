@@ -47,7 +47,7 @@ export const FriendProvider = (props: { children: React.ReactNode; }): JSX.Eleme
                     }
                     ))
                 })
-                console.log(friends)
+
                 setFriends([...friends])
 
             })

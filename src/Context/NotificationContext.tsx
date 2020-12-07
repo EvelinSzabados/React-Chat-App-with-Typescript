@@ -55,7 +55,6 @@ export const NotificationProvider = (props: { children: React.ReactNode }): JSX.
         shouldResubscribe: true,
     });
 
-
     useEffect(() => {
         if (validLogin && currentUser.id !== null) {
             client.query({

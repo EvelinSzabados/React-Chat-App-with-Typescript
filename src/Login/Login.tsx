@@ -40,6 +40,7 @@ export default function Login(props: ChildComponentProps): JSX.Element {
                 props.history.push("/dashboard")
 
 
+
             }).catch((error: any) => alert("No account found! Try again!"))
 
     }

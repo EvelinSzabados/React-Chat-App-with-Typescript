@@ -13,10 +13,11 @@ import { DrawerVisibleProvider } from './Context/DrawerVisibleContext';
 function App(): JSX.Element {
 
   return (
-    <SelectedChatProvider>
-      <ChatProvider>
-        <Router>
-          <Route exact path="/" component={Login}></Route>
+
+    <Router>
+      <Route exact path="/" component={Login}></Route>
+      <SelectedChatProvider>
+        <ChatProvider>
           <FriendProvider>
             <NotificationProvider>
               <DrawerVisibleProvider>
@@ -24,9 +25,10 @@ function App(): JSX.Element {
               </DrawerVisibleProvider>
             </NotificationProvider>
           </FriendProvider>
-        </Router>
-      </ChatProvider>
-    </SelectedChatProvider>
+        </ChatProvider>
+
+      </SelectedChatProvider>
+    </Router>
   );
 }
 

@@ -2,7 +2,7 @@ import React, { useState, createContext, Dispatch, SetStateAction, useEffect, us
 import { UserContext } from '../Context/UserContext';
 import { chatData } from './ChatData';
 import { SelectedChatContext } from '../Context/SelectedChatContext';
-import { gql, useQuery } from "@apollo/client";
+import { gql } from "@apollo/client";
 import { client } from "../index";
 import { ValidLoginContext } from "../Context/ValidLoginContext"
 
@@ -26,10 +26,13 @@ export const ChatProvider = (props: { children: React.ReactNode; }) => {
     const { currentUser } = useContext(UserContext);
     const { validLogin } = useContext(ValidLoginContext)
 
+    useEffect(() => {
 
-    const COMMENTS_QUERY = gql`
-        query Chats {
-            chats{
+        if (validLogin && currentUser.id !== null)
+            client.query({
+                query: gql`
+            {
+                chats{
                     id,
                     lastUpdated,
                     messages{
@@ -39,21 +42,16 @@ export const ChatProvider = (props: { children: React.ReactNode; }) => {
                         users{id,email,displayName,status,profilePictureUrl}
                     }                  
             }
-    `;
-    const result = useQuery(
-        COMMENTS_QUERY,
-        { fetchPolicy: 'network-only' }
-    );
-    useEffect(() => {
+            `,
+                fetchPolicy: 'network-only'
+            }).then((response: any) => {
 
-        if (validLogin && currentUser.id !== null) {
-            if (result) {
-                if (result.data.chats[0] !== null && result.data.chats.length !== 0) {
-                    setSelectedChat(result.data.chats[0].id)
+                if (response.data.chats[0] !== null && response.data.chats.length !== 0) {
+                    setSelectedChat(response.data.chats[0].id)
                 }
-                setChats(result.data.chats)
-            }
-        }
+                setChats(response.data.chats)
+
+            })
     }
         //eslint-disable-next-line
         , [currentUser, validLogin])
