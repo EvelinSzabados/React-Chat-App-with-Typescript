@@ -3,8 +3,8 @@ import { userData } from './UserContext';
 import { UserContext } from '../Context/UserContext';
 import { Statuses } from "./StatusTypes";
 import { ValidLoginContext } from "../Context/ValidLoginContext";
-import { client } from "../index";
-import { gql, useSubscription } from '@apollo/client';
+import { useQuery, useSubscription } from '@apollo/client';
+import { GET_REQUESTS, NOTIF_SUBSCRIPTION } from "../Common/GraphqlQueries"
 
 export type notificationType = {
     id: number | null,
@@ -37,51 +37,28 @@ export const NotificationProvider = (props: { children: React.ReactNode }): JSX.
     const { validLogin } = useContext(ValidLoginContext)
     const [notifications, setNotifications] = useState<notificationType[]>(initialState);
 
-
-    const NOTIF_SUBSCRIPTION = gql`
-        subscription sendRequest {
-            sendRequest {
-                id,
-                sender{id,email,displayName,status,profilePictureUrl},
-                reciever{id,email,displayName,status,profilePictureUrl},
-
-            } 
-        }
-    `;
-
     const { data: sentRequestData, loading: sentRequestIsLoading } = useSubscription(NOTIF_SUBSCRIPTION, {
         fetchPolicy: 'network-only',
         skip: currentUser.id === null && !validLogin,
         shouldResubscribe: true,
     });
 
-    useEffect(() => {
-        if (validLogin && currentUser.id !== null) {
-            client.query({
-                query: gql`
-            {
-                requests{
-                    id,
-                    sender{id,email,displayName,status,profilePictureUrl},
-                    reciever{id,email,displayName,status,profilePictureUrl}                          
-            }}
-            `,
-                fetchPolicy: 'network-only'
-            }).then((response: any) => {
-                setNotifications(response.data.requests)
-            })
-        }
-        //eslint-disable-next-line
-    }, [currentUser, validLogin])
+    const { refetch } = useQuery(GET_REQUESTS, { skip: !validLogin, fetchPolicy: 'network-only' });
 
     useEffect(() => {
-        if (validLogin && currentUser.id !== null) {
-            let allNotifs = JSON.parse(JSON.stringify(notifications))
-            if (!sentRequestIsLoading && sentRequestData) {
-                allNotifs.push(sentRequestData.sendRequest)
-                setNotifications([...allNotifs])
-            }
+        refetch().then(res => { setNotifications(res.data.requests) })
+        //eslint-disable-next-line
+    }, [])
+
+
+    useEffect(() => {
+
+        let allNotifs = JSON.parse(JSON.stringify(notifications))
+        if (!sentRequestIsLoading && sentRequestData) {
+            allNotifs.push(sentRequestData.sendRequest)
+            setNotifications([...allNotifs])
         }
+
         //eslint-disable-next-line
     }, [sentRequestData, currentUser])
 
