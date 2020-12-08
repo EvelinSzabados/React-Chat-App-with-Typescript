@@ -21,22 +21,7 @@ export default function WithChatActions<T>(Component: React.ComponentType<T & Co
         const { currentUser } = useContext(UserContext);
         const { friends, setFriends } = useContext(FriendContext);
         const [newChatMutation] = useMutation(NEW_CHAT);
-        const { data: newChatData, loading: newChatDataIsLoading } = useSubscription(NEWCHAT_SUBSCRIPTION, {
-            fetchPolicy: 'network-only',
-            skip: currentUser.id === null,
-            shouldResubscribe: true,
-        });
 
-        useEffect(() => {
-            let chatList = JSON.parse(JSON.stringify(chats))
-            if (!newChatDataIsLoading && newChatData) {
-                console.log(newChatData)
-                chatList.push(newChatData.newChat)
-                setChats([...chatList])
-                setSelectedChat(newChatData.newChat.id)
-            }
-            //eslint-disable-next-line
-        }, [])
         function newChat(friend: userData) {
             newChatMutation({ variables: { users: [currentUser.id, friend.id] } })
         }

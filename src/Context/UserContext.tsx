@@ -10,10 +10,10 @@ export type userData = {
     email: string | null,
     displayName: string | null,
     status: Statuses,
-    profilePictureUrl?: string | null,
+    profilePictureUrl?: string,
     friends?: any
 }
-let initialState = { id: null, email: null, displayName: null, status: Statuses.Offline, profilePictureUrl: null };
+let initialState = { id: null, email: null, displayName: null, status: Statuses.Offline, profilePictureUrl: '' };
 
 interface ContextState {
     currentUser: userData,

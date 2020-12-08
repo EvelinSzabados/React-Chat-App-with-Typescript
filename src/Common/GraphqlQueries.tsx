@@ -89,3 +89,9 @@ export const NEW_CHAT = gql`
         }
     
 `;
+
+export const UPLOAD_PHOTO = gql`
+    mutation uploadPhoto($photo: String!){
+        uploadPhoto(photo: $photo)
+    }
+`
