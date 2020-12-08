@@ -143,3 +143,21 @@ export const SEND_REQUEST = gql`
         }
     }
 `;
+
+export const ACCEPTED_NOTIF_SUBSCRIPTION = gql`
+    subscription acceptRequest {
+        acceptRequest {
+            id,
+            users{id,email,displayName,status,profilePictureUrl}
+
+        } 
+    }
+`;
+
+export const DECLINED_NOTIF_SUBSCRIPTION = gql`
+    subscription declineRequest{
+        declineRequest{
+            id
+        }
+    }
+`
