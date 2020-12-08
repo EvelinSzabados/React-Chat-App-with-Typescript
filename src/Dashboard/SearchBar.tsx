@@ -1,11 +1,11 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext } from 'react'
 import { AutoComplete, Button, message } from 'antd';
 import { UserContext, userData } from '../Context/UserContext';
 import { FriendContext } from '../Context/FriendContext';
 import { NotificationContext, } from '../Context/NotificationContext';
-import { v4 as uuidv4 } from 'uuid';
-import { useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { ALL_USERS_QUERY } from "../Common/GraphqlQueries";
+import { SEND_REQUEST } from "../Common/GraphqlQueries";
 
 export default function SearchBar() {
 
@@ -13,23 +13,14 @@ export default function SearchBar() {
     const [options, setOptions] = useState<{ value: string }[]>([]);
     const { currentUser } = useContext(UserContext);
     const { friends } = useContext(FriendContext);
-    const { notifications, setNotifications } = useContext(NotificationContext);
+    const { notifications } = useContext(NotificationContext);
+    const [sendRequest] = useMutation(SEND_REQUEST);
     const { data, loading } = useQuery(ALL_USERS_QUERY, { skip: currentUser.id === null, fetchPolicy: 'network-only' });
-    //get all users from db
+
     let users: any[] = !loading && data ? data.users : []
 
     const sendFriendRequest = (user: userData) => {
-
-        let notifArray = notifications;
-        notifArray.push(
-            {
-                id: parseInt(uuidv4()),
-                sender: currentUser,
-                reciever: user,
-
-            }
-        )
-        setTimeout(() => { setNotifications([...notifArray]) }, 700)
+        sendRequest({ variables: { friendId: user.id } })
         message.success(`Your friend request was successfully sent to ${user.displayName}`, 3)
     }
     const renderItem = (user: userData) => {

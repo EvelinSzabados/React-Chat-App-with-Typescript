@@ -128,3 +128,18 @@ export const ALL_USERS_QUERY = gql`
         }
     }
 `;
+export const ADD_MESSAGE = gql`
+mutation addMessage($senderId: ID!, $chatId: ID!, $text: String!) {
+    newMessage(senderId: $senderId, chatId: $chatId, text: $text){id,text}
+}
+`;
+
+export const SEND_REQUEST = gql`
+    mutation sendRequest($friendId: ID!){
+        sendRequest(friendId: $friendId){
+            id,
+            sender{id,email,displayName,status,profilePictureUrl},
+            reciever{id,email,displayName,status,profilePictureUrl}
+        }
+    }
+`;

@@ -4,7 +4,8 @@ import { Popover } from 'antd';
 import { SendOutlined, SmileOutlined, FileAddOutlined } from '@ant-design/icons';
 import { UserContext } from '../Context/UserContext';
 import Picker, { IEmojiData } from 'emoji-picker-react';
-import { gql, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
+import { ADD_MESSAGE } from "../Common/GraphqlQueries";
 
 
 export default function ChatMessageInput(props: { chat: string }) {
@@ -13,11 +14,7 @@ export default function ChatMessageInput(props: { chat: string }) {
     let selectedChat = props.chat;
     const [message, setMessage] = useState('');
 
-    const ADD_MESSAGE = gql`
-        mutation addMessage($senderId: ID!, $chatId: ID!, $text: String!) {
-            newMessage(senderId: $senderId, chatId: $chatId, text: $text){id,text}
-        }
-        `;
+
     const [addMessage] = useMutation(ADD_MESSAGE);
 
     const onEmojiClick = (event: MouseEvent, emojiObject: IEmojiData) => {
