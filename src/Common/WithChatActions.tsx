@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { userData } from '../Context/UserContext';
 import { v4 as uuidv4 } from 'uuid';
 import { UserContext } from '../Context/UserContext';
@@ -6,7 +6,8 @@ import { SelectedChatContext } from '../Context/SelectedChatContext';
 import { ChatContext } from '../Context/ChatContext';
 import { FriendContext } from '../Context/FriendContext';
 import { chatData } from '../Context/ChatData';
-import { Statuses } from '../Context/StatusTypes';
+import { NEWCHAT_SUBSCRIPTION, NEW_CHAT } from "../Common/GraphqlQueries";
+import { useSubscription, useMutation } from '@apollo/client';
 
 interface ComponentProps {
     newChat: (friend: userData) => void
@@ -19,30 +20,10 @@ export default function WithChatActions<T>(Component: React.ComponentType<T & Co
         const { chats, setChats } = useContext(ChatContext);
         const { currentUser } = useContext(UserContext);
         const { friends, setFriends } = useContext(FriendContext);
+        const [newChatMutation] = useMutation(NEW_CHAT);
 
         function newChat(friend: userData) {
-            let chatList = chats;
-            const chatId = uuidv4();
-            chatList.push({
-                id: chatId,
-                users: [
-                    {
-                        id: currentUser.id,
-                        displayName: currentUser.displayName,
-                        status: Statuses.Offline
-                    },
-                    {
-                        id: friend.id,
-                        displayName: friend.displayName,
-                        status: Statuses.Offline
-
-                    }
-                ],
-                messages: [],
-                lastUpdated: Date.now().toString()
-            })
-            setChats([...chatList])
-            setSelectedChat(chatId)
+            newChatMutation({ variables: { users: [currentUser.id, friend.id] } })
         }
 
         function deleteFriend(friend: userData, friendChat: chatData) {

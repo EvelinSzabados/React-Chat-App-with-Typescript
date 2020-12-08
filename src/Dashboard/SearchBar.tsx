@@ -23,7 +23,6 @@ export default function SearchBar() {
                 id: parseInt(uuidv4()),
                 sender: currentUser,
                 reciever: user,
-                accepted: false
 
             }
         )

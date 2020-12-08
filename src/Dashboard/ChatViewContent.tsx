@@ -6,6 +6,7 @@ import Emoji from "react-emoji-render";
 import { v4 as uuidv4 } from 'uuid';
 import { gql, useSubscription } from '@apollo/client';
 import { chatData } from '../Context/ChatData';
+import { ValidLoginContext } from "../Context/ValidLoginContext";
 
 export default function ChatViewContainer(props: { chat: string }) {
 
@@ -17,9 +18,14 @@ export default function ChatViewContainer(props: { chat: string }) {
     }
 `;
     const { currentUser } = useContext(UserContext);
+    const { validLogin } = useContext(ValidLoginContext)
     const { chats, setChats } = useContext(ChatContext);
     const selectedChat = chats.filter(chatToDisplay => chatToDisplay?.id === props.chat)[0]
-    const { data, loading } = useSubscription(MESSAGE_SUBSCRIPTION, { fetchPolicy: 'network-only', shouldResubscribe: true });
+    const { data, loading } = useSubscription(MESSAGE_SUBSCRIPTION, {
+        fetchPolicy: 'network-only',
+        shouldResubscribe: true,
+        skip: currentUser.id === null && !validLogin,
+    });
 
 
     useEffect(() => {

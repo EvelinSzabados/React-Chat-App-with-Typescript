@@ -1,38 +1,11 @@
-import React, { useState, createContext, Dispatch, SetStateAction } from "react";
+import React, { useState, createContext, Dispatch, SetStateAction, useEffect, useContext } from "react";
 import { Statuses } from "./StatusTypes";
 import { userData } from './UserContext';
+import { ValidLoginContext } from "../Context/ValidLoginContext";
+import { GET_USER } from "../Common/GraphqlQueries";
+import { useQuery } from "@apollo/client";
 
-// const initialState = [{ id: null, email: null, displayName: null }];
-
-const initialState = [
-    {
-        id: 2,
-        email: "tamas@gmail.com",
-        displayName: "Tamás Sallai",
-        status: Statuses.Offline,
-        profilePictureUrl: ''
-
-    },
-    {
-        id: 3,
-        email: "eszter@gmail.com",
-        displayName: "Eszter Lévai",
-        status: Statuses.Offline,
-        profilePictureUrl: ''
-
-    },
-    {
-        id: 4,
-        email: "nobert@gmail.com",
-        displayName: "Norbert Aranyos",
-        status: Statuses.Offline,
-        profilePictureUrl: ''
-
-    },
-
-
-
-];
+const initialState = [{ id: null, email: null, displayName: null, status: Statuses.Offline, friends: [] }];
 
 interface ContextState {
     friends: userData[],
@@ -49,6 +22,25 @@ export const FriendContext = createContext<ContextState>(
 export const FriendProvider = (props: { children: React.ReactNode; }): JSX.Element => {
 
     const [friends, setFriends] = useState<userData[]>(initialState);
+    const { validLogin } = useContext(ValidLoginContext)
+    const { refetch } = useQuery(GET_USER, { skip: !validLogin, fetchPolicy: 'network-only' });
+
+    useEffect(() => {
+        refetch().then(res => {
+            let friends: userData[] = []
+            res.data.currentUser.friends.forEach((friendship: any) => {
+                (friendship.users.forEach((friend: userData) => {
+                    if (friend.id !== res.data.currentUser.id) {
+                        friends.push(friend)
+                    }
+                }
+                ))
+                setFriends([...friends])
+            })
+
+        })
+        //eslint-disable-next-line
+    }, [])
 
     return (
         <FriendContext.Provider

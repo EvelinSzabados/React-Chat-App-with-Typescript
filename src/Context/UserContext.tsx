@@ -1,17 +1,19 @@
 import React, { useState, createContext, Dispatch, SetStateAction, useEffect, useContext } from "react";
 import { Statuses } from "./StatusTypes";
-import { gql } from '@apollo/client';
-import { client } from "../index"
+import { GET_USER } from "../Common/GraphqlQueries";
 import { ValidLoginContext } from "../Context/ValidLoginContext"
+import { useQuery } from '@apollo/client';
+
 
 export type userData = {
     id: number | null,
     email: string | null,
     displayName: string | null,
     status: Statuses,
-    profilePictureUrl?: string | null
+    profilePictureUrl?: string,
+    friends?: any
 }
-let initialState = { id: null, email: null, displayName: null, status: Statuses.Offline, profilePictureUrl: null };
+let initialState = { id: null, email: null, displayName: null, status: Statuses.Offline, profilePictureUrl: '' };
 
 interface ContextState {
     currentUser: userData,
@@ -29,22 +31,14 @@ export const UserProvider = (props: { children: React.ReactNode; }): JSX.Element
 
     const [currentUser, setCurrentUser] = useState<userData>(initialState);
     const { validLogin } = useContext(ValidLoginContext)
-    const GET_USER = gql`
-    query currentUser {
-        currentUser{id,displayName,email,status,profilePictureUrl}
-    }
-  `;
+
+    const { refetch } = useQuery(GET_USER, { skip: !validLogin, fetchPolicy: 'network-only' });
+
     useEffect(() => {
-        if (validLogin) {
-            client.query({
-                query: GET_USER,
-                fetchPolicy: 'network-only'
-            }).then(response => {
-                setCurrentUser(response.data.currentUser)
-            })
-        }
+        if (validLogin)
+            refetch().then(res => { setCurrentUser(res.data.currentUser) })
         //eslint-disable-next-line
-    }, [GET_USER, validLogin])
+    }, [validLogin])
 
 
 

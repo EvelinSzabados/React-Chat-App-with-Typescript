@@ -3,19 +3,30 @@ import { Avatar, List, Tag, message } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
 import { NotificationContext, notificationType } from '../Context/NotificationContext';
 import { UserContext } from '../Context/UserContext';
+import { gql, useMutation } from '@apollo/client';
 
 export default function PendingRequests() {
     const { notifications, setNotifications } = useContext(NotificationContext);
     const { currentUser } = useContext(UserContext);
 
+    const DECLINE_REQUEST = gql`
+
+    mutation declineRequest($requestId: ID!) {
+        declineRequest(requestId: $requestId){id}
+    }`;
+    const [declineRequest] = useMutation(DECLINE_REQUEST);
     const sendAnswer = (notif: notificationType) => {
         let notificationArray = notifications;
         const index = notificationArray.indexOf(notif);
-        notificationArray.splice(index, 1);
+        if (notificationArray.length === 1) {
+            notificationArray = []
+        } else {
+            notificationArray.splice(index, 1);
+        }
 
         setNotifications([...notificationArray]);
+        declineRequest({ variables: { requestId: notif.id } })
         message.success(`Friendrequest of ${notif.reciever?.displayName} is withdrawend`, 3);
-
     }
 
     return (

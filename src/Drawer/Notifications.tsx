@@ -4,6 +4,8 @@ import { MessageOutlined, DeleteOutlined } from '@ant-design/icons';
 import { NotificationContext, notificationType } from '../Context/NotificationContext';
 import { UserContext } from '../Context/UserContext';
 import { FriendContext } from '../Context/FriendContext';
+import { useMutation } from '@apollo/client';
+import { ACCEPT_REQUEST, DECLINE_REQUEST } from "../Common/GraphqlQueries"
 
 export default function Notifications() {
 
@@ -11,17 +13,28 @@ export default function Notifications() {
     const { friends, setFriends } = useContext(FriendContext);
     const { currentUser } = useContext(UserContext);
 
+    const [acceptRequest] = useMutation(ACCEPT_REQUEST);
+
+    const [declineRequest] = useMutation(DECLINE_REQUEST);
+
     const sendAnswer = (accepted: boolean, notif: notificationType) => {
         let notificationArray = notifications;
         const index = notificationArray.indexOf(notif);
-        notificationArray.splice(index, 1);
+        if (notificationArray.length === 1) {
+            notificationArray = []
+        } else {
+            notificationArray.splice(index, 1);
+        }
+
 
         setNotifications([...notificationArray]);
         if (accepted) {
+            acceptRequest({ variables: { requestId: notif.id } })
             message.success(`Friendrequest of ${notif.sender?.displayName} is accepted`, 3);
             setFriends([...friends, notif.sender])
 
         } else {
+            declineRequest({ variables: { requestId: notif.id } })
             message.success(`Friendrequest of ${notif.sender?.displayName} is declined`, 3);
         }
 
