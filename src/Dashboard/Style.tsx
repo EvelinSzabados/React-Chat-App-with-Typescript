@@ -30,9 +30,10 @@ export const ChatListContainer = styled.div`
 
 export const ChatListItemContainer = styled.div<{ selected: boolean }>((props) => ({
         backgroundColor: props.selected ? '#f2f2f2' : 'white',
+        borberRight: props.selected ? '3px solid #51588e' : '0px',
         padding: '10px',
         marginTop: '10px',
-        borderBottom: '0.7px solig #f2f2',
+
         cursor: 'pointer'
 
 
@@ -46,6 +47,7 @@ export const MessageBox = styled.p<{ isFriendSent: boolean }>((props) => ({
         borderTopRightRadius: props.isFriendSent ? '25px' : '20px',
         borderBottomRightRadius: props.isFriendSent ? '20px' : 'none',
         borderBottomLeftRadius: props.isFriendSent ? 'none' : '20px',
+
         clear: 'both',
         padding: '20px',
         boxSizing: 'border-box',
