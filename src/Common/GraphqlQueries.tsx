@@ -95,3 +95,36 @@ export const UPLOAD_PHOTO = gql`
         uploadPhoto(photo: $photo)
     }
 `
+export const LOGIN_MUTATION = gql`
+mutation login($email: String! ,$password: String!) {
+    login(email: $email, password: $password) {
+        token,
+        user{id,email,displayName,profilePictureUrl,status}
+    }
+}
+`;
+
+
+export const SIGNUP_MUTATION = gql`
+mutation signup($email: String! ,$password: String!,$displayName: String!) {
+    signup(email: $email, password: $password,displayName: $displayName) {
+        token,
+        user{id,email,displayName,profilePictureUrl,status}
+    }
+}
+`;
+
+export const ALL_USERS_QUERY = gql`
+    query users{
+        users{
+            id,
+            email,
+            displayName,
+            status,
+            profilePictureUrl,
+            friends{
+                users{id,displayName,email,status,profilePictureUrl}
+            }
+        }
+    }
+`;

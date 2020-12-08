@@ -1,9 +1,11 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { AutoComplete, Button, message } from 'antd';
 import { UserContext, userData } from '../Context/UserContext';
 import { FriendContext } from '../Context/FriendContext';
 import { NotificationContext, } from '../Context/NotificationContext';
 import { v4 as uuidv4 } from 'uuid';
+import { useQuery } from '@apollo/client';
+import { ALL_USERS_QUERY } from "../Common/GraphqlQueries";
 
 export default function SearchBar() {
 
@@ -12,8 +14,9 @@ export default function SearchBar() {
     const { currentUser } = useContext(UserContext);
     const { friends } = useContext(FriendContext);
     const { notifications, setNotifications } = useContext(NotificationContext);
+    const { data, loading } = useQuery(ALL_USERS_QUERY, { skip: currentUser.id === null, fetchPolicy: 'network-only' });
     //get all users from db
-    const users: any[] = []
+    let users: any[] = !loading && data ? data.users : []
 
     const sendFriendRequest = (user: userData) => {
 
@@ -51,15 +54,18 @@ export default function SearchBar() {
     const onSearch = (searchText: string) => {
         let optionArray: { value: string }[] = []
         searchText = searchText.toLowerCase()
-        const exclude = users.filter(user => friends.map(friend => friend.id).indexOf(user.id) === -1);
-        exclude.forEach(user => {
-            if (user.id !== currentUser.id)
+        if (users.length > 0) {
+            const exclude = users.filter(user => friends.map(friend => friend.id).indexOf(user.id) === -1);
+            exclude.forEach(user => {
+
                 if (user.displayName.toLowerCase().includes(searchText))
                     optionArray.push(renderItem(user))
-        })
-        setOptions(
-            !searchText ? [] : optionArray,
-        );
+            })
+            setOptions(
+                !searchText ? [] : optionArray,
+            );
+        }
+
     };
 
     const onChange = (data: string) => {

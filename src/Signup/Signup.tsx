@@ -4,8 +4,9 @@ import styled from '@emotion/styled';
 import { Layout, Typography } from 'antd';
 import { RouteComponentProps } from 'react-router';
 import { UserContext } from '../Context/UserContext';
-import { gql, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { ValidLoginContext } from "../Context/ValidLoginContext"
+import { SIGNUP_MUTATION } from "../Common/GraphqlQueries";
 
 interface ChildComponentProps extends RouteComponentProps { }
 
@@ -20,14 +21,6 @@ export default function Signup(props: ChildComponentProps): JSX.Element {
     const { setCurrentUser } = useContext(UserContext);
     const { setValidLogin } = useContext(ValidLoginContext)
 
-    const SIGNUP_MUTATION = gql`
-        mutation signup($email: String! ,$password: String!,$displayName: String!) {
-            signup(email: $email, password: $password,displayName: $displayName) {
-                token,
-                user{id,email,displayName,profilePictureUrl,status}
-            }
-        }
-  `;
     const [signup] = useMutation(SIGNUP_MUTATION, { fetchPolicy: 'no-cache' });
 
     const onFinish = async (values: { email: string, password: string, displayName: string }) => {
