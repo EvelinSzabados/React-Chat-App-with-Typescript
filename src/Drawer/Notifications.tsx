@@ -24,16 +24,6 @@ export default function Notifications() {
             message.success(`Friendrequest of ${notif.sender?.displayName} is declined`, 3);
         }
 
-        let notificationArray = notifications;
-        const index = notificationArray.indexOf(notif);
-        if (notificationArray.length === 1) {
-            notificationArray = []
-        } else {
-            notificationArray.splice(index, 1);
-        }
-
-
-        setNotifications([...notificationArray]);
     }
     return (
         <List

@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Tabs, Badge, Tag, Select } from 'antd';
+import { Tabs, Badge, Tag, Select, message } from 'antd';
 import { ProfileContainer, NameContainer, ProfileDataContainer, ProfileDataLabel, ProfileDataItem } from '../Drawer/Style';
 import { UserContext } from '../Context/UserContext';
 import ProfilePicture from './ProfilePicture';
@@ -8,11 +8,16 @@ import Notifications from './Notifications';
 import PendingRequests from './PendingRequests'
 import { NotificationContext } from '../Context/NotificationContext';
 import { Statuses, StatusColors } from '../Context/StatusTypes';
+import { useMutation } from '@apollo/client';
+import { SET_STATUS } from "../Common/GraphqlQueries"
+import { DrawerVisibleContext } from '../Context/DrawerVisibleContext';
 
 export default function DrawerContent() {
 
-    const { currentUser, setCurrentUser } = useContext(UserContext);
+    const { currentUser } = useContext(UserContext);
     const { notifications } = useContext(NotificationContext);
+    const { setVisible } = useContext(DrawerVisibleContext)
+    const [setStatus] = useMutation(SET_STATUS);
 
     const options = [
         { label: <Tag color={StatusColors.AVAILABLE}>Active</Tag>, value: Statuses.AVAILABLE },
@@ -37,13 +42,11 @@ export default function DrawerContent() {
                         style={{ width: '20%', cursor: 'pointer' }}
                         options={options}
                         onSelect={(value: Statuses) => {
-                            const user = currentUser;
-                            user.status = value;
-                            setCurrentUser(user);
+                            setStatus({ variables: { statusName: value, userId: currentUser.id } })
+                            setTimeout(() => { setVisible(false) }, 200)
+                            message.info(`Status successfully modified to ${value}`, 3);
                         }}
                     />
-
-
                 </ProfileDataItem>
 
                 <Tabs animated={true} tabPosition="top" defaultActiveKey="1" type="card" size='large'>

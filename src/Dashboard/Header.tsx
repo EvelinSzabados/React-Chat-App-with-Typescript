@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { PageHeader, Tooltip, Badge, Avatar } from 'antd';
 import { LogoutOutlined, UserOutlined } from '@ant-design/icons';
 import { UserContext } from '../Context/UserContext';
@@ -7,21 +7,18 @@ import { StatusColors, Statuses } from '../Context/StatusTypes';
 import { ChatContext } from '../Context/ChatContext';
 import SearchBar from './SearchBar';
 import { ValidLoginContext } from "../Context/ValidLoginContext"
-import { gql, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
+import { LOG_OUT } from "../Common/GraphqlQueries";
+import { DrawerVisibleContext } from '../Context/DrawerVisibleContext';
 
-export default function Header(props: { setVisible: React.Dispatch<React.SetStateAction<boolean>> }): JSX.Element {
+export default function Header(props: { dispatch?: any }): JSX.Element {
 
     const { currentUser, setCurrentUser } = useContext(UserContext);
     const { notifications } = useContext(NotificationContext);
     const { setValidLogin } = useContext(ValidLoginContext)
     const { setChats } = useContext(ChatContext);
-    const setVisible = props.setVisible;
+    const { setVisible } = useContext(DrawerVisibleContext)
 
-    const LOG_OUT = gql`
-        mutation logout {
-            logout
-        }
-        `;
     const [logOutMutation] = useMutation(LOG_OUT);
 
     const logout = async (e: React.MouseEvent<HTMLSpanElement>) => {
@@ -31,7 +28,6 @@ export default function Header(props: { setVisible: React.Dispatch<React.SetStat
         setChats([])
         sessionStorage.removeItem('user')
         setValidLogin(false)
-        console.log("Current user: ", currentUser.displayName)
     }
 
     return (

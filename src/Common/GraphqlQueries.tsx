@@ -161,3 +161,28 @@ export const DECLINED_NOTIF_SUBSCRIPTION = gql`
         }
     }
 `
+
+export const LOG_OUT = gql`
+        mutation logout {
+            logout
+        }
+        `;
+
+export const SET_STATUS = gql`
+    mutation setStatus($statusName:String!,$userId: ID!){
+        setStatus(statusName: $statusName,userId: $userId){
+            status
+        }
+    }
+`;
+
+export const STATUS_SUBSCRIPTION = gql`
+    subscription stat{setStatus{id,
+            displayName,
+            email,
+            status,
+            profilePictureUrl,
+            friends{
+                users{id,displayName,email,status,profilePictureUrl}
+            }}}
+`

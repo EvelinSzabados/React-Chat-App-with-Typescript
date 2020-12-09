@@ -4,6 +4,7 @@ import { SelectedChatContext } from '../Context/SelectedChatContext';
 import { GET_CHATS, NEWCHAT_SUBSCRIPTION } from "../Common/GraphqlQueries"
 import { ValidLoginContext } from "../Context/ValidLoginContext"
 import { useQuery, useSubscription } from '@apollo/client';
+import { UserContext } from "./UserContext";
 
 interface ContextState {
     chats: chatData[],
@@ -22,6 +23,7 @@ export const ChatProvider = (props: { children: React.ReactNode; }) => {
     const [chats, setChats] = useState<chatData[]>([]);
     const { setSelectedChat } = useContext(SelectedChatContext)
     const { validLogin } = useContext(ValidLoginContext)
+    const { currentUser } = useContext(UserContext);
     const { refetch } = useQuery(GET_CHATS, { fetchPolicy: 'network-only' });
     const { data: newChatData, loading: newChatDataIsLoading } = useSubscription(NEWCHAT_SUBSCRIPTION, {
         fetchPolicy: 'network-only',
@@ -49,7 +51,7 @@ export const ChatProvider = (props: { children: React.ReactNode; }) => {
             setChats(res.data.chats)
         })
         //eslint-disable-next-line
-    }, [validLogin])
+    }, [validLogin, currentUser])
 
 
     return (

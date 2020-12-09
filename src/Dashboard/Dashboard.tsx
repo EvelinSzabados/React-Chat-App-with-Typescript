@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useRef, useEffect, useReducer } from 'react'
 import { Layout, List, Avatar, Drawer, Badge } from 'antd';
 import { Row, Col } from 'antd';
 import { ChatViewContainer, DashboardContent, ChatListContainer, ChatListItemContainer, Scrollable } from './Style';
@@ -17,18 +17,18 @@ import { useIdleTimer } from 'react-idle-timer';
 
 interface ChildComponentProps extends RouteComponentProps { }
 
-export default function Dashboard(props: ChildComponentProps): JSX.Element {
+function Dashboard(props: ChildComponentProps): JSX.Element {
 
     const { chats } = useContext(ChatContext);
     const { currentUser, setCurrentUser } = useContext(UserContext);
-    const user = JSON.parse(JSON.stringify(currentUser));
+    const user = JSON.parse(JSON.stringify(currentUser))
     const { selectedChat, setSelectedChat } = useContext(SelectedChatContext);
     const { visible, setVisible } = useContext(DrawerVisibleContext)
 
     useIdleTimer({
         timeout: 30000,
-        onIdle: () => { user.status = Statuses.OFFLINE; setCurrentUser(user) },
-        onActive: () => { user.status = Statuses.AVAILABLE; setCurrentUser(user) },
+        onIdle: () => { user.status = Statuses.OFFLINE; setCurrentUser(currentUser) },
+        onActive: () => { user.status = Statuses.AVAILABLE; setCurrentUser(currentUser) },
         debounce: 500
     })
     const ProfileDrawer = () => {
@@ -46,14 +46,13 @@ export default function Dashboard(props: ChildComponentProps): JSX.Element {
         )
     }
 
-
     return (
 
         <React.Fragment>
             <Layout style={{ height: '100vh' }}>
                 <DashboardContent>
                     <ProfileDrawer />
-                    <Header setVisible={setVisible} />
+                    <Header />
                     <Row>
                         <Col span={6}>
                             <ChatListContainer>
@@ -107,6 +106,6 @@ export default function Dashboard(props: ChildComponentProps): JSX.Element {
 }
 
 
-
+export default Dashboard;
 
 
