@@ -76,7 +76,7 @@ function Friends(props: PropTypes) {
                         style={{ marginTop: '1rem' }}
                         itemLayout="horizontal"
                         locale={{ emptyText: "No friends found" }}
-                        dataSource={searchResults.length > 0 ? searchResults : friends.slice(0, 5)}
+                        dataSource={searchResults.length > 0 ? searchResults : friends}
                         renderItem={friend => (
                             <List.Item actions={
                                 [<Tag color="geekblue" onClick={() => { handleFriendActions(friend) }} style={{ cursor: 'pointer' }} icon={<MessageOutlined />}>Message</Tag>,

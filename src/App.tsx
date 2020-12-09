@@ -9,6 +9,7 @@ import { FriendProvider } from './Context/FriendContext';
 import { NotificationProvider } from './Context/NotificationContext';
 import { DrawerVisibleProvider } from './Context/DrawerVisibleContext';
 import { ValidLoginContext } from "./Context/ValidLoginContext"
+import Signup from './Signup/Signup';
 
 function App(): JSX.Element {
   const { validLogin } = useContext(ValidLoginContext)
@@ -16,6 +17,7 @@ function App(): JSX.Element {
 
     <Router>
       <Route exact path="/" component={Login}></Route>
+      <Route exact path="/signup" component={Signup}></Route>
       {validLogin ?
         <SelectedChatProvider>
           <ChatProvider>

@@ -1,11 +1,12 @@
 import React, { useState, createContext, Dispatch, SetStateAction, useEffect, useContext } from "react";
 import { Statuses } from "./StatusTypes";
-import { userData } from './UserContext';
+import { UserContext, userData } from './UserContext';
 import { ValidLoginContext } from "../Context/ValidLoginContext";
 import { GET_USER } from "../Common/GraphqlQueries";
 import { useQuery } from "@apollo/client";
+import { NotificationContext } from "./NotificationContext"
 
-const initialState = [{ id: null, email: null, displayName: null, status: Statuses.Offline, friends: [] }];
+const initialState = [{ id: null, email: null, displayName: null, status: Statuses.OFFLINE, friends: [] }];
 
 interface ContextState {
     friends: userData[],
@@ -22,8 +23,10 @@ export const FriendContext = createContext<ContextState>(
 export const FriendProvider = (props: { children: React.ReactNode; }): JSX.Element => {
 
     const [friends, setFriends] = useState<userData[]>(initialState);
+    const { notifications } = useContext(NotificationContext)
     const { validLogin } = useContext(ValidLoginContext)
     const { refetch } = useQuery(GET_USER, { skip: !validLogin, fetchPolicy: 'network-only' });
+    const { currentUser } = useContext(UserContext);
 
     useEffect(() => {
         refetch().then(res => {
@@ -35,12 +38,13 @@ export const FriendProvider = (props: { children: React.ReactNode; }): JSX.Eleme
                     }
                 }
                 ))
-                setFriends([...friends])
+
             })
+            setFriends([...friends])
 
         })
         //eslint-disable-next-line
-    }, [])
+    }, [notifications, currentUser])
 
     return (
         <FriendContext.Provider

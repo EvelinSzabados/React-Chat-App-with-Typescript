@@ -15,9 +15,9 @@ export default function DrawerContent() {
     const { notifications } = useContext(NotificationContext);
 
     const options = [
-        { label: <Tag color={StatusColors.Active}>Active</Tag>, value: Statuses.Active },
-        { label: <Tag color={StatusColors.Busy}>Busy</Tag>, value: Statuses.Busy },
-        { label: <Tag color={StatusColors.Offline}>Offline</Tag>, value: Statuses.Offline }];
+        { label: <Tag color={StatusColors.AVAILABLE}>Active</Tag>, value: Statuses.AVAILABLE },
+        { label: <Tag color={StatusColors.BUSY}>Busy</Tag>, value: Statuses.BUSY },
+        { label: <Tag color={StatusColors.OFFLINE}>Offline</Tag>, value: Statuses.OFFLINE }];
 
     const { TabPane } = Tabs;
 
@@ -28,7 +28,6 @@ export default function DrawerContent() {
             <NameContainer>{currentUser.displayName}</NameContainer>
             <ProfileDataContainer>
                 <ProfileDataItem><ProfileDataLabel>Email:</ProfileDataLabel>{currentUser.email}</ProfileDataItem>
-                <ProfileDataItem><ProfileDataLabel>Member since:</ProfileDataLabel>2020.08.23.</ProfileDataItem>
                 <ProfileDataItem><ProfileDataLabel>Status:</ProfileDataLabel>
 
                     <Select

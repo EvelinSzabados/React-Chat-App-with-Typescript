@@ -13,7 +13,7 @@ export type userData = {
     profilePictureUrl?: string,
     friends?: any
 }
-let initialState = { id: null, email: null, displayName: null, status: Statuses.Offline, profilePictureUrl: '' };
+let initialState = { id: null, email: null, displayName: null, status: Statuses.OFFLINE, profilePictureUrl: '' };
 
 interface ContextState {
     currentUser: userData,

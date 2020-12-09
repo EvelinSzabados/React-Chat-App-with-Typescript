@@ -3,21 +3,27 @@ import { Avatar, List, Tag, message } from 'antd';
 import { MessageOutlined, DeleteOutlined } from '@ant-design/icons';
 import { NotificationContext, notificationType } from '../Context/NotificationContext';
 import { UserContext } from '../Context/UserContext';
-import { FriendContext } from '../Context/FriendContext';
 import { useMutation } from '@apollo/client';
 import { ACCEPT_REQUEST, DECLINE_REQUEST } from "../Common/GraphqlQueries"
 
 export default function Notifications() {
 
     const { notifications, setNotifications } = useContext(NotificationContext);
-    const { friends, setFriends } = useContext(FriendContext);
     const { currentUser } = useContext(UserContext);
-
     const [acceptRequest] = useMutation(ACCEPT_REQUEST);
-
     const [declineRequest] = useMutation(DECLINE_REQUEST);
 
-    const sendAnswer = (accepted: boolean, notif: notificationType) => {
+    const sendAnswer = async (accepted: boolean, notif: notificationType) => {
+
+        if (accepted) {
+            acceptRequest({ variables: { requestId: notif.id } })
+            message.success(`Friendrequest of ${notif.sender?.displayName} is accepted`, 3);
+
+        } else {
+            declineRequest({ variables: { requestId: notif.id } })
+            message.success(`Friendrequest of ${notif.sender?.displayName} is declined`, 3);
+        }
+
         let notificationArray = notifications;
         const index = notificationArray.indexOf(notif);
         if (notificationArray.length === 1) {
@@ -28,16 +34,6 @@ export default function Notifications() {
 
 
         setNotifications([...notificationArray]);
-        if (accepted) {
-            acceptRequest({ variables: { requestId: notif.id } })
-            message.success(`Friendrequest of ${notif.sender?.displayName} is accepted`, 3);
-            setFriends([...friends, notif.sender])
-
-        } else {
-            declineRequest({ variables: { requestId: notif.id } })
-            message.success(`Friendrequest of ${notif.sender?.displayName} is declined`, 3);
-        }
-
     }
     return (
         <List

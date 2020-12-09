@@ -6,7 +6,7 @@ import { RouteComponentProps } from 'react-router';
 import { UserContext } from '../Context/UserContext';
 import { useMutation } from '@apollo/client';
 import { ValidLoginContext } from "../Context/ValidLoginContext"
-import { LOGIN_MUTATION } from "../Common/GraphqlQueries";
+import { SIGNUP_MUTATION } from "../Common/GraphqlQueries";
 
 interface ChildComponentProps extends RouteComponentProps { }
 
@@ -15,26 +15,26 @@ const Container = styled.div({
     width: '500px',
 })
 
-export default function Login(props: ChildComponentProps): JSX.Element {
+export default function Signup(props: ChildComponentProps): JSX.Element {
     const { Title } = Typography;
     const [form] = Form.useForm();
     const { setCurrentUser } = useContext(UserContext);
     const { setValidLogin } = useContext(ValidLoginContext)
 
-    const [login] = useMutation(LOGIN_MUTATION, { fetchPolicy: 'no-cache' });
+    const [signup] = useMutation(SIGNUP_MUTATION, { fetchPolicy: 'no-cache' });
 
-    const onFinish = async (values: { email: string, password: string }) => {
+    const onFinish = async (values: { email: string, password: string, displayName: string }) => {
 
-        login({ variables: { email: values.email, password: values.password } })
+        signup({ variables: { email: values.email, password: values.password, displayName: values.displayName } })
             .then((response: any) => {
-                setCurrentUser(response.data.login.user)
+                setCurrentUser(response.data.signup.user)
                 sessionStorage.setItem('user', 'true');
                 setValidLogin(true)
                 props.history.push("/dashboard")
 
 
 
-            }).catch((error: any) => alert("No account found! Try again!"))
+            }).catch((error: any) => alert("Something went wrong! Try again!"))
 
     }
 
@@ -42,7 +42,7 @@ export default function Login(props: ChildComponentProps): JSX.Element {
         <Layout style={{ backgroundColor: 'white' }}>
             <Container>
                 <Title style={{ color: '#ff7f3f' }}>My Chat App</Title>
-                <Title level={3} type="secondary">Sign in</Title>
+                <Title level={3} type="secondary">Sign up</Title>
                 <Form
                     form={form}
                     initialValues={{}}
@@ -57,8 +57,13 @@ export default function Login(props: ChildComponentProps): JSX.Element {
                         <Input.Password placeholder="Password" />
                     </Form.Item>
 
+                    <Form.Item name="displayName" shouldUpdate
+                        rules={[{ required: true, message: 'Please enter your displayName!' }]}>
+                        <Input placeholder="DisplayName" />
+                    </Form.Item>
+
                     <Form.Item >
-                        <p>Don't have an account? <a href="/signup">Sign up now!</a></p>
+                        <p>Already have an account? <a href="/">Sign in now!</a></p>
 
                         <Button type="primary" htmlType="submit">Submit</Button>
 
