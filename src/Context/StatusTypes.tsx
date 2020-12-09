@@ -1,11 +1,11 @@
 export enum Statuses {
-    Active = "Active",
-    Busy = "Busy",
-    Offline = "Offline"
+    AVAILABLE = "AVAILABLE",
+    BUSY = "BUSY",
+    OFFLINE = "OFFLINE"
 }
 
 export enum StatusColors {
-    Active = "green",
-    Busy = "gold",
-    Offline = "lightgrey"
+    AVAILABLE = "green",
+    BUSY = "gold",
+    OFFLINE = "lightgrey"
 }

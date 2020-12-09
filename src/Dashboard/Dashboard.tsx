@@ -12,17 +12,25 @@ import { RouteComponentProps } from 'react-router';
 import FloatingButton from '../NewChat/FloatingButton';
 import DrawerContent from '../Drawer/Drawer';
 import { DrawerVisibleContext } from '../Context/DrawerVisibleContext';
-import { StatusColors } from '../Context/StatusTypes';
+import { StatusColors, Statuses } from '../Context/StatusTypes';
+import { useIdleTimer } from 'react-idle-timer';
 
 interface ChildComponentProps extends RouteComponentProps { }
 
 export default function Dashboard(props: ChildComponentProps): JSX.Element {
 
     const { chats } = useContext(ChatContext);
-    const { currentUser } = useContext(UserContext);
+    const { currentUser, setCurrentUser } = useContext(UserContext);
+    const user = JSON.parse(JSON.stringify(currentUser));
     const { selectedChat, setSelectedChat } = useContext(SelectedChatContext);
     const { visible, setVisible } = useContext(DrawerVisibleContext)
 
+    useIdleTimer({
+        timeout: 30000,
+        onIdle: () => { user.status = Statuses.OFFLINE; setCurrentUser(user) },
+        onActive: () => { user.status = Statuses.AVAILABLE; setCurrentUser(user) },
+        debounce: 500
+    })
     const ProfileDrawer = () => {
         return (
             <Drawer

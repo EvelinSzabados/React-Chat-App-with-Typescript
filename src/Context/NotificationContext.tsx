@@ -3,9 +3,9 @@ import { userData } from './UserContext';
 import { UserContext } from '../Context/UserContext';
 import { Statuses } from "./StatusTypes";
 import { ValidLoginContext } from "../Context/ValidLoginContext";
-import { useQuery, useSubscription, useLazyQuery } from '@apollo/client';
+import { useQuery, useSubscription } from '@apollo/client';
 import { FriendContext } from "./FriendContext"
-import { GET_REQUESTS, NOTIF_SUBSCRIPTION, ACCEPTED_NOTIF_SUBSCRIPTION, DECLINED_NOTIF_SUBSCRIPTION, GET_USER } from "../Common/GraphqlQueries"
+import { GET_REQUESTS, NOTIF_SUBSCRIPTION, ACCEPTED_NOTIF_SUBSCRIPTION, DECLINED_NOTIF_SUBSCRIPTION } from "../Common/GraphqlQueries"
 
 export type notificationType = {
     id: number | null,
@@ -15,8 +15,8 @@ export type notificationType = {
 const initialState = [
     {
         id: null,
-        sender: { id: null, email: null, displayName: null, status: Statuses.Offline },
-        reciever: { id: null, email: null, displayName: null, status: Statuses.Offline },
+        sender: { id: null, email: null, displayName: null, status: Statuses.OFFLINE },
+        reciever: { id: null, email: null, displayName: null, status: Statuses.OFFLINE },
 
     },
 ];

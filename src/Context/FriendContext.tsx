@@ -6,7 +6,7 @@ import { GET_USER } from "../Common/GraphqlQueries";
 import { useQuery } from "@apollo/client";
 import { NotificationContext } from "./NotificationContext"
 
-const initialState = [{ id: null, email: null, displayName: null, status: Statuses.Offline, friends: [] }];
+const initialState = [{ id: null, email: null, displayName: null, status: Statuses.OFFLINE, friends: [] }];
 
 interface ContextState {
     friends: userData[],

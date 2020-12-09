@@ -1,13 +1,11 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import { userData } from '../Context/UserContext';
-import { v4 as uuidv4 } from 'uuid';
 import { UserContext } from '../Context/UserContext';
-import { SelectedChatContext } from '../Context/SelectedChatContext';
 import { ChatContext } from '../Context/ChatContext';
 import { FriendContext } from '../Context/FriendContext';
 import { chatData } from '../Context/ChatData';
-import { NEWCHAT_SUBSCRIPTION, NEW_CHAT } from "../Common/GraphqlQueries";
-import { useSubscription, useMutation } from '@apollo/client';
+import { NEW_CHAT } from "../Common/GraphqlQueries";
+import { useMutation } from '@apollo/client';
 
 interface ComponentProps {
     newChat: (friend: userData) => void
@@ -16,7 +14,7 @@ interface ComponentProps {
 export default function WithChatActions<T>(Component: React.ComponentType<T & ComponentProps>) {
 
     const WrappedComponent = (props: T) => {
-        const { setSelectedChat } = useContext(SelectedChatContext);
+
         const { chats, setChats } = useContext(ChatContext);
         const { currentUser } = useContext(UserContext);
         const { friends, setFriends } = useContext(FriendContext);

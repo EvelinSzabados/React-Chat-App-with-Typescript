@@ -3,18 +3,14 @@ import { Avatar, List, Tag, message } from 'antd';
 import { MessageOutlined, DeleteOutlined } from '@ant-design/icons';
 import { NotificationContext, notificationType } from '../Context/NotificationContext';
 import { UserContext } from '../Context/UserContext';
-import { FriendContext } from '../Context/FriendContext';
 import { useMutation } from '@apollo/client';
 import { ACCEPT_REQUEST, DECLINE_REQUEST } from "../Common/GraphqlQueries"
 
 export default function Notifications() {
 
     const { notifications, setNotifications } = useContext(NotificationContext);
-    const { friends, setFriends } = useContext(FriendContext);
     const { currentUser } = useContext(UserContext);
-
     const [acceptRequest] = useMutation(ACCEPT_REQUEST);
-
     const [declineRequest] = useMutation(DECLINE_REQUEST);
 
     const sendAnswer = async (accepted: boolean, notif: notificationType) => {
