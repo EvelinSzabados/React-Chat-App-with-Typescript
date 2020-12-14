@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useEffect, useReducer } from 'react'
+import React, { useContext, useCallback } from 'react'
 import { Layout, List, Avatar, Drawer, Badge } from 'antd';
 import { Row, Col } from 'antd';
 import { ChatViewContainer, DashboardContent, ChatListContainer, ChatListItemContainer, Scrollable } from './Style';
@@ -14,6 +14,7 @@ import DrawerContent from '../Drawer/Drawer';
 import { DrawerVisibleContext } from '../Context/DrawerVisibleContext';
 import { StatusColors, Statuses } from '../Context/StatusTypes';
 import { useIdleTimer } from 'react-idle-timer';
+import nocomments from "../Common/nocomments.png"
 
 interface ChildComponentProps extends RouteComponentProps { }
 
@@ -31,7 +32,7 @@ function Dashboard(props: ChildComponentProps): JSX.Element {
         onActive: () => { user.status = Statuses.AVAILABLE; setCurrentUser(currentUser) },
         debounce: 500
     })
-    const ProfileDrawer = () => {
+    const ProfileDrawer = useCallback(() => {
         return (
             <Drawer
                 width={640}
@@ -44,7 +45,7 @@ function Dashboard(props: ChildComponentProps): JSX.Element {
                 <DrawerContent />
             </Drawer>
         )
-    }
+    }, [setVisible, visible])
 
     return (
 
@@ -53,33 +54,37 @@ function Dashboard(props: ChildComponentProps): JSX.Element {
                 <DashboardContent>
                     <ProfileDrawer />
                     <Header />
+
                     <Row>
                         <Col span={6}>
+
                             <ChatListContainer>
+
                                 <Scrollable>
-                                    <List
-                                        itemLayout="horizontal"
-                                        dataSource={chats}
-                                        renderItem={chat => {
-                                            const friend: userData = chat?.users.filter(user => user.id !== currentUser.id)[0]
+                                    {chats.length > 0 ?
+                                        <List
+                                            itemLayout="horizontal"
+                                            dataSource={chats}
+                                            renderItem={chat => {
+                                                const friend: userData = chat?.users.filter(user => user.id !== currentUser.id)[0]
 
-                                            return (<ChatListItemContainer selected={chat?.id === selectedChat ? true : false}>
-                                                {chat !== null && friend !== null ?
-                                                    <List.Item key={chat.id} onClick={() => { setSelectedChat(chat.id) }}>
-                                                        <List.Item.Meta
-                                                            avatar={<Badge offset={[0, 30]} color={StatusColors[friend.status]}><Avatar size={40} style={{ backgroundColor: '#51588e' }}>{friend.displayName?.slice(0, 1)}</Avatar></Badge>}
-                                                            title={friend.displayName}
-                                                            description={chat.messages.length === 0 ? 'No messages yet' : chat.messages[chat.messages.length - 1]?.text.slice(0, 30)}
-                                                        />
-                                                    </List.Item> : <div>No chats available</div>}
+                                                return (<ChatListItemContainer selected={chat?.id === selectedChat ? true : false}>
+                                                    {chat !== null && friend !== null ?
+                                                        <List.Item key={chat.id} onClick={() => { setSelectedChat(chat.id) }}>
+                                                            <List.Item.Meta
+                                                                avatar={<Badge offset={[0, 30]} color={StatusColors[friend.status]}><Avatar size={40} style={{ backgroundColor: '#51588e' }}>{friend.displayName?.slice(0, 1)}</Avatar></Badge>}
+                                                                title={friend.displayName}
+                                                                description={chat.messages.length === 0 ? 'No messages yet' : chat.messages[chat.messages.length - 1]?.text.slice(0, 30)}
+                                                            />
+                                                        </List.Item> : <div>No chats available</div>}
 
-                                            </ChatListItemContainer>
+                                                </ChatListItemContainer>
 
-                                            )
-                                        }}
-                                    />
+                                                )
+                                            }}
+                                        /> : ''}
                                 </Scrollable>
-                                <FloatingButton />
+                                {chats.length > 0 ? <FloatingButton /> : null}
 
                             </ChatListContainer>
                         </Col>
@@ -88,7 +93,7 @@ function Dashboard(props: ChildComponentProps): JSX.Element {
                                 {selectedChat !== undefined && currentUser.id !== null ?
                                     <React.Fragment>
                                         <ChatViewContent chat={selectedChat} />
-                                        {chats.length > 0 ? <ChatMessageInput chat={selectedChat} /> : null}
+                                        {chats.length > 0 ? <ChatMessageInput chat={selectedChat} /> : ''}
 
                                     </React.Fragment> : ''}
 

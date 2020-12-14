@@ -186,3 +186,11 @@ export const STATUS_SUBSCRIPTION = gql`
                 users{id,displayName,email,status,profilePictureUrl}
             }}}
 `
+
+export const DELETE_FRIEND = gql`
+    mutation deleteFriend($friendId: ID!){
+        deleteFriend(friendId: $friendId)
+    }
+`
+
+

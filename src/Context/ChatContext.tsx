@@ -21,7 +21,7 @@ export const ChatContext = createContext<ContextState>(
 export const ChatProvider = (props: { children: React.ReactNode; }) => {
 
     const [chats, setChats] = useState<chatData[]>([]);
-    const { setSelectedChat } = useContext(SelectedChatContext)
+    const { selectedChat, setSelectedChat } = useContext(SelectedChatContext)
     const { validLogin } = useContext(ValidLoginContext)
     const { currentUser } = useContext(UserContext);
     const { refetch } = useQuery(GET_CHATS, { fetchPolicy: 'network-only' });
@@ -37,7 +37,10 @@ export const ChatProvider = (props: { children: React.ReactNode; }) => {
 
             chatList.push(newChatData.newChat)
             setChats([...chatList])
-            setSelectedChat(newChatData.newChat.id)
+            if (selectedChat === '') {
+                setSelectedChat(newChatData.newChat.id)
+            }
+
         }
         //eslint-disable-next-line
     }, [newChatData])
@@ -45,10 +48,11 @@ export const ChatProvider = (props: { children: React.ReactNode; }) => {
     useEffect(() => {
 
         refetch().then(res => {
-            if (res.data.chats.length !== 0) {
+            if (res.data.chats && res.data.chats.length !== 0) {
                 setSelectedChat(res.data.chats[0].id)
             }
             setChats(res.data.chats)
+
         })
         //eslint-disable-next-line
     }, [validLogin, currentUser])

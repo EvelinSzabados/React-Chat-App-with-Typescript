@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import { message as popupInfo } from 'antd';
 import { InputContainer, MessageInput, SubmitButton } from './Style';
 import { Popover } from 'antd';
 import { SendOutlined, SmileOutlined, FileAddOutlined } from '@ant-design/icons';
@@ -13,9 +14,7 @@ export default function ChatMessageInput(props: { chat: string }) {
     const { currentUser } = useContext(UserContext);
     let selectedChat = props.chat;
     const [message, setMessage] = useState('');
-
-
-    const [addMessage] = useMutation(ADD_MESSAGE);
+    const [addMessage] = useMutation(ADD_MESSAGE, { fetchPolicy: 'no-cache' });
 
     const onEmojiClick = (event: MouseEvent, emojiObject: IEmojiData) => {
         setMessage(message + " " + emojiObject.emoji)
@@ -27,7 +26,12 @@ export default function ChatMessageInput(props: { chat: string }) {
 
         e.preventDefault();
         if (currentUser.id !== null) {
-            await addMessage({ variables: { senderId: currentUser.id, chatId: parseInt(selectedChat), text: message } });
+            try {
+                await addMessage({ variables: { senderId: currentUser.id, chatId: parseInt(selectedChat), text: message } });
+
+            } catch (e) {
+                popupInfo.warning("You can not send messages to this chat! Refresh the page!")
+            }
         }
         setMessage('');
 
