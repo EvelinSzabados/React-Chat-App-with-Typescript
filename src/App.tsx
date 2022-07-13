@@ -1,27 +1,28 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Route, BrowserRouter as Router } from 'react-router-dom';
+import Login from './Login/Login';
+import Dashboard from './Dashboard/Dashboard';
+import { UserProvider } from './Context/UserContext';
+import { ChatProvider } from './Context/ChatContext';
+import { SelectedChatProvider } from './Context/SelectedChatContext';
+import { PrivateRoute } from './Common/PrivateRoute';
+import { FriendProvider } from './Context/FriendContext';
 
-function App() {
-
+function App(): JSX.Element {
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <UserProvider>
+      <SelectedChatProvider>
+        <ChatProvider>
+          <Router>
+            <Route exact path="/" component={Login}></Route>
+            <FriendProvider>
+              <PrivateRoute path="/dashboard" component={Dashboard}></PrivateRoute>
+            </FriendProvider>
+          </Router>
+        </ChatProvider>
+      </SelectedChatProvider>
+    </UserProvider>
   );
 }
 
